@@ -4,13 +4,9 @@
 
 @font-face {
   font-family: AppleSDGothicNeo;
-  src: url("../../public/fonts/AppleSDGothicNeoM.ttf") format("truetype");
+  src: url('../../public/fonts/AppleSDGothicNeoM.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-}
-@font-face {
-  font-family: ClashDisplayRegular;
-  src: url("../../public/fonts/ClashDisplay-Regular.otf") format("opentype");
 }
 
 :root {
