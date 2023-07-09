@@ -94,7 +94,7 @@ const Header = () => {
   }, [router]);
 
   return (
-    <div className="relative flex justify-between items-center w-screen h-[58.1px] bg-white shadow-shadow">
+    <div className="fixed top-0 flex justify-between items-center w-screen h-[58.1px] bg-white shadow-shadow z-50">
       <Link
         className="flex ml-[229.93px] gap-[9.68px]"
         href={{
