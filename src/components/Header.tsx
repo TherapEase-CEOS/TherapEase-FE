@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import { isSignedInState, isCounselorState } from '@/store/user';
 
-import LogoImage from '../assets/TherapEase-logo.png';
+import LogoImage from '../assets/Header-logo.png';
 
 const Header = () => {
   const router = useRouter();

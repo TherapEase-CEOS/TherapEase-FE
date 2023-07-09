@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className={`${ClashDisplayRegular.variable}`}>
       <Header />
-      <main>{children}</main>
+      <main className="w-screen h-[calc(100vh-58.1px)]">{children}</main>
     </div>
   );
 }
