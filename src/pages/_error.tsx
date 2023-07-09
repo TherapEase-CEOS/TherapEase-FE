@@ -14,8 +14,10 @@ const Error = ({ statusCode }: { statusCode: number }) => {
       </div>
       <span className="text-body2 text-gray-5">
         {statusCode
-          ? `An error ${statusCode} occurred on server` // TODO - 멘트 변경
-          : 'An error occurred on client'}
+          ? statusCode === 404
+            ? '앗! 페이지를 찾을 수 없습니다.'
+            : `${statusCode} 서버 에러가 발생했습니다.` // TODO - 멘트 변경
+          : '클라이언트 에러가 발생했습니다.'}
       </span>
     </div>
   );
