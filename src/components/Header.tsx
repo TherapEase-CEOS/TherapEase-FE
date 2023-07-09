@@ -80,7 +80,7 @@ const Header = () => {
     : [
         <Link
           href={{
-            pathname: '/login',
+            pathname: '/', // TODO - 로그인모달창
           }}
           className="h-fit text-body2 text-gray-9"
         >
