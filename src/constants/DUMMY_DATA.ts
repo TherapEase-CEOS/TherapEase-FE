@@ -1,4 +1,6 @@
-export const DUMMY_CLIENTS_LIST: any[] = [
+import { Iclient } from '@/interfaces/interfaces';
+
+export const DUMMY_CLIENTS_LIST: Iclient[] = [
   {
     counseleeName: '권가은',
     counseleeId: 'asdf2347s',
@@ -142,5 +144,170 @@ export const DUMMY_CLIENTS_LIST: any[] = [
     counselingDate: 'FRI',
     counselingTime: '13:00',
     goal: '우울감이 있어 해소하고 싶음',
+  },
+];
+
+export const DUMMY_EMOTION_RECORDS = {
+  page: 1,
+  records: [
+    {
+      '2023-05-23': {
+        emotions: [
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: -1,
+            intensity: 4,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: 0,
+            intensity: 1,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: 1,
+            intensity: 3,
+          },
+        ],
+        details1: null,
+        details2: '이런 일이 있었어요',
+        details3: '이런 일이 있었어요',
+      },
+    },
+    {
+      '2023-05-24': {
+        emotions: [
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: -1,
+            intensity: 4,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: 0,
+            intensity: 1,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: 1,
+            intensity: 3,
+          },
+        ],
+        details1: null,
+        details2: '이런 일이 있었어요',
+        details3: '이런 일이 있었어요',
+      },
+    },
+    {
+      '2023-05-25': {
+        emotions: [
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: -1,
+            intensity: 4,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: 0,
+            intensity: 1,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: 1,
+            intensity: 3,
+          },
+        ],
+        details1: null,
+        details2: '이런 일이 있었어요',
+        details3: '이런 일이 있었어요',
+      },
+    },
+    {
+      '2023-05-26': {
+        emotions: [
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: -1,
+            intensity: 4,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: 0,
+            intensity: 1,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: 1,
+            intensity: 3,
+          },
+        ],
+        details1: null,
+        details2: '이런 일이 있었어요',
+        details3: '이런 일이 있었어요',
+      },
+    },
+  ],
+};
+
+export const DUMMY_EMOTION_GRAPH_RECORDS = [
+  {
+    '2023-05-23': {
+      emotions: [
+        {
+          mainEmotion: 'sad',
+          subEmotion: 'guilty',
+          feeling: -1,
+          intensity: 4,
+        },
+        {
+          mainEmotion: 'sad',
+          subEmotion: 'guilty',
+          feeling: 0,
+          intensity: 1,
+        },
+        {
+          mainEmotion: 'sad',
+          subEmotion: 'guilty',
+          feeling: 1,
+          intensity: 3,
+        },
+      ],
+    },
+  },
+  {
+    '2023-05-24': {
+      emotions: [
+        {
+          mainEmotion: 'sad',
+          subEmotion: 'guilty',
+          feeling: -1,
+          intensity: 4,
+        },
+        {
+          mainEmotion: 'sad',
+          subEmotion: 'guilty',
+          feeling: 0,
+          intensity: 1,
+        },
+        {
+          mainEmotion: 'sad',
+          subEmotion: 'guilty',
+          feeling: 1,
+          intensity: 3,
+        },
+      ],
+    },
   },
 ];

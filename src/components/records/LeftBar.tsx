@@ -1,14 +1,16 @@
 // 좌측 네비게이션 바
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+
+import { useRecoilValue } from 'recoil';
+import { clientsListState } from '@/store/recoil';
+
 import { Iclient } from '@/interfaces/interfaces';
 
-interface Props {
-  clientsList: Iclient[];
-}
-
-const LeftBar = ({ clientsList }: Props) => {
+const LeftBar = () => {
   const router = useRouter();
+
+  const clientsList = useRecoilValue<Iclient[]>(clientsListState);
 
   return (
     <aside className="fixed w-[139px] h-full py-[66.38px] bg-gray-3 overflow-y-scroll">
