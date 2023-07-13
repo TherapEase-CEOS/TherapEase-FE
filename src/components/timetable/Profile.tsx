@@ -1,12 +1,12 @@
 import React from 'react';
 import DefaultProfileSrc from '../../assets/images/defatult-profilie.png';
 import Image from 'next/image';
+import ProfileData from '../../data/profile.json';
+
 export default function Profile() {
   const counselor_name = '김지영';
-  const contact = '010-1234-5678';
-  const description = `
-  ex. 6월 첫째주는 학회 워크숍으로 목, 금 상담이 불가합니다. 급한 용무는 문자 주세요!
-  고정 업무 시간: 월~금 10시 - 18시`;
+  const { contact, introduction } = ProfileData;
+
   return (
     <div
       className="w-[26rem] h-[44rem] flex flex-col justify-start rounded-2xl items-center bg-white
@@ -23,8 +23,8 @@ export default function Profile() {
       <span className="text-heading4 text-gray-9 self-start">
         {counselor_name} 상담사
       </span>
-      <span className="text-body2 text-gray-4">{description}</span>
-      <span className="text-body3 text-gray-4">{description}</span>
+      <span className="text-body2 text-gray-4">{contact}</span>
+      <span className="text-body3 text-gray-4">{introduction}</span>
     </div>
   );
 }
