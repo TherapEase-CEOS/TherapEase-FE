@@ -7,8 +7,8 @@ import CalendarIconSrc from '../../assets/icons/calendar.svg';
 const TimeTablePage = () => {
   return (
     <div
-      className="w-full h-full flex flex-row justify-center items-start
-    gap-3  mt-[66px]"
+      className="w-full h-full flex flex-row justify-center items-start 
+    gap-4  mt-[6.6rem]"
     >
       <div className="flex flex-col gap-4 ">
         <Profile />
@@ -22,7 +22,7 @@ const TimeTablePage = () => {
 const EditBtn = () => {
   return (
     <div
-      className="w-[260px] h-[40px] bg-yellow-20 px-[39px] py-[8px] gap-2 rounded-lg
+      className="w-[26rem] h-[4rem] bg-yellow-20 px-[3.9rem] py-[0.8rem] gap-2 rounded-lg
     flex flex-row cursor-pointer"
     >
       <Image src={CalendarIconSrc} alt="calendar" />

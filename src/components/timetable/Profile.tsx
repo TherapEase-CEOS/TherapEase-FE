@@ -9,15 +9,15 @@ export default function Profile() {
   고정 업무 시간: 월~금 10시 - 18시`;
   return (
     <div
-      className="w-[260px] h-[440px] flex flex-col justify-start rounded-2xl items-center bg-white
-    py-[16px] px-5"
+      className="w-[26rem] h-[44rem] flex flex-col justify-start rounded-2xl items-center bg-white
+    py-[1.6rem] px-5"
     >
       <Image
         src={DefaultProfileSrc}
         alt="TherapEase Logo"
         width={218}
         height={166}
-        style={{ marginBottom: '14px' }}
+        style={{ marginBottom: '1.4rem' }}
       />
 
       <span className="text-heading4 text-gray-9 self-start">
