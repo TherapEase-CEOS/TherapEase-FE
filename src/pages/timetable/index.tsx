@@ -14,7 +14,21 @@ const TimeTablePage = () => {
         <Profile />
         <EditBtn />
       </div>
-      <TimeTable />
+      <div
+        className="w-[75rem] h-[77.6rem] rounded-2xl bg-white flex
+        flex-col  py-[2.6rem] px-[5rem]"
+      >
+        <div className="flex flex-col justify-center mb-[2.5rem]">
+          <span className="text-heading4 text-black">상담 가능 시간</span>
+          <span className="text-body3 text-gray-5">
+            실시간 예약 가능 시간과 차이가 있을 수 있습니다.
+          </span>
+          <span className="text-body3 text-gray-5">
+            5월 24일 05시 32분 업데이트
+          </span>
+        </div>
+        <TimeTable />
+      </div>
     </div>
   );
 };
