@@ -6,8 +6,9 @@ import { timeTableState } from '@/store/timetable';
 
 export default function TimeTable() {
   return (
-    <div className="rounded-2xl bg-white ">
-      <div className="grid ">
+    <div className="rounded-2xl bg-white grid grid-cols-[30px_1fr] w-[100%]">
+      <TimeBar />
+      <div>
         <THead />
         <TBody />
       </div>
@@ -63,9 +64,9 @@ const TimeBar = () => {
   const hourData = Array.from({ length: 16 }, (v, i) => i + 7); // [7 ... 22]
 
   return (
-    <div className=" flex flex-col items-end pr-[1rem] ">
+    <div className="flex flex-col items-end pr-[1rem] mt-[3.1rem]">
       {hourData.map((hour) => (
-        <div className="h-[3.9rem] ">
+        <div className="h-[3.8rem] ">
           <span className="text-body-4 text-gray-4 text-start self-start">{`${hour}:00`}</span>
         </div>
       ))}
