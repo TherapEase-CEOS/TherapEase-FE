@@ -4,13 +4,13 @@ import TimeTableCol from './TimeTableCol';
 import { useRecoilState } from 'recoil';
 import { timeTableState } from '@/store/timetable';
 
-export default function TimeTable() {
+export default function TimeTable({ isEditMode }: { isEditMode: boolean }) {
   return (
     <div className="rounded-2xl bg-white grid grid-cols-[30px_1fr] w-[100%]">
       <TimeBar />
       <div>
         <THead />
-        <TBody />
+        <TBody disabled={!isEditMode} />
       </div>
     </div>
   );
@@ -38,7 +38,7 @@ const THead = () => {
   );
 };
 
-const TBody = () => {
+const TBody = ({ disabled }: { disabled: boolean }) => {
   // 타임테이블 데이터로 최초 fetching 시에 timetable recoil값 초기화
   const [timeTableData, setTimeTableData] = useRecoilState(timeTableState);
   const days_en = [
@@ -50,9 +50,9 @@ const TBody = () => {
     'friday',
     'saturday',
   ];
-
+  const overlayStyle = disabled ? 'z-2 pointer-events-none' : '';
   return (
-    <div className="grid w-[63rem] grid-cols-7">
+    <div className={`grid w-[63rem] grid-cols-7 ${overlayStyle}`}>
       {days_en.map((day_en) => (
         <TimeTableCol day={day_en} avaliability={timeTableData[day_en]} />
       ))}

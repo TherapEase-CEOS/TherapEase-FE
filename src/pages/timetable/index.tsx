@@ -29,7 +29,7 @@ const TimeTablePage = () => {
             5월 24일 05시 32분 업데이트
           </span>
         </div>
-        <TimeTable />
+        <TimeTable isEditMode={isEditMode} />
       </div>
     </div>
   );
