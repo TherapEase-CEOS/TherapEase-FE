@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { TextareaHTMLAttributes, useEffect, useState } from 'react';
 
-import { IoMdList } from 'react-icons/io';
+import { BsList, BsCheckLg } from 'react-icons/bs';
 import { BiSolidPencil } from 'react-icons/bi';
 import { FiMoreHorizontal } from 'react-icons/fi';
 
@@ -11,7 +11,7 @@ interface Props {
   detailMenu?: boolean;
 }
 
-const ClientCard = ({ clientInfo, detailMenu = true }: Props) => {
+const ClientCard = ({ clientInfo, detailMenu = false }: Props) => {
   const {
     counseleeName,
     counseleeId,
@@ -22,8 +22,26 @@ const ClientCard = ({ clientInfo, detailMenu = true }: Props) => {
     goal,
   } = clientInfo;
 
-  const [isDetailMenuClicked, setIsDetailMenuClicked] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [isDetailMenuClicked, setIsDetailMenuClicked] =
+    useState<boolean>(false);
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+
+  const [goalInputValue, setGoalInputValue] = useState<string>(goal);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setGoalInputValue(e.currentTarget.value);
+  };
+
+  const handleInputSubmit = () => {
+    // TODO - api 연동
+    setIsEditMode(!isEditMode);
+  };
+
+  useEffect(() => {
+    setIsDetailMenuClicked(false);
+    setIsEditMode(false);
+    setGoalInputValue(goal);
+  }, [clientInfo]);
 
   return (
     <div className="w-[332px] h-[285px] p-[22px] text-body4 text-gray-9 bg-white rounded-[20px] flex flex-col">
@@ -75,16 +93,40 @@ const ClientCard = ({ clientInfo, detailMenu = true }: Props) => {
       </div>
       <hr className="mt-[13px] mb-[12px]"></hr>
       <div className="flex items-center">
-        <IoMdList size={17} color={'#737373'} />
-        <span className="ml-[4px] text-gray-8">상담 목표</span>
+        <BsList size={17} color={'#737373'} />
+        <span className="ml-[4px] mt-[2px] text-gray-8">상담 목표</span>
         <div
-          className="w-[20.96px] h-[20.96px] ml-auto bg-gray-3 rounded-[4.19px] flex items-center justify-center cursor-pointer"
-          onClick={() => {}}
+          className={`w-[20.96px] h-[20.96px] ml-auto rounded-[4.19px] flex items-center justify-center cursor-pointer ${
+            isEditMode ? 'bg-yellow-100' : 'bg-gray-3'
+          }`}
+          onClick={handleInputSubmit}
         >
-          <BiSolidPencil size={10.7} color={'#ACACAC'} />
+          {isEditMode ? (
+            <BsCheckLg size={10.7} color={'#737373'} />
+          ) : (
+            <BiSolidPencil size={10.7} color={'#ACACAC'} />
+          )}
         </div>
       </div>
-      {isEditMode ? null : <div className="mt-[9px] text-gray-8">{goal}</div>}
+      {isEditMode ? (
+        <div className="relative mt-[9px]">
+          <textarea
+            className="w-full h-[105px] text-body4 text-gray-9 bg-gray-2 rounded-[4px] px-[5px] py-[3px] resize-none focus:outline-none"
+            value={goalInputValue}
+            onChange={handleInputChange}
+            placeholder="상담 목표를 적어주세요."
+            maxLength={99}
+            spellCheck="false"
+          ></textarea>
+          <span className="absolute bottom-[12px] right-[9px] text-label2 text-gray-5 select-none z-10">
+            {goalInputValue.length} / 100
+          </span>
+        </div>
+      ) : (
+        <div className="mt-[9px] text-gray-8 whitespace-pre-wrap">
+          {goalInputValue}
+        </div>
+      )}
     </div>
   );
 };
