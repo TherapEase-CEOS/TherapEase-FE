@@ -43,6 +43,7 @@ module.exports = {
           '1.6rem',
           { fontStyle: 'normal', fontWeight: '500', lineHeight: '2.5rem' },
         ],
+
         body3: [
           '1.4rem',
           { fontStyle: 'normal', fontWeight: '500', lineHeight: '2.2rem' },
@@ -63,6 +64,7 @@ module.exports = {
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
+        black: '#181818',
         yellow: {
           20: '#FFFCF0',
           100: '#FDF2B4',
