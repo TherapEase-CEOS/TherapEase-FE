@@ -12,7 +12,7 @@ export const ButtonLarge = ({
 }: buttonProps) => {
   return (
     <button
-      className={`w-[369px] h-[62px] text-heading3 rounded-[48px] ${
+      className={`w-[36.9rem] h-[6.2rem] text-heading3 rounded-[4.8rem] ${
         disabled ? 'text-white bg-gray-6' : 'text-black bg-yellow-100'
       }`}
       onClick={onClick}
@@ -29,7 +29,7 @@ export const ButtonMedium = ({
 }: buttonProps) => {
   return (
     <button
-      className={`w-[321px] h-[62px] text-heading3 rounded-[48px] ${
+      className={`w-[32.1rem] h-[6.2rem] text-heading3 rounded-[4.8rem] ${
         disabled ? 'text-white bg-gray-6' : 'text-black bg-yellow-100'
       }`}
       onClick={onClick}
@@ -43,7 +43,7 @@ export const ButtonSmall = ({ icon, text, onClick }: buttonProps) => {
   return (
     <button
       className={
-        'w-fit y-fit text-[14px] px-[10px] py-[8px] rounded-[8px] flex justify-center items-center gap-[8px] text-white bg-gray-9'
+        'w-fit y-fit text-[1.4rem] px-[1.0rem] py-[.8rem] rounded-[.8rem] flex justify-center items-center gap-[.8rem] text-white bg-gray-9'
       }
       onClick={onClick}
     >

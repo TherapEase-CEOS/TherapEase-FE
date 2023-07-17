@@ -1,4 +1,4 @@
-import { TextareaHTMLAttributes, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { BsList, BsCheckLg } from 'react-icons/bs';
 import { BiSolidPencil } from 'react-icons/bi';
@@ -11,7 +11,7 @@ interface Props {
   detailMenu?: boolean;
 }
 
-const ClientCard = ({ clientInfo, detailMenu = false }: Props) => {
+const ClientCard = ({ clientInfo, detailMenu = true }: Props) => {
   const {
     counseleeName,
     counseleeId,
@@ -44,12 +44,12 @@ const ClientCard = ({ clientInfo, detailMenu = false }: Props) => {
   }, [clientInfo]);
 
   return (
-    <div className="w-[332px] h-[285px] p-[22px] text-body4 text-gray-9 bg-white rounded-[20px] flex flex-col">
+    <div className="w-[33.2rem] h-[28.5rem] p-[2.2rem] text-body4 text-gray-9 bg-white rounded-[2.0rem] flex flex-col">
       <div className="flex justify-between">
-        <span className="text-body1 mb-[3.5px]">{counseleeName}</span>
+        <span className="text-body1 mb-[.35rem]">{counseleeName}</span>
         {detailMenu && (
           <div
-            className={`relative w-[30px] h-[30px] ml-auto rounded-[4.19px] flex items-center justify-center cursor-pointer ${
+            className={`relative w-[3.0rem] h-[3.0rem] ml-auto rounded-[.419rem] flex items-center justify-center cursor-pointer ${
               isDetailMenuClicked ? 'bg-gray-3' : null
             }`}
             onClick={() => {}}
@@ -63,9 +63,9 @@ const ClientCard = ({ clientInfo, detailMenu = false }: Props) => {
               }}
             />
             {isDetailMenuClicked && (
-              <div className="absolute top-[32.5px] left-0 flex flex-col items-center px-[16px] py-[10px] text-gray-6 bg-white border-[1px] border-gray-3 rounded-[4px] shadow-[0_0_8px_0_rgba(0,0,0,0.05)]">
+              <div className="absolute top-[3.25rem] left-0 flex flex-col items-center px-[1.6rem] py-[1.0rem] text-gray-6 bg-white border-[.1rem] border-gray-3 rounded-[.4rem] shadow-[0_0_0.8rem_0_rgba(0,0,0,0.05)]">
                 <span onClick={() => {}}>내담자 삭제</span>
-                <div className="w-[56px] h-[1px] my-[8px] bg-gray-4"></div>
+                <div className="w-[5.6rem] h-[.1rem] my-[.8rem] bg-gray-4"></div>
                 <span onClick={() => {}}>상담 완료</span>
               </div>
             )}
@@ -73,30 +73,30 @@ const ClientCard = ({ clientInfo, detailMenu = false }: Props) => {
         )}
       </div>
 
-      <div className="flex items-center mb-[6px] gap-[4px]">
-        <span className="px-[6px] rounded-[4px] bg-gray-4">
+      <div className="flex items-center mb-[.6rem] gap-[.4rem]">
+        <span className="px-[.6rem] rounded-[.4rem] bg-gray-4">
           {inProgress ? '상담중' : '상담 완료'}
         </span>
-        <div className="w-[1px] h-[14px] mx-[4px] bg-gray-4"></div>
-        <span className="px-[6px] rounded-[4px] bg-yellow-100">
+        <div className="w-[.1rem] h-[1.4rem] mx-[.4rem] bg-gray-4"></div>
+        <span className="px-[.6rem] rounded-[.4rem] bg-yellow-100">
           {counselingDate}
         </span>
-        <span className="px-[6px] rounded-[4px] bg-gray-3">
+        <span className="px-[.6rem] rounded-[.4rem] bg-gray-3">
           {counselingTime}
         </span>
       </div>
 
-      <div className="flex items-center gap-[4px]">
-        <span className="px-[6px] rounded-[4px] bg-gray-2">상담시작일</span>
-        <div className="w-[1px] h-[14px] mx-[4px] bg-gray-4"></div>
-        <span className="px-[6px] rounded-[4px] bg-gray-2">{start}</span>
+      <div className="flex items-center gap-[.4rem]">
+        <span className="px-[.6rem] rounded-[.4rem] bg-gray-2">상담시작일</span>
+        <div className="w-[.1rem] h-[1.4rem] mx-[.4rem] bg-gray-4"></div>
+        <span className="px-[.6rem] rounded-[.4rem] bg-gray-2">{start}</span>
       </div>
-      <hr className="mt-[13px] mb-[12px]"></hr>
+      <hr className="mt-[1.3rem] mb-[1.2rem]"></hr>
       <div className="flex items-center">
         <BsList size={17} color={'#737373'} />
-        <span className="ml-[4px] mt-[2px] text-gray-8">상담 목표</span>
+        <span className="ml-[.4rem] mt-[.2rem] text-gray-8">상담 목표</span>
         <div
-          className={`w-[20.96px] h-[20.96px] ml-auto rounded-[4.19px] flex items-center justify-center cursor-pointer ${
+          className={`w-[2.096rem] h-[2.096rem] ml-auto rounded-[.419rem] flex items-center justify-center cursor-pointer ${
             isEditMode ? 'bg-yellow-100' : 'bg-gray-3'
           }`}
           onClick={handleInputSubmit}
@@ -109,21 +109,21 @@ const ClientCard = ({ clientInfo, detailMenu = false }: Props) => {
         </div>
       </div>
       {isEditMode ? (
-        <div className="relative mt-[9px]">
+        <div className="relative mt-[.9rem]">
           <textarea
-            className="w-full h-[105px] text-body4 text-gray-9 bg-gray-2 rounded-[4px] px-[5px] py-[3px] resize-none focus:outline-none"
+            className="w-full h-[10.5rem] text-body4 text-gray-9 bg-gray-2 rounded-[.4rem] px-[.5rem] py-[.3rem] resize-none focus:outline-none"
             value={goalInputValue}
             onChange={handleInputChange}
             placeholder="상담 목표를 적어주세요."
             maxLength={99}
             spellCheck="false"
           ></textarea>
-          <span className="absolute bottom-[12px] right-[9px] text-label2 text-gray-5 select-none z-10">
+          <span className="absolute bottom-[1.2rem] right-[.9rem] text-label2 text-gray-5 select-none z-10">
             {goalInputValue.length} / 100
           </span>
         </div>
       ) : (
-        <div className="mt-[9px] text-gray-8 whitespace-pre-wrap">
+        <div className="mt-[.9rem] text-gray-8 whitespace-pre-wrap">
           {goalInputValue}
         </div>
       )}

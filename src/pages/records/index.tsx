@@ -45,11 +45,11 @@ const RecordsPage = () => {
 
       {/* 메인 영역 */}
       <main
-        className={`w-[calc(100%-5px)] h-full flex flex-col items-center mt-[67.38px] mb-[37px] gap-[16px] ${
-          isSignedInCounselor ? 'ml-[139px]' : null
+        className={`w-[calc(100%-0.5rem)] h-full flex flex-col items-center mt-[6.738rem] mb-[3.7rem] gap-[1.6rem] ${
+          isSignedInCounselor ? 'ml-[13.9rem]' : null
         }`}
       >
-        <div className="w-[1025px] flex gap-[17px]">
+        <div className="w-[102.5rem] flex gap-[1.7rem]">
           <RecordGraph clientId={router.query.id as string} />
 
           {isSignedInCounselor ? (
@@ -69,12 +69,12 @@ export default RecordsPage;
 
 const LogCard = ({ onClick }: any) => {
   return (
-    <div className="w-[332px] h-[285px] text-gray-8 text-body4 bg-white flex flex-col justify-center items-center">
-      <div className="relative w-[108px] h-[108px] mb-[12px]">
+    <div className="w-[33.2rem] h-[28.5rem] text-gray-8 text-body4 bg-white flex flex-col justify-center items-center">
+      <div className="relative w-[10.8rem] h-[10.8rem] mb-[1.2rem]">
         <Image src={logImage} alt="Log your Emotion" fill={true} />
       </div>
       <span>오늘 무슨 기분을 느끼셨나요?</span>
-      <span className="mb-[16px]">저희가 들어드릴게요.</span>
+      <span className="mb-[1.6rem]">저희가 들어드릴게요.</span>
       <ButtonSmall
         icon={<BiSolidPencil />}
         text="감정 기록하기"

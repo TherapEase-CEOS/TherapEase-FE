@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className={`${ClashDisplayRegular.variable} h-full overflow-x-hidden`}>
       <Header />
-      <main className="w-screen h-full mt-[58.1px] overflow-x-hidden overflow-y-scroll">
+      <main className="w-screen h-full mt-[5.81rem] overflow-x-hidden overflow-y-scroll">
         {children}
       </main>
     </div>

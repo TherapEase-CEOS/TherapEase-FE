@@ -13,14 +13,14 @@ const LeftBar = () => {
   const clientsList = useRecoilValue<Iclient[]>(clientsListState);
 
   return (
-    <aside className="fixed w-[139px] h-full py-[66.38px] bg-gray-3 overflow-y-scroll">
+    <aside className="fixed w-[13.9rem] h-full py-[6.638rem] bg-gray-3 overflow-y-scroll">
       {clientsList.map((client: Iclient) => {
         const isSelected = client.counseleeId === router.query.id;
 
         return (
           <Link
             key={client.counseleeId}
-            className={`w-full h-[39px] flex justify-center items-center hover:bg-gray-4 ${
+            className={`w-full h-[3.9rem] flex justify-center items-center hover:bg-gray-4 ${
               isSelected ? 'bg-gray-4' : 'bg-transparent'
             }`}
             href={{ pathname: '/records', query: { id: client.counseleeId } }}

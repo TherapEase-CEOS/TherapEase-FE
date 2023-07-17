@@ -27,16 +27,16 @@ const RecordsList = ({ clientId }: Props) => {
   };
 
   return (
-    <div className="w-[1025px] bg-white rounded-[20px]">
+    <div className="w-[102.5rem] bg-white rounded-[2rem]">
       {/* 페이지네이션 영역 */}
-      <div className="w-full h-[68px] flex items-center ml-[25px]">
+      <div className="w-full h-[6.8rem] flex items-center ml-[2.5rem]">
         <BsChevronLeft
           size={14}
           color={page === 1 ? '#DCDCDC' : '#737373'}
           cursor={'pointer'}
           onClick={() => setPage(page - 1)}
         />
-        <span className="text-body1 text-gray-9 mx-[15px]">{page}</span>
+        <span className="text-body1 text-gray-9 mx-[1.5rem]">{page}</span>
         <BsChevronRight
           size={14}
           color={
