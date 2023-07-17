@@ -40,6 +40,7 @@ export default function TimeTableCell({
         }}
       >
         <svg
+          className="time-table__cell"
           style={{
             position: 'absolute',
             top: 0,
@@ -55,6 +56,7 @@ export default function TimeTableCell({
           fill="none"
         >
           <rect
+            className="right"
             x="0.410156"
             y="0.256836"
             width="90"
@@ -62,6 +64,7 @@ export default function TimeTableCell({
             fill="#FDF2B4"
           />
           <rect
+            className="left"
             x="0.410156"
             y="0.256836"
             width="4"
@@ -69,6 +72,14 @@ export default function TimeTableCell({
             fill="#FFE44D"
           />
         </svg>
+        <style jsx>{`
+          .time-table__cell:hover .left {
+            fill: #dcdcdc;
+          }
+          .time-table__cell:hover .right {
+            fill: #f7f7f7;
+          }
+        `}</style>
       </button>
     );
   } else {
