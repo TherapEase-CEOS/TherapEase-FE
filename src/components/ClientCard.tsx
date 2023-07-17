@@ -11,7 +11,7 @@ interface Props {
   detailMenu?: boolean;
 }
 
-const ClientCard = ({ clientInfo, detailMenu = true }: Props) => {
+const ClientCard = ({ clientInfo, detailMenu = false }: Props) => {
   const {
     counseleeName,
     counseleeId,
