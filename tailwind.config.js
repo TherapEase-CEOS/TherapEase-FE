@@ -15,9 +15,25 @@ module.exports = {
         logo: ['var(--logo-font)'],
       },
       fontSize: {
-        landingPageBody: [
+        title: [
+          '55px',
+          { fontStyle: 'normal', fontWeight: '400', lineHeight: '60px' },
+        ],
+        landingPageTitle: [
+          '40px',
+          { fontStyle: 'normal', fontWeight: '400', lineHeight: 'normal' },
+        ],
+        landingPageBody1: [
           '30px',
-          { fontStyle: 'normal', fontWeight: '700', lineHeight: '48px' },
+          { fontStyle: 'normal', fontWeight: '500', lineHeight: '45px' },
+        ],
+        landingPageBody2: [
+          '24px',
+          { fontStyle: 'normal', fontWeight: '400', lineHeight: '40px' },
+        ],
+        landingPageBody3: [
+          '22px',
+          { fontStyle: 'normal', fontWeight: '300', lineHeight: '40px' },
         ],
         heading1: [
           '32px',
@@ -63,6 +79,9 @@ module.exports = {
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
+        white: {
+          text: '#F4F4F4',
+        },
         yellow: {
           20: '#FFFCF0',
           100: '#FDF2B4',
