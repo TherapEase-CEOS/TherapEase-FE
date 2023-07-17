@@ -41,7 +41,7 @@ const ContactInputField = ({
   const bgColor = disabled ? 'bg-white' : 'bg-gray-2';
   return (
     <input
-      className={`h-[2.5rem] w-full text-body2 text-gray-9 rounded-[8px]
+      className={`h-[2.5rem] w-full text-body2 text-gray-8 rounded-[8px]
       self-start px-[1rem] ${bgColor} focus:outline-none`}
       onChange={handleChangeContact}
       value={contactValue}
