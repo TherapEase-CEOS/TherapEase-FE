@@ -30,9 +30,9 @@ const THead = () => {
   return (
     <div className="grid pb-[0.95rem] grid-cols-7 w-[63rem] border-b-[1px] ">
       {days.map((day) => (
-        <th>
+        <span className="table-cell p-1 align-inherit text-center">
           <span style={tableHeadTextStyle}>{day}</span>
-        </th>
+        </span>
       ))}
     </div>
   );
