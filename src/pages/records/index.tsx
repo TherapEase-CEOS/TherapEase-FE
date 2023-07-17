@@ -26,9 +26,17 @@ const RecordsPage = () => {
   const isSignedInCounselor = isSignedIn && isCounselor;
 
   const clientsList = useRecoilValue<Iclient[]>(clientsListState);
-  const currentClientInfo: Iclient | null =
-    clientsList.find((client) => client.counseleeId === router.query.id) ??
-    null;
+  const currentClientInfo: Iclient = clientsList.find(
+    (client) => client.counseleeId === router.query.id,
+  ) ?? {
+    counseleeName: '',
+    counseleeId: '',
+    start: '',
+    inProgress: false,
+    counselingDate: '',
+    counselingTime: '',
+    goal: '',
+  };
 
   return (
     <div className="w-full h-full flex">
