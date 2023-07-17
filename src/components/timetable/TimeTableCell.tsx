@@ -13,7 +13,7 @@ export default function TimeTableCell({
   idx: number;
 }) {
   const [timeTableData, setTimeTableData] = useRecoilState(timeTableState);
-  console.log(timeTableData);
+
   const [availableState, setAvailableState] = useState<Boolean>(available);
   const handleToggleState = () => {
     setAvailableState((prev) => !prev);

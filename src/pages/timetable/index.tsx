@@ -6,16 +6,15 @@ import Image from 'next/image';
 import CalendarIconSrc from '../../assets/icons/calendar.svg';
 
 const TimeTablePage = () => {
-  const [mode, setMode] = useState('edit'); //mode: edit(편집),display(조회)
-
+  const [isEditMode, setIsEditMode] = useState(true);
   return (
     <div
       className="w-full h-full flex flex-row justify-center items-start 
-    gap-4  mt-[6.6rem]"
+    gap-4  mt-[6.6rem] box-border"
     >
       <div className="flex flex-col gap-4 ">
-        <Profile editable={mode === 'edit'} />
-        <EditBtn mode={mode} setMode={setMode} />
+        <Profile editable={isEditMode} />
+        <EditBtn isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
       </div>
       <div
         className="w-[75rem] h-[77.6rem] rounded-2xl bg-white flex
@@ -37,27 +36,26 @@ const TimeTablePage = () => {
 };
 
 const EditBtn = ({
-  mode,
-  setMode,
+  isEditMode,
+  setIsEditMode,
 }: {
-  mode: string;
-  setMode: (value: string) => void;
+  isEditMode: boolean;
+  setIsEditMode: (value: boolean) => void;
 }) => {
   const handleOnClickBtn = () => {
-    if (mode === 'edit') {
+    if (isEditMode) {
       // 데이터 저장 요청
-      setMode('display');
+      setIsEditMode(false);
       alert('데이터를 저장합니다.');
     } else {
       // 수정모드 진입
-      setMode('edit');
+      setIsEditMode(true);
       alert('수정모드에 진입합니다.');
     }
   };
-  const btnText =
-    mode === 'edit'
-      ? '시간표 및 상담정보 적용하기'
-      : '시간표 및 상담정보 수정하기';
+  const btnText = isEditMode
+    ? '시간표 및 상담정보 적용하기'
+    : '시간표 및 상담정보 수정하기';
   return (
     <button
       className="w-[26rem] h-[4rem] bg-yellow-20 px-[3.9rem] py-[0.8rem]  rounded-lg
