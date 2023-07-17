@@ -79,9 +79,7 @@ module.exports = {
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
-        white: {
-          text: '#F4F4F4',
-        },
+
         yellow: {
           20: '#FFFCF0',
           100: '#FDF2B4',
