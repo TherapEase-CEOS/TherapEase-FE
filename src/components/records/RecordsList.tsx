@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
+import SingleRecord from './SingleRecord';
 
-import { parseDateString } from '@/utils/parseDate';
+import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
 import { DUMMY_EMOTION_RECORDS } from '@/constants/DUMMY_DATA';
 
@@ -21,15 +21,13 @@ const RecordsList = ({ clientId }: Props) => {
   const fetchEmotionRecords = () => {
     // TODO - 감정기록 리스트 조회 API 연동 by {clientId}
     const { page, records } = DUMMY_EMOTION_RECORDS;
-    setEmotionRecordList([records]);
-
-    parseDateString(Object.keys(records[0])[0]);
+    setEmotionRecordList(records);
 
     setPage(page);
   };
 
   return (
-    <div className="w-[1025px] h-[900px] bg-white rounded-[20px] divide-y divide-gray-3">
+    <div className="w-[1025px] bg-white rounded-[20px]">
       {/* 페이지네이션 영역 */}
       <div className="w-full h-[68px] flex items-center ml-[25px]">
         <BsChevronLeft
@@ -52,8 +50,8 @@ const RecordsList = ({ clientId }: Props) => {
       </div>
       {/* 감정기록 리스트 영역 */}
       <div>
-        {emotionRecordList.map((record: any) => {
-          return <div>{JSON.stringify(record)}</div>;
+        {emotionRecordList.map((record: any, idx: number) => {
+          return <SingleRecord record={record} idx={idx} />;
         })}
       </div>
     </div>

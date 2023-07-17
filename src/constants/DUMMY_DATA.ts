@@ -157,7 +157,7 @@ export const DUMMY_EMOTION_RECORDS = {
             mainEmotion: 'sad',
             subEmotion: 'guilty',
             feeling: -1,
-            intensity: 4,
+            intensity: 5,
           },
           {
             mainEmotion: 'sad',
@@ -173,8 +173,8 @@ export const DUMMY_EMOTION_RECORDS = {
           },
         ],
         details1: null,
-        details2: '이런 일이 있었어요',
-        details3: '이런 일이 있었어요',
+        details2: null,
+        details3: null,
       },
     },
     {
@@ -184,7 +184,7 @@ export const DUMMY_EMOTION_RECORDS = {
             mainEmotion: 'sad',
             subEmotion: 'guilty',
             feeling: -1,
-            intensity: 4,
+            intensity: 2,
           },
           {
             mainEmotion: 'sad',
@@ -196,7 +196,44 @@ export const DUMMY_EMOTION_RECORDS = {
             mainEmotion: 'sad',
             subEmotion: 'guilty',
             feeling: 1,
-            intensity: 3,
+            intensity: 2,
+          },
+        ],
+        details1: null,
+        details2:
+          '그래픽 디자인 분야에서 폰트, 타이포그래피, 레이아웃 같은 그래픽 요소나 시각적 연출을 보여줄 때 사용하는 표준 텍스트로, 최종 결과물에 들어가는 실제적인 문장 내용이 채워지기 전에 시각 디자인 프로젝트 모형의 채움 글로도 이용된다.',
+        details3:
+          '그래픽 디자인 분야에서 폰트, 타이포그래피, 레이아웃 같은 그래픽 요소나 시각적 연출을 보여줄 때 사용하는 표준 텍스트로, 최종 결과물에 들어가는 실제적인 문장 내용이 채워지기 전에 시각 디자인 프로젝트 모형의 채움 글로도 이용된다.',
+      },
+    },
+    {
+      '2023-05-25': {
+        emotions: null,
+        details1: null,
+        details2: null,
+        details3: null,
+      },
+    },
+    {
+      '2023-05-26': {
+        emotions: [
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: -1,
+            intensity: 4,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: 0,
+            intensity: 2,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: 1,
+            intensity: 5,
           },
         ],
         details1: null,
@@ -205,7 +242,7 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-25': {
+      '2023-05-27': {
         emotions: [
           {
             mainEmotion: 'sad',
@@ -226,13 +263,14 @@ export const DUMMY_EMOTION_RECORDS = {
             intensity: 3,
           },
         ],
-        details1: null,
-        details2: '이런 일이 있었어요',
+        details1:
+          '그래픽 디자인 분야에서 폰트, 타이포그래피, 레이아웃 같은 그래픽 요소나 시각적 연출을 보여줄 때 사용하는 표준 텍스트로, 최종 결과물에 들어가는 실제적인 문장 내용이 채워지기 전에 시각 디자인 프로젝트 모형의 채움 글로도 이용된다.',
+        details2: null,
         details3: '이런 일이 있었어요',
       },
     },
     {
-      '2023-05-26': {
+      '2023-05-28': {
         emotions: [
           {
             mainEmotion: 'sad',
