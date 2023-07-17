@@ -20,8 +20,8 @@ const LeftBar = () => {
         return (
           <Link
             key={client.counseleeId}
-            className={`w-full h-[3.9rem] flex justify-center items-center hover:bg-gray-4 ${
-              isSelected ? 'bg-gray-4' : 'bg-transparent'
+            className={`w-full h-[3.9rem] flex justify-center items-center hover:bg-gray-4 hover:text-black ${
+              isSelected ? 'bg-gray-4' : 'bg-transparent text-gray-4'
             }`}
             href={{ pathname: '/records', query: { id: client.counseleeId } }}
             as={'/records'}
