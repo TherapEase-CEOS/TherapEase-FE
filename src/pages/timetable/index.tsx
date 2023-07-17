@@ -1,18 +1,21 @@
 // TimeTable Page
+import { useState } from 'react';
 import Profile from '@/components/timetable/Profile';
 import TimeTable from '@/components/timetable/TimeTable';
 import Image from 'next/image';
 import CalendarIconSrc from '../../assets/icons/calendar.svg';
 
 const TimeTablePage = () => {
+  const [mode, setMode] = useState('edit'); //mode: edit(편집),display(조회)
+
   return (
     <div
       className="w-full h-full flex flex-row justify-center items-start 
     gap-4  mt-[6.6rem]"
     >
       <div className="flex flex-col gap-4 ">
-        <Profile />
-        <EditBtn />
+        <Profile editable={mode === 'edit'} />
+        <EditBtn mode={mode} setMode={setMode} />
       </div>
       <div
         className="w-[75rem] h-[77.6rem] rounded-2xl bg-white flex
@@ -33,19 +36,39 @@ const TimeTablePage = () => {
   );
 };
 
-const EditBtn = () => {
+const EditBtn = ({
+  mode,
+  setMode,
+}: {
+  mode: string;
+  setMode: (value: string) => void;
+}) => {
+  const handleOnClickBtn = () => {
+    if (mode === 'edit') {
+      // 데이터 저장 요청
+      setMode('display');
+      alert('데이터를 저장합니다.');
+    } else {
+      // 수정모드 진입
+      setMode('edit');
+      alert('수정모드에 진입합니다.');
+    }
+  };
+  const btnText =
+    mode === 'edit'
+      ? '시간표 및 상담정보 적용하기'
+      : '시간표 및 상담정보 수정하기';
   return (
-    <div
+    <button
       className="w-[26rem] h-[4rem] bg-yellow-20 px-[3.9rem] py-[0.8rem]  rounded-lg
-     cursor-pointer hover:border-[1px] hover:border-solid hover:border-yellow-120 "
+     cursor-pointer hover:outline hover:outline-1  hover:outline-yellow-120 "
+      onClick={handleOnClickBtn}
     >
       <div className="flex flex-row items-center gap-2">
         <Image src={CalendarIconSrc} alt="calendar" />
-        <span className="text-body3 text-yellow-120 ">
-          시간표 및 상담정보 수정하기
-        </span>
+        <span className="text-body3 text-yellow-120 ">{btnText}</span>
       </div>
-    </div>
+    </button>
   );
 };
 
