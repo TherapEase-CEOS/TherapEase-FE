@@ -11,8 +11,8 @@ import TimeTableSrc from '../assets/images/timetable.svg';
 
 const LandingPage = () => {
   return (
-    <div className="width-full ">
-      <div className="width-full h-[87.7rem] bg-[#252525] flex justify-center items-center">
+    <div className="w-full ">
+      <div className="w-full h-[87.7rem] bg-[#252525] flex justify-center items-center">
         <div className="flex flex-row items-center mr-[-5%]">
           <div className="h-[35.6rem] flex flex-col gap-[5.7rem] ">
             <div className="flex flex-col gap-[0.8rem]">
