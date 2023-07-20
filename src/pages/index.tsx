@@ -1,4 +1,5 @@
 // Landing Page
+import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { ButtonLarge } from '@/components/Buttons';
 import MainIllustrationSrc from '../assets/images/main-illustration.svg';
@@ -10,12 +11,125 @@ import EmotionCreateSrc from '../assets/images/emotion-create.svg';
 import TimeTableSrc from '../assets/images/timetable.svg';
 
 const LandingPage = () => {
+  const bacgkroundRef = useRef<HTMLDivElement | null>(null);
+  const aboutUsRef = useRef<HTMLDivElement | null>(null);
+  const theTherapistRef = useRef<HTMLDivElement | null>(null);
+  const theClientRef = useRef<HTMLImageElement | null>(null);
+  const startBtnRef = useRef<HTMLImageElement | null>(null);
+
+  const observeList = [
+    bacgkroundRef,
+    aboutUsRef,
+    theTherapistRef,
+    theClientRef,
+    startBtnRef,
+  ];
+  useEffect(() => {
+    const options = {
+      root: null, // viewport
+      rootMargin: '0px',
+      threshold: 0.3,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        console.log(entry.isIntersecting);
+
+        const target: HTMLElement = entry.target as HTMLElement;
+
+        const targetName = target.dataset.name; // data-name 값을 가져옴
+
+        switch (targetName) {
+          case 'background':
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate__fadeIn');
+            } else {
+              entry.target.classList.remove('animate__fadeIn');
+            }
+            break;
+          case 'about-us':
+            if (entry.isIntersecting) {
+              // entry.target.classList.add('animate__fadeIn');
+              const children = entry.target.children;
+              console.log(children);
+              const iconElement = children[0] as HTMLElement;
+              const titleElement = children[1] as HTMLElement;
+              const textElement = children[2] as HTMLElement;
+
+              console.log(typeof iconElement);
+
+              iconElement.classList.add('animate__fadeIn');
+              titleElement.classList.add('animate__fadeIn');
+              textElement.classList.add('animate__fadeIn');
+            } else {
+              const children = entry.target.children;
+              console.log(children);
+              const iconElement = children[0] as HTMLElement;
+              const titleElement = children[1] as HTMLElement;
+              const textElement = children[2] as HTMLElement;
+
+              console.log(typeof iconElement);
+
+              iconElement.classList.remove('animate__fadeIn');
+              titleElement.classList.remove('animate__fadeIn');
+              textElement.classList.remove('animate__fadeIn');
+            }
+            break;
+
+          case 'the-therapist':
+          case 'the-client':
+            if (entry.isIntersecting) {
+              // entry.target.classList.add('animate__fadeIn');
+              const children = entry.target.children;
+
+              const imageGroupElement = children[2] as HTMLElement;
+
+              const leftImg = imageGroupElement.children[0] as HTMLElement;
+              const rightImg = imageGroupElement.children[1] as HTMLElement;
+              console.log(leftImg);
+              leftImg.classList.add('animate__fadeInLeft');
+              rightImg.classList.add('animate__fadeInRight');
+            } else {
+              const children = entry.target.children;
+              console.log(children);
+              const imageGroupElement = children[2] as HTMLElement;
+
+              const leftImg = imageGroupElement.children[0];
+              const rightImg = imageGroupElement.children[1];
+
+              leftImg.classList.remove('animate__fadeInLeft');
+              rightImg.classList.remove('animate__fadeInRight');
+            }
+            break;
+          case 'start-btn':
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate__fadeInDown');
+            } else {
+              entry.target.classList.remove('animate__fadeInDown');
+            }
+            break;
+        }
+      });
+    }, options);
+
+    observeList.forEach((ref) => {
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
+    });
+    return () => {
+      observer.disconnect(); // 컴포넌트 언마운트 시 관찰 종료
+    };
+  }, []);
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <div className="w-full h-[87.7rem] bg-[#252525] flex justify-center items-center">
-        <div className="flex flex-row items-center mr-[-5%]">
+        <div
+          className="flex flex-row items-center mr-[-5%] wow fadeIn"
+          data-wow-duration="2s"
+        >
           <div className="h-[35.6rem] flex flex-col gap-[5.7rem] ">
-            <div className="flex flex-col gap-[0.8rem]">
+            <div className="flex flex-col gap-[0.8rem] ">
               <p className="font-logo text-title text-white">
                 Make your <br /> counseling perfect <br />
                 with TherapEase
@@ -40,10 +154,14 @@ const LandingPage = () => {
         </div>
       </div>
       <div
-        className="width-full h-[63.8rem] bg-gray-9 flex
+        className="w-full h-[63.8rem] bg-gray-9 flex
        justify-center items-center"
       >
-        <div className="flex flex-col gap-[2.98rem]">
+        <div
+          className="flex flex-col gap-[2.98rem] animate__animated"
+          ref={bacgkroundRef}
+          data-name={'background'}
+        >
           <span className="font-logo text-landingPageTitle text-white">
             Background
           </span>
@@ -56,24 +174,31 @@ const LandingPage = () => {
         </div>
       </div>
       <div
-        className="width-full h-[36.8rem] bg-gray-9 flex flex-col
-       justify-center items-center gap-[1.8rem]"
+        ref={aboutUsRef}
+        data-name={'about-us'}
+        className="w-full h-[36.8rem] bg-gray-9 flex flex-col
+       justify-center items-center gap-[1.8rem] animate__animated"
       >
-        <Image src={TransparentLogoSrc} alt="metalcare-increase" />
-        <span className="font-logo text-landingPageTitle text-yellow-100">
+        <Image
+          className="animate__animated"
+          src={TransparentLogoSrc}
+          alt="metalcare-increase"
+        />
+        <span className="font-logo text-landingPageTitle text-yellow-100 animate__animated">
           About us
         </span>
-        <p className="text-landingPageBody2 text-yellow-100 text-center">
+        <p className="text-landingPageBody2 text-yellow-100 text-center animate__animated">
           테라피즈는 상담사의 업무 효율을 증진시키기 위한 서비스입니다. 저희는
           상담사와 <br /> 내담자 모두에게 더 나은 심리상담환경을 조성하고자
           합니다.
         </p>
       </div>
       <div
-        className="width-full h-[97.6rem] bg-gray-3 flex flex-col
+        ref={theTherapistRef}
+        data-name="the-therapist"
+        className="w-full h-[97.6rem] bg-gray-3 flex flex-col
        justify-start items-center gap-[1.8rem] pt-[12rem]"
       >
-        {' '}
         <span className="font-logo text-landingPageTitle text-gray-9">
           The Therapist
         </span>
@@ -82,13 +207,24 @@ const LandingPage = () => {
           내담자를 지속적으로 모니터링하며 케어할 수 있어요.
         </p>
         <div className="flex gap-[1.6rem]">
-          <Image src={CounseleeManagementSrc} alt="CounseleeManagementSrc" />
-          <Image src={EmotionGraphSrc} alt="EmotionGraphSrc" />
+          <Image
+            className="animate__animated"
+            src={CounseleeManagementSrc}
+            alt="CounseleeManagementSrc"
+          />
+          <Image
+            className="animate__animated"
+            src={EmotionGraphSrc}
+            alt="EmotionGraphSrc"
+          />
         </div>
       </div>
       <div
-        className="width-full h-[97.6rem] bg-[#FDF2B4] flex flex-col
-       justify-start items-center gap-[1.8rem] pt-[12rem]"
+        className="w-full h-[97.6rem] bg-[#FDF2B4] flex flex-col
+       justify-start items-center gap-[1.8rem] pt-[12rem]
+       "
+        ref={theClientRef}
+        data-name="the-client"
       >
         {' '}
         <span className="font-logo text-landingPageTitle text-gray-9">
@@ -99,22 +235,36 @@ const LandingPage = () => {
           상담시간표로 일정을 손쉽게 조율해요.
         </p>
         <div className="flex gap-[1.6rem]">
-          <Image src={EmotionCreateSrc} alt="EmotionCreateSrc" />
-          <Image src={TimeTableSrc} alt="TimeTableSrc" />
+          <Image
+            className="animate__animated"
+            src={EmotionCreateSrc}
+            alt="EmotionCreateSrc"
+          />
+          <Image
+            className="animate__animated"
+            src={TimeTableSrc}
+            alt="TimeTableSrc"
+          />
         </div>
       </div>
       <div
-        className="width-full h-[27rem] bg-[#333333] flex flex-col
+        className="w-full h-[27rem] bg-[#333333] flex flex-col
        justify-start items-center gap-[3.5rem] pt-[5.1rem]"
       >
         <span className="text-heading2 text-yellow-100">
           심리 상담, 테라피즈로 시작해보세요.
         </span>
-        <ButtonLarge
-          text={'지금 시작하기'}
-          onClick={() => console.log('click')}
-          disabled={false}
-        />
+        <div
+          ref={startBtnRef}
+          data-name="start-btn"
+          className="animate__animated"
+        >
+          <ButtonLarge
+            text={'지금 시작하기'}
+            onClick={() => console.log('click')}
+            disabled={false}
+          />
+        </div>
       </div>
     </div>
   );
