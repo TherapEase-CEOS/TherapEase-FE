@@ -20,6 +20,39 @@ body {
   color: #000000;
   background: var(--background-color);
 }
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #acacac;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #737373;
+}
+/*
+gray: {
+  9: '#212121',
+  8: '#737373',
+  7: '#868686',
+  6: '#999999',
+  5: '#ACACAC',
+  4: '#DCDCDC',
+  3: '#EFEFEF',
+  2: '#F7F7F7',
+  1: '#FCFCFC',
+},
+*/
 
 @layer components {
   .card {
