@@ -22,6 +22,7 @@ import {
   DUMMY_LARGE_EMOTION,
   DUMMY_MEDIUM_EMOTION,
 } from '@/constants/DUMMY_DATA';
+import EmotionCard from '@/components/log/EmotionCard';
 
 const RecordsCreatePage = () => {
   const [emotionList, setEmotionList] = useState<IEmotion[]>([]); // 감정 리스트
@@ -103,15 +104,20 @@ const RecordsCreatePage = () => {
 
       {/* 감정 카드 영역 */}
       <div className="mt-[2.3rem] flex justify-center gap-[1.6rem]">
+        {emotionList.map((emotion: IEmotion) => {
+          return <EmotionCard emotion={emotion} />;
+        })}
         {[0, 1, 2].map((_, idx) => {
-          return emotionList.length === idx ? (
-            <EmotionAddCard
-              isInProgress={isInProgress}
-              setIsInProgress={setIsInProgress}
-            />
-          ) : (
-            <EmotionAddCardDisabled />
-          );
+          if (emotionList.length === idx) {
+            return (
+              <EmotionAddCard
+                isInProgress={isInProgress}
+                setIsInProgress={setIsInProgress}
+              />
+            );
+          } else if (emotionList.length <= idx) {
+            return <EmotionAddCardDisabled />;
+          }
         })}
       </div>
 

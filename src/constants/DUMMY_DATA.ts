@@ -540,3 +540,9 @@ export const DUMMY_MEDIUM_EMOTION = [
     ],
   },
 ];
+
+export const FEELING = [
+  { value: 1, label: '좋았어요' },
+  { value: -1, label: '싫었어요' },
+  { value: 0, label: '모르겠어요' },
+];
