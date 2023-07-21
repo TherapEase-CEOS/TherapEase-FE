@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import LoginModal from './modals/LoginModal';
 
 import { useRecoilValue } from 'recoil';
 import { isSignedInState, isCounselorState } from '@/store/user';
@@ -18,6 +19,13 @@ const Header = () => {
 
   const BUTTON_STYLE = `h-fit text-body2 select-none`;
 
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
+  const handleOnClickLogin = () => {
+    setIsLoginModalOpen(true);
+  };
+
+  const handleOnClickLogout = () => {};
   const rightMenus: React.ReactNode[] = isSignedIn
     ? (isCounselor
         ? [
@@ -84,6 +92,7 @@ const Header = () => {
             pathname: '/', // TODO - 로그인모달창
           }}
           className={`${BUTTON_STYLE} text-gray-9`}
+          onClick={handleOnClickLogin}
         >
           로그인 / 회원가입
         </Link>,
@@ -94,7 +103,13 @@ const Header = () => {
   }, [router]);
 
   return (
-    <div className="fixed top-0 flex justify-between items-center w-screen h-[5.81rem] bg-white shadow-shadow z-50">
+    <div className="fixed top-0 flex justify-between items-center w-screen h-[5.81rem] bg-white shadow-shadow z-10">
+      {
+        /*코드입력모달*/ isLoginModalOpen && (
+          <LoginModal closeModal={() => setIsLoginModalOpen(false)} />
+        )
+      }
+
       <Link
         className="flex ml-[22.993rem] gap-[.968rem]"
         href={{
