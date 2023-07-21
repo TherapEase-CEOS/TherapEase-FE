@@ -13,6 +13,7 @@ import {
   EmotionSelectCardDisabled,
   FeelingCard,
 } from '@/components/log/EmotionSelectCard';
+import EmotionCard from '@/components/log/EmotionCard';
 import { ButtonMedium } from '@/components/Buttons';
 
 import { IEmotion } from '@/interfaces/interfaces';
@@ -22,7 +23,6 @@ import {
   DUMMY_LARGE_EMOTION,
   DUMMY_MEDIUM_EMOTION,
 } from '@/constants/DUMMY_DATA';
-import EmotionCard from '@/components/log/EmotionCard';
 
 const RecordsCreatePage = () => {
   const [emotionList, setEmotionList] = useState<IEmotion[]>([]); // 감정 리스트
@@ -89,6 +89,12 @@ const RecordsCreatePage = () => {
     setIsInProgress(false);
   };
 
+  const handleDeleteEmotionCard = (emotion: IEmotion) => {
+    const newEmotionList = emotionList.filter((item) => item !== emotion);
+
+    setEmotionList(newEmotionList);
+  };
+
   return (
     <div className="w-[calc(100%-20.6rem)] h-full mx-auto py-[5.953rem]">
       {/* 페이지 헤더 영역 */}
@@ -105,8 +111,11 @@ const RecordsCreatePage = () => {
       {/* 감정 카드 영역 */}
       <div className="mt-[2.3rem] flex justify-center gap-[1.6rem]">
         {emotionList.map((emotion: IEmotion) => {
-          return <EmotionCard emotion={emotion} />;
+          return (
+            <EmotionCard emotion={emotion} onDelete={handleDeleteEmotionCard} />
+          );
         })}
+
         {[0, 1, 2].map((_, idx) => {
           if (emotionList.length === idx) {
             return (

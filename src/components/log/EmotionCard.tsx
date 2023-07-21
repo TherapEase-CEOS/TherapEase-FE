@@ -3,7 +3,13 @@ import { TfiClose } from 'react-icons/tfi';
 import { IEmotion } from '@/interfaces/interfaces';
 import { DUMMY_LARGE_EMOTION, FEELING } from '@/constants/DUMMY_DATA';
 
-const EmotionCard = ({ emotion }: { emotion: IEmotion }) => {
+const EmotionCard = ({
+  emotion,
+  onDelete,
+}: {
+  emotion: IEmotion;
+  onDelete: (value: IEmotion) => void;
+}) => {
   return (
     <div className="box-border w-[33.2rem] h-[13.8rem] pl-[3.8rem] pt-[1.7rem] pr-[2.1rem] pb-[2.7rem] bg-white rounded-[2rem] flex flex-col gap-[1.3rem] select-none">
       <div className="flex justify-between">
@@ -12,7 +18,7 @@ const EmotionCard = ({ emotion }: { emotion: IEmotion }) => {
           size={15}
           color="#737373"
           cursor={'pointer'}
-          onClick={() => {}}
+          onClick={() => onDelete(emotion)}
         />
       </div>
 
