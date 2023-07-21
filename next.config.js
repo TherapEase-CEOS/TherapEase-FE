@@ -3,20 +3,20 @@ const nextConfig = {
   reactStrictMode: true,
   async rewrites() {
     return [
-      // {
-      //   source: '/home', // 상담자 홈
-      //   destination: '/clients',
-      // },
       {
-        source: '/home', // 내담자 홈 (내담자인 경우만 rewrite)
-        // has: [
-        // {
-        //   type: 'header',
-        //   key: 'x-authorized', // to be modified
-        // },
-        // ],
-        destination: '/records',
+        source: '/home', // 상담자 홈
+        destination: '/clients',
       },
+      // {
+      //   source: '/home', // 내담자 홈 (내담자인 경우만 rewrite)
+      //   // has: [
+      //   // {
+      //   //   type: 'header',
+      //   //   key: 'x-authorized', // to be modified
+      //   // },
+      //   // ],
+      //   destination: '/records',
+      // },
     ];
   },
   async redirects() {

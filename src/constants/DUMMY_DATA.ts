@@ -8,7 +8,7 @@ export const DUMMY_CLIENTS_LIST: Iclient[] = [
     inProgress: true,
     counselingDate: 'THU',
     counselingTime: '07:00',
-    goal: '100자 100자 100자 100자 100자 100자 100자 100자 100자 100자 100자 100자 100자 100자 100자 100자 100자 100자 100자 100자.',
+    goal: '불면을 겪고 있음.',
   },
   {
     counseleeName: '김서연',
