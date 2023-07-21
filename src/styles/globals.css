@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: AppleSDGothicNeo;
-  src: url('../../public/fonts/AppleSDGothicNeoM.ttf') format('truetype');
+  src: url('../../public/fonts/AppleSDGothicNeoR.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -54,6 +54,22 @@ gray: {
 },
 */
 
+/* custom scroll bar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #acacac;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #999999;
+}
+
+/* custom layer */
 @layer components {
   .card {
     background-color: #ffffff;
