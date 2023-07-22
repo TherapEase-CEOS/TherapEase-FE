@@ -1,5 +1,7 @@
 import { atom } from 'recoil';
+
 import { ITimeTable } from '@/interface/interface';
+
 export const timeTableState = atom<ITimeTable>({
   key: 'timeTableState',
   default: {

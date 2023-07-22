@@ -16,8 +16,18 @@ export interface IEmotion {
 }
 
 export interface IRecord {
+  date: string;
   emotions: IEmotion[];
   details1: string | null;
   details2: string | null;
   details3: string | null;
+}
+
+export interface ITimeTable {
+  [key: string]: boolean[];
+}
+
+export interface IGraphRecord {
+  date: string;
+  emotions: IEmotion[];
 }
