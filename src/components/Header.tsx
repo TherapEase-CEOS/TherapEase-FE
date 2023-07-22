@@ -37,8 +37,9 @@ const Header = () => {
 
   const logout = () => {
     clearUser();
-    router.push('/');
+
     setIsSignedIn(false);
+    router.push('/');
   };
   const rightMenus: React.ReactNode[] = isSignedIn
     ? (isCounselor
