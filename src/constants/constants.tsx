@@ -1,4 +1,3 @@
-const REFRESH_TOKEN = 'refresh_token';
-const ACCESS_TOKEN = 'access_token';
+const USER_LOCALSTORAGE_KEY = 'user';
 
-export { REFRESH_TOKEN, ACCESS_TOKEN };
+export { USER_LOCALSTORAGE_KEY };

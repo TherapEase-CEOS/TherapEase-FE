@@ -5,7 +5,9 @@ import 'animate.css';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
+import { QueryClient, QueryClientProvider, Hydrate } from 'react-query';
 
+import ClientProviders from '@/utils/useClient';
 const App = ({ Component, pageProps }: AppProps) => {
   const isServer = typeof window === 'undefined';
   const WOW = !isServer ? require('wow.js') : null;
@@ -20,11 +22,13 @@ const App = ({ Component, pageProps }: AppProps) => {
     }).init();
   }, []);
   return (
-    <RecoilRoot>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </RecoilRoot>
+    <ClientProviders>
+      <RecoilRoot>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </RecoilRoot>
+    </ClientProviders>
   );
 };
 

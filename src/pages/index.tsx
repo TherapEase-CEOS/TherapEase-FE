@@ -26,6 +26,7 @@ const LandingPage = () => {
     theClientRef,
     startBtnRef,
   ];
+
   useEffect(() => {
     const options = {
       root: null, // viewport
@@ -123,8 +124,9 @@ const LandingPage = () => {
       observer.disconnect(); // 컴포넌트 언마운트 시 관찰 종료
     };
   }, []);
+
   return (
-    <div className="w-full">
+    <div className="relative w-full">
       {
         /*코드입력모달*/ isLoginModalOpen && (
           <LoginModal closeModal={() => setIsLoginModalOpen(false)} />
