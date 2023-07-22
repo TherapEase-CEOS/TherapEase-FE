@@ -3,17 +3,23 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import LoginModal from './modals/LoginModal';
-
+import { getUser } from '@/hooks/useUser';
 import { useRecoilValue } from 'recoil';
 import { isSignedInState, isCounselorState } from '@/store/user';
 
 import LogoImage from '../assets/Header-logo.png';
+import { IUser } from '@/interfaces/interfaces';
+import { clearUser } from '@/hooks/useUser';
+import { useRecoilState } from 'recoil';
 
 const Header = () => {
   const router = useRouter();
+  const user: IUser = getUser();
 
-  const isSignedIn = useRecoilValue<boolean>(isSignedInState); // 로그인 여부
-  const isCounselor = useRecoilValue<boolean | null>(isCounselorState); // 상담자,내담자 여부
+  const [isCounselor, setIsCounselor] = useRecoilState<boolean | null>(
+    isCounselorState,
+  );
+  const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(isSignedInState);
 
   const [visibleLogout, setVisibleLogout] = useState<boolean>(false); // 로그아웃 버튼 표시 여부
 
@@ -25,13 +31,21 @@ const Header = () => {
     setIsLoginModalOpen(true);
   };
 
-  const handleOnClickLogout = () => {};
+  const handleOnClickProfile = () => {
+    setVisibleLogout((prev) => !prev);
+  };
+
+  const logout = () => {
+    clearUser();
+    router.push('/');
+    setIsSignedIn(false);
+  };
   const rightMenus: React.ReactNode[] = isSignedIn
     ? (isCounselor
         ? [
             <Link
               href={{
-                pathname: '/home',
+                pathname: '/clients',
               }}
               className={`${BUTTON_STYLE} ${
                 router.pathname === '/clients' || router.pathname === '/records'
@@ -45,7 +59,7 @@ const Header = () => {
         : [
             <Link
               href={{
-                pathname: '/home',
+                pathname: '/records',
               }}
               className={`${BUTTON_STYLE} ${
                 router.pathname === '/records' || router.pathname === '/log'
@@ -72,14 +86,14 @@ const Header = () => {
             className={`${BUTTON_STYLE} cursor-pointer text-gray-4 p-[1.0rem] rounded-[.8rem] ${
               visibleLogout && 'bg-gray-2'
             }`}
-            onClick={() => {
-              setVisibleLogout(!visibleLogout);
-            }}
-          >{`USER_NAME`}</span>
+            onClick={handleOnClickProfile}
+          >
+            {user?.name}
+          </span>
           {visibleLogout && (
             <div
               className="absolute top-[3.6rem] left-[.1rem] py-[1.0rem] px-[1.6rem] text-label1 text-gray-6 bg-white border-solid border-[.1rem] border-gray-3 rounded-[.4rem] cursor-pointer select-none"
-              onClick={() => console.log('로그아웃')}
+              onClick={logout}
             >
               로그아웃
             </div>
