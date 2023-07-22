@@ -34,7 +34,7 @@ export default function InputModal({
 
   return (
     <div
-      className="fixed z-5 inset-0 w-screen h-full bg-[#0000004d] bg-opacity-75 transition-opacity"
+      className="fixed z-[10000] inset-0 w-screen h-full bg-[#0000004d] bg-opacity-75 transition-opacity"
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
