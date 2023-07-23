@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { API_BASE_SERVER_URL } from '@/constants/Config';
 import { USER_LOCALSTORAGE_KEY } from '@/constants/constants';
 import { IUser } from '@/interfaces/interfaces';
 
