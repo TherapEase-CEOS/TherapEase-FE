@@ -124,7 +124,9 @@ export const FeelingCard = ({
   };
 
   const handleFeelingNumberClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    setSelectedFeelingIntensity(Number(e.currentTarget.id));
+    if (selectedFeeling !== null) {
+      setSelectedFeelingIntensity(Number(e.currentTarget.id));
+    }
   };
 
   return (
