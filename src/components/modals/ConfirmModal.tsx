@@ -16,8 +16,8 @@ const ConfirmModal = ({
   onCancle,
 }: Props) => {
   return (
-    <div className="absolute top-0 left-[-10.3rem] w-screen h-full bg-[#0000004d] z-[10000]">
-      <div className="absolute top-[calc(50vh-17.7rem)] left-[calc(50vw-21.65rem)] bg-white px-[4.7rem] py-[3.25rem] rounded-[2rem] flex flex-col items-center">
+    <div className="fixed top-[5.81rem] left-0 w-screen h-full bg-[#0000004d] z-[10000]">
+      <div className="fixed top-2/4 translate-y-[-50%] left-2/4 translate-x-[-50%] bg-white px-[4.7rem] py-[3.25rem] rounded-[2rem] flex flex-col items-center">
         <span className="text-heading3 text-gray-9 flex flex-col items-center mb-[3.1rem]">
           {title}
         </span>
