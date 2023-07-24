@@ -1,5 +1,5 @@
 // Landing Page
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { ButtonLarge } from '@/components/Buttons';
 import MainIllustrationSrc from '../assets/images/main-illustration.svg';
@@ -9,6 +9,7 @@ import CounseleeManagementSrc from '../assets/images/counselee-management.svg';
 import EmotionGraphSrc from '../assets/images/emtion-graph.svg';
 import EmotionCreateSrc from '../assets/images/emotion-create.svg';
 import TimeTableSrc from '../assets/images/timetable.svg';
+import LoginModal from '@/components/modals/LoginModal';
 
 const LandingPage = () => {
   const bacgkroundRef = useRef<HTMLDivElement | null>(null);
@@ -16,6 +17,7 @@ const LandingPage = () => {
   const theTherapistRef = useRef<HTMLDivElement | null>(null);
   const theClientRef = useRef<HTMLImageElement | null>(null);
   const startBtnRef = useRef<HTMLImageElement | null>(null);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
   const observeList = [
     bacgkroundRef,
@@ -24,6 +26,7 @@ const LandingPage = () => {
     theClientRef,
     startBtnRef,
   ];
+
   useEffect(() => {
     const options = {
       root: null, // viewport
@@ -33,8 +36,6 @@ const LandingPage = () => {
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        console.log(entry.isIntersecting);
-
         const target: HTMLElement = entry.target as HTMLElement;
 
         const targetName = target.dataset.name; // data-name 값을 가져옴
@@ -51,24 +52,20 @@ const LandingPage = () => {
             if (entry.isIntersecting) {
               // entry.target.classList.add('animate__fadeIn');
               const children = entry.target.children;
-              console.log(children);
+
               const iconElement = children[0] as HTMLElement;
               const titleElement = children[1] as HTMLElement;
               const textElement = children[2] as HTMLElement;
-
-              console.log(typeof iconElement);
 
               iconElement.classList.add('animate__fadeIn');
               titleElement.classList.add('animate__fadeIn');
               textElement.classList.add('animate__fadeIn');
             } else {
               const children = entry.target.children;
-              console.log(children);
+
               const iconElement = children[0] as HTMLElement;
               const titleElement = children[1] as HTMLElement;
               const textElement = children[2] as HTMLElement;
-
-              console.log(typeof iconElement);
 
               iconElement.classList.remove('animate__fadeIn');
               titleElement.classList.remove('animate__fadeIn');
@@ -86,12 +83,12 @@ const LandingPage = () => {
 
               const leftImg = imageGroupElement.children[0] as HTMLElement;
               const rightImg = imageGroupElement.children[1] as HTMLElement;
-              console.log(leftImg);
+
               leftImg.classList.add('animate__fadeInLeft');
               rightImg.classList.add('animate__fadeInRight');
             } else {
               const children = entry.target.children;
-              console.log(children);
+
               const imageGroupElement = children[2] as HTMLElement;
 
               const leftImg = imageGroupElement.children[0];
@@ -121,9 +118,15 @@ const LandingPage = () => {
       observer.disconnect(); // 컴포넌트 언마운트 시 관찰 종료
     };
   }, []);
+
   return (
-    <div className="w-full">
-      <div className="w-full h-[87.7rem] bg-[#252525] flex justify-center items-center">
+    <div className="relative w-full">
+      {
+        /*코드입력모달*/ isLoginModalOpen && (
+          <LoginModal closeModal={() => setIsLoginModalOpen(false)} />
+        )
+      }
+      <div className="w-full min-w-[100rem] h-[87.7rem] bg-[#252525] flex justify-center items-center">
         <div
           className="flex flex-row items-center mr-[-5%] wow fadeIn"
           data-wow-duration="2s"
@@ -140,7 +143,7 @@ const LandingPage = () => {
             </div>
             <ButtonLarge
               text={'지금 시작하기'}
-              onClick={() => console.log('click')}
+              onClick={() => setIsLoginModalOpen(true)}
               disabled={false}
             />
           </div>
@@ -177,7 +180,7 @@ const LandingPage = () => {
         ref={aboutUsRef}
         data-name={'about-us'}
         className="w-full h-[36.8rem] bg-gray-9 flex flex-col
-       justify-center items-center gap-[1.8rem] animate__animated"
+       justify-center items-center gap-[1.8rem] animate__animated "
       >
         <Image
           className="animate__animated"
@@ -261,7 +264,7 @@ const LandingPage = () => {
         >
           <ButtonLarge
             text={'지금 시작하기'}
-            onClick={() => console.log('click')}
+            onClick={() => setIsLoginModalOpen(true)}
             disabled={false}
           />
         </div>
