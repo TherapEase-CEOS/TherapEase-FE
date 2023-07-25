@@ -9,9 +9,10 @@ import { USER_LOCALSTORAGE_KEY } from '@/constants/constants';
 import { useRouter } from 'next/router';
 import { updateUser } from '@/hooks/useUser';
 import { useRecoilState } from 'recoil';
-import { isCounselorState, isSignedInState } from '@/store/user';
 
-import { saveUser } from '@/hooks/useUser';
+import { userState } from '@/store/user';
+
+import { saveUser, saveToken } from '@/hooks/useUser';
 interface LoginModalProps {
   closeModal: () => void;
 }
@@ -19,9 +20,8 @@ interface LoginModalProps {
 export default function LoginModal({ closeModal }: LoginModalProps) {
   const [code, handleChangeCode] = useInput('');
   const router = useRouter();
-  const [isCounseleor, setIsCounselor] = useRecoilState(isCounselorState);
-  const [isSignedIn, setIsSignedIn] = useRecoilState(isSignedInState);
 
+  const [user, setUser] = useRecoilState<IUser>(userState);
   const handleOnSubmit = () => {
     // 입력값 검증 및 로그인 요청
     var body = { code: code as string };
@@ -47,16 +47,13 @@ export default function LoginModal({ closeModal }: LoginModalProps) {
       },
       onSuccess: (data: IUser, variables, context) => {
         console.log('login success', data, variables, context);
-        // updateUser(data);
         closeModal();
-        saveUser(data);
+        setUser(data); //user 전역상태 업데이트
+        saveToken(data.access, data.refresh); // 새로 고침 시 로그인 상태 유지를 위함
 
-        setIsSignedIn(true);
         if (data.role === 'counselor') {
-          setIsCounselor(true);
           router.push('/clients');
         } else {
-          setIsCounselor(false);
           router.push('/records');
         }
       },

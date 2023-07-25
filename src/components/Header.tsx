@@ -10,19 +10,15 @@ import { isSignedInState, isCounselorState } from '@/store/recoil';
 import LogoImage from '../assets/Header-logo.png';
 import { IUser } from '@/interfaces/interfaces';
 import { clearUser } from '@/hooks/useUser';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import { userState } from '@/store/user';
 
 const Header = () => {
   const router = useRouter();
-  const user: IUser = getUser();
 
-  const [isCounselor, setIsCounselor] = useRecoilState<boolean | null>(
-    isCounselorState,
-  );
-  const [isSignedIn, setIsSignedIn] = useRecoilState<boolean>(isSignedInState);
-
+  const [user, setUser] = useRecoilState<IUser>(userState);
   const [visibleLogout, setVisibleLogout] = useState<boolean>(false); // 로그아웃 버튼 표시 여부
-
+  const resetUserState = useResetRecoilState(userState);
   const BUTTON_STYLE = `h-fit text-body2 select-none`;
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -37,12 +33,11 @@ const Header = () => {
 
   const logout = () => {
     clearUser();
-
-    setIsSignedIn(false);
+    resetUserState();
     router.push('/');
   };
-  const rightMenus: React.ReactNode[] = isSignedIn
-    ? (isCounselor
+  const rightMenus: React.ReactNode[] = user
+    ? (user.role === 'counselor'
         ? [
             <Link
               href={{

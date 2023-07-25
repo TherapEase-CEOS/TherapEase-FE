@@ -1,16 +1,12 @@
 import axios from 'axios';
 import { USER_LOCALSTORAGE_KEY } from '@/constants/constants';
 import { IUser } from '@/interfaces/interfaces';
+import { ACCESS_TOKEN } from '@/constants/constants';
 
 const AxiosModule = () => {
   let token = null;
   if (typeof window !== 'undefined') {
-    const userData = localStorage.getItem(USER_LOCALSTORAGE_KEY);
-
-    if (userData) {
-      const user: IUser = JSON.parse(userData);
-      token = user?.access;
-    }
+    token = localStorage.getItem(ACCESS_TOKEN);
   }
   return axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,

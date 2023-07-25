@@ -11,7 +11,7 @@ import { IUser } from '@/interfaces/interfaces';
 import { queryKeys } from '@/constants/queryKeys';
 import { getUser } from '@/hooks/useUser';
 import { useQueryClient, useQuery } from '@tanstack/react-query';
-import { clearUser, updateUser, saveUser } from '@/hooks/useUser';
+import { clearUser, updateUser } from '@/hooks/useUser';
 import { QueryKey } from 'react-query';
 const App = ({ Component, pageProps }: AppProps) => {
   const isServer = typeof window === 'undefined';
