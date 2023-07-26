@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
 import LoginModal from './modals/LoginModal';
-import { getUser } from '@/hooks/useUser';
+import { getUser, useUser } from '@/hooks/useUser';
 import { useRecoilValue } from 'recoil';
 import { isSignedInState, isCounselorState } from '@/store/recoil';
-
+import { UseQueryResult } from '@tanstack/react-query';
 import LogoImage from '../assets/Header-logo.png';
 import { IUser } from '@/interfaces/interfaces';
 import { clearUser } from '@/hooks/useUser';
@@ -15,6 +15,13 @@ import { userState } from '@/store/user';
 
 const Header = () => {
   const router = useRouter();
+
+  const {
+    data,
+    isSuccess,
+    isError,
+    error,
+  }: UseQueryResult<IUser | null, unknown> = useUser(); // 새로 고침시 로그인 유지
 
   const [user, setUser] = useRecoilState<IUser>(userState);
   const [visibleLogout, setVisibleLogout] = useState<boolean>(false); // 로그아웃 버튼 표시 여부
