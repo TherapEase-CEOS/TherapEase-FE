@@ -15,7 +15,7 @@ const TimeTablePage = () => {
   return (
     <div
       className="w-full h-full flex flex-row justify-center items-start 
-    gap-4  mt-[6.6rem] box-border"
+    gap-4  mt-[6.6rem] mb-[12.7rem] box-border"
     >
       <div className="flex flex-col gap-4">
         <Profile editable={isEditMode} />
