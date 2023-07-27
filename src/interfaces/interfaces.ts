@@ -17,6 +17,12 @@ export interface IUser {
   access: string;
 }
 
+export interface ICounselorProfile {
+  contact: string;
+  introduction: string;
+  engagement: string;
+}
+
 export interface IEmotion {
   mainEmotion: string;
   subEmotion: string;

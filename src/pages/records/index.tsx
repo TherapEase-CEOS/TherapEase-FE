@@ -46,6 +46,8 @@ const RecordsPage = () => {
       {isSignedInCounselor ? <LeftBar /> : null}
 
       {/* 메인 영역 */}
+      <>
+      ㅇㄴㅁㄹㅁㄴㅇㄹㅁㅇㄴㄹㅁㅇㄴ</>
       <main
         className={`w-[calc(100%-0.5rem)] h-full flex flex-col items-center mt-[6.738rem] mb-[3.7rem] gap-[1.6rem] ${
           isSignedInCounselor ? 'ml-[13.9rem]' : null
