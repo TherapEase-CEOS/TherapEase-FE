@@ -48,8 +48,6 @@ const clearUser = () => {
   // 로그아웃 처리
 
   //queryClient.setQueryData(queryKeys.user, null);
-  //setIsSignedIn(false);
-
   removeStoredToken();
 };
 

@@ -5,8 +5,6 @@ import 'animate.css';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
-
-import ClientProviders from '@/utils/useClient';
 import { IUser } from '@/interfaces/interfaces';
 import { queryKeys } from '@/constants/queryKeys';
 import { getUser } from '@/hooks/useUser';

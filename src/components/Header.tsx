@@ -2,16 +2,22 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
-import LoginModal from './modals/LoginModal';
-import { getUser, useUser } from '@/hooks/useUser';
-import { useRecoilValue } from 'recoil';
-import { isSignedInState, isCounselorState } from '@/store/recoil';
-import { UseQueryResult } from '@tanstack/react-query';
-import LogoImage from '../assets/Header-logo.png';
-import { IUser } from '@/interfaces/interfaces';
-import { clearUser } from '@/hooks/useUser';
+
 import { useRecoilState, useResetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
+
+import LoginModal from './modals/LoginModal';
+import LogoImage from '../assets/Header-logo.png';
+
 import { userState } from '@/store/user';
+import { getUser, useUser } from '@/hooks/useUser';
+import { clearUser } from '@/hooks/useUser';
+import { IUser } from '@/interfaces/interfaces';
+
+
+import { UseQueryResult } from '@tanstack/react-query';
+
+
 
 const Header = () => {
   const router = useRouter();
@@ -23,7 +29,7 @@ const Header = () => {
     error,
   }: UseQueryResult<IUser | null, unknown> = useUser(); // 새로 고침시 로그인 유지
 
-  const [user, setUser] = useRecoilState<IUser>(userState);
+  const [user, setUser] = useRecoilState<IUser|null>(userState);
   const [visibleLogout, setVisibleLogout] = useState<boolean>(false); // 로그아웃 버튼 표시 여부
   const resetUserState = useResetRecoilState(userState);
   const BUTTON_STYLE = `h-fit text-body2 select-none`;

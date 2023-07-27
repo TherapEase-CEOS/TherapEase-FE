@@ -22,7 +22,7 @@ import { IUser } from '@/interfaces/interfaces';
 const RecordsPage = () => {
   const router = useRouter();
 
-  const user: IUser = useRecoilValue<IUser>(userState); // 로그인 여부
+  const user = useRecoilValue<IUser|null>(userState); // 로그인 여부
   const isSignedIn = user !== null;
   const isCounselor = user?.role === 'counselee'; // 상담자,내담자 여부
   const isSignedInCounselor = isSignedIn && isCounselor;
