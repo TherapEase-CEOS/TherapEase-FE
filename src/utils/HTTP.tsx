@@ -5,6 +5,8 @@ import { ACCESS_TOKEN } from '@/constants/constants';
 
 const AxiosModule = () => {
   let token = null;
+
+  console.log('모듈 생성!');
   if (typeof window !== 'undefined') {
     token = localStorage.getItem(ACCESS_TOKEN);
   }
@@ -12,7 +14,7 @@ const AxiosModule = () => {
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
+      Authorization: token ? `Bearer ${token}` : '',
     },
   });
 };
