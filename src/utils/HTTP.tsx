@@ -12,7 +12,7 @@ const AxiosModule = () => {
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 };
