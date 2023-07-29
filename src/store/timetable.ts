@@ -1,6 +1,15 @@
 import { atom } from 'recoil';
 
-import { ITimeTable } from '@/interfaces/interfaces';
+import { ICounselorProfile, ITimeTable } from '@/interfaces/interfaces';
+
+export const counselorProfileState = atom<ICounselorProfile>({
+  key: 'counselorProfileState',
+  default: {
+    name: '',
+    contact: '',
+    introduction: '',
+  },
+});
 
 export const timeTableState = atom<ITimeTable>({
   key: 'timeTableState',

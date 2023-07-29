@@ -1,11 +1,45 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+
+import { useRecoilState } from 'recoil';
+import { counselorProfileState } from '@/store/timetable';
+
 import DefaultProfileSrc from '../../assets/images/defatult-profilie.png';
 import Image from 'next/image';
 import ProfileData from '../../data/profile.json';
 import useInput from '@/hooks/useInput';
 
+import { queryKeys } from '@/constants/queryKeys';
+import { useQuery } from '@tanstack/react-query';
+import { getCounselorProfile } from '@/hooks/queries/timetable';
+import { ICounselorProfile } from '@/interfaces/interfaces';
+
 export default function Profile({ editable }: { editable: boolean }) {
-  const { name, contact, introduction } = ProfileData;
+  const router = useRouter();
+  const { id: counselor_id } = router.query;
+  const [counselorProfile, setCounselorProfile] = useRecoilState(
+    counselorProfileState,
+  );
+  const { name, contact, introduction } = counselorProfile;
+
+  const { data: profile, isLoading } = useQuery(
+    [queryKeys.counselorProfile],
+    () => getCounselorProfile(1),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        setCounselorProfile(data);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    },
+  );
+
+  if (isLoading) {
+    // TODO 로딩 gif 로 변경
+    return <div>Loading...</div>;
+  }
 
   return (
     <div
@@ -58,7 +92,7 @@ const IntroductionInputField = ({
 }) => {
   const [introductionValue, handleChangeIntroductionValue] = useInput(text);
   const bgColor = disabled ? 'bg-white' : 'bg-gray-2';
-  const characterCnt: number = (introductionValue as string).length;
+  const characterCnt: number = (introductionValue as string)?.length;
   return (
     <div className="relative">
       <textarea
