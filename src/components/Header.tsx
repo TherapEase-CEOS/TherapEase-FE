@@ -84,7 +84,9 @@ const Header = () => {
             pathname: `/timetable/${counselor_id}`,
           }}
           className={`${BUTTON_STYLE} ${
-            router.pathname === '/timetable' ? 'text-gray-9' : 'text-gray-4'
+            router.pathname === `/timetable/[id]`
+              ? 'text-gray-9'
+              : 'text-gray-4'
           }`}
         >
           상담일정표
