@@ -1,16 +1,27 @@
 // TimeTable Page
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+
 import Profile from '@/components/timetable/Profile';
 import TimeTable from '@/components/timetable/TimeTable';
 import Image from 'next/image';
 import CalendarIconSrc from '../../assets/icons/calendar.svg';
 import { useRecoilValue } from 'recoil';
 
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { queryKeys } from '@/constants/queryKeys';
+import { getCounselorProfile } from '@/hooks/queries/timetable';
+
 import { userState } from '@/store/user';
+import { QueryKey } from 'react-query';
+
 const TimeTablePage = () => {
+  const router = useRouter();
+  const { id: counselor_id } = router.query;
+
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const isCounselor = useRecoilValue(userState)?.role === 'counselor';
+  const isAuthorized = useRecoilValue(userState)?.id === parseInt(counselor_id);
   // TODO -> 상담사 본인이라면 수정가능하도록 id 로 비교하기
 
   return (
@@ -20,7 +31,7 @@ const TimeTablePage = () => {
     >
       <div className="flex flex-col gap-4">
         <Profile editable={isEditMode} />
-        {isCounselor && (
+        {isAuthorized && (
           <EditBtn isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
         )}
       </div>
