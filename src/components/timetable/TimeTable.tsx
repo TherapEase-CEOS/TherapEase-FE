@@ -3,6 +3,9 @@ import { CSSProperties } from 'react';
 import TimeTableCol from './TimeTableCol';
 import { useRecoilState } from 'recoil';
 import { timeTableState } from '@/store/timetable';
+import { getTimetable } from '@/hooks/queries/timetable';
+import { useQuery } from '@tanstack/react-query';
+import { queryKeys } from '@/constants/queryKeys';
 
 export default function TimeTable({ isEditMode }: { isEditMode: boolean }) {
   return (
@@ -41,6 +44,16 @@ const THead = () => {
 const TBody = ({ disabled }: { disabled: boolean }) => {
   // 타임테이블 데이터로 최초 fetching 시에 timetable recoil값 초기화
   const [timeTableData, setTimeTableData] = useRecoilState(timeTableState);
+
+  const { data, isLoading } = useQuery([queryKeys.timetable], getTimetable, {
+    onSuccess: (data) => {
+      console.log(data.data[0]);
+      setTimeTableData(data.data[0]);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
   const days_en = [
     'sunday',
     'monday',
@@ -51,6 +64,9 @@ const TBody = ({ disabled }: { disabled: boolean }) => {
     'saturday',
   ];
   const overlayStyle = disabled ? 'z-2 pointer-events-none' : '';
+  if (isLoading) {
+    return <div>loading...</div>;
+  }
   return (
     <div className={`grid w-[63rem] grid-cols-7 ${overlayStyle}`}>
       {days_en.map((day_en) => (

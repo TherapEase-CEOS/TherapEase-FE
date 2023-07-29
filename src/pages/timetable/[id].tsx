@@ -21,8 +21,8 @@ const TimeTablePage = () => {
 
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const isAuthorized = useRecoilValue(userState)?.id === parseInt(counselor_id);
-  // TODO -> 상담사 본인이라면 수정가능하도록 id 로 비교하기
+  const isAuthorized =
+    useRecoilValue(userState)?.id === parseInt(counselor_id as string); // 상담사 본인만 수정 가능
 
   return (
     <div
