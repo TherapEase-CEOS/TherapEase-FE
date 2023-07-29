@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { useRecoilState } from 'recoil';
@@ -17,6 +17,7 @@ import { ICounselorProfile } from '@/interfaces/interfaces';
 export default function Profile({ editable }: { editable: boolean }) {
   const router = useRouter();
   const { id: counselor_id } = router.query;
+
   const [counselorProfile, setCounselorProfile] = useRecoilState(
     counselorProfileState,
   );
@@ -24,8 +25,9 @@ export default function Profile({ editable }: { editable: boolean }) {
 
   const { data: profile, isLoading } = useQuery(
     [queryKeys.counselorProfile],
-    () => getCounselorProfile(1),
+    () => getCounselorProfile(counselor_id),
     {
+      enabled: router.isReady,
       onSuccess: (data) => {
         console.log(data);
         setCounselorProfile(data);
