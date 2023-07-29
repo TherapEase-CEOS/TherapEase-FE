@@ -15,6 +15,13 @@ export interface IUser {
   role: string;
   refresh: string;
   access: string;
+  partnerId?: number; // 자신과 연동된 내담자 아이디
+}
+
+export interface ICounselorProfile {
+  name: string;
+  contact: string;
+  introduction: string;
 }
 
 export interface IEmotion {
