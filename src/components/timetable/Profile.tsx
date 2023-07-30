@@ -23,7 +23,11 @@ export default function Profile({ editable }: { editable: boolean }) {
   );
   const { name, contact, introduction } = counselorProfile;
 
-  const { data: profile, isLoading } = useQuery(
+  const {
+    data: profile,
+    isLoading,
+    isLoadingError,
+  } = useQuery(
     [queryKeys.counselorProfile],
     () => getCounselorProfile(counselor_id),
     {
@@ -37,10 +41,48 @@ export default function Profile({ editable }: { editable: boolean }) {
       },
     },
   );
+  const handleChangeContact: React.ChangeEventHandler<HTMLInputElement> = (
+    e,
+  ) => {
+    setCounselorProfile((prev) => {
+      return {
+        ...prev,
+        contact: e.target.value,
+      };
+    });
+  };
+
+  const handleChangeIntroduction: React.ChangeEventHandler<
+    HTMLTextAreaElement
+  > = (e) => {
+    setCounselorProfile((prev) => {
+      return {
+        ...prev,
+        introduction: e.target.value,
+      };
+    });
+  };
 
   if (isLoading) {
     // TODO 로딩 gif 로 변경
-    return <div>Loading...</div>;
+    return (
+      <div
+        className="w-[26rem] h-[44rem] flex flex-col justify-center rounded-2xl items-center bg-white
+  pt-[1.6rem] px-[2.1rem]"
+      >
+        Loading...
+      </div>
+    );
+  }
+  if (isLoadingError) {
+    return (
+      <div
+        className="w-[26rem] h-[44rem] flex flex-col justify-center rounded-2xl items-center bg-white
+pt-[1.6rem] px-[2.1rem]"
+      >
+        Load failed
+      </div>
+    );
   }
 
   return (
@@ -59,8 +101,16 @@ export default function Profile({ editable }: { editable: boolean }) {
         {name} 상담사
       </span>
       <div className="w-full flex flex-col gap-[9px] ">
-        <ContactInputField text={contact} disabled={!editable} />
-        <IntroductionInputField text={introduction} disabled={!editable} />
+        <ContactInputField
+          text={contact}
+          disabled={!editable}
+          handleChangeContact={handleChangeContact}
+        />
+        <IntroductionInputField
+          text={introduction}
+          disabled={!editable}
+          handleChangeIntroduction={handleChangeIntroduction}
+        />
       </div>
     </div>
   );
@@ -69,18 +119,19 @@ export default function Profile({ editable }: { editable: boolean }) {
 const ContactInputField = ({
   text,
   disabled,
+  handleChangeContact,
 }: {
   text: string;
   disabled: boolean;
+  handleChangeContact: React.ChangeEventHandler<HTMLInputElement>;
 }) => {
-  const [contactValue, handleChangeContact] = useInput(text);
   const bgColor = disabled ? 'bg-white' : 'bg-gray-2';
   return (
     <input
       className={`h-[2.5rem] w-full text-body2 text-gray-8 rounded-[8px]
       self-start px-[1rem] ${bgColor} focus:outline-none`}
       onChange={handleChangeContact}
-      value={contactValue}
+      value={text}
       disabled={disabled}
     />
   );
@@ -88,20 +139,21 @@ const ContactInputField = ({
 const IntroductionInputField = ({
   text,
   disabled,
+  handleChangeIntroduction,
 }: {
   text: string;
   disabled: boolean;
+  handleChangeIntroduction: React.ChangeEventHandler<HTMLTextAreaElement>;
 }) => {
-  const [introductionValue, handleChangeIntroductionValue] = useInput(text);
   const bgColor = disabled ? 'bg-white' : 'bg-gray-2';
-  const characterCnt: number = (introductionValue as string)?.length;
+  const characterCnt: number = (text as string)?.length;
   return (
     <div className="relative">
       <textarea
         className={`w-full h-[17.4rem] text-body3 text-gray-6 rounded-[8px] self-start p-[1rem] 
       align-start ${bgColor} resize-none focus:outline-none`}
-        onChange={handleChangeIntroductionValue}
-        value={introductionValue}
+        onChange={handleChangeIntroduction}
+        value={text}
         disabled={disabled}
         maxLength={99}
       ></textarea>
