@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil';
 import { counselorProfileState } from '@/store/timetable';
 
 import DefaultProfileSrc from '../../assets/images/defatult-profilie.png';
+import LoadingSpinnerSrc from '../../assets/spinner.gif';
 import Image from 'next/image';
 import ProfileData from '../../data/profile.json';
 import useInput from '@/hooks/useInput';
@@ -70,7 +71,12 @@ export default function Profile({ editable }: { editable: boolean }) {
         className="w-[26rem] h-[44rem] flex flex-col justify-center rounded-2xl items-center bg-white
   pt-[1.6rem] px-[2.1rem]"
       >
-        Loading...
+        <Image
+          src={LoadingSpinnerSrc}
+          alt="Sample GIF"
+          width={100}
+          height={100}
+        />
       </div>
     );
   }
@@ -129,9 +135,10 @@ const ContactInputField = ({
   return (
     <input
       className={`h-[2.5rem] w-full text-body2 text-gray-8 rounded-[8px]
-      self-start px-[1rem] ${bgColor} focus:outline-none`}
+      self-start px-[1rem] ${bgColor} focus:outline-none placeholder:text-body3 placehoder:text-gray-4`}
       onChange={handleChangeContact}
       value={text}
+      placeholder="연락처 혹은 이메일을 입력하세요."
       disabled={disabled}
     />
   );
@@ -151,11 +158,12 @@ const IntroductionInputField = ({
     <div className="relative">
       <textarea
         className={`w-full h-[17.4rem] text-body3 text-gray-6 rounded-[8px] self-start p-[1rem] 
-      align-start ${bgColor} resize-none focus:outline-none`}
+      align-start ${bgColor} resize-none focus:outline-none placeholder:text-body3 placehoder:text-gray-4`}
         onChange={handleChangeIntroduction}
         value={text}
         disabled={disabled}
         maxLength={99}
+        placeholder="상담 정보를 입력하세요."
       ></textarea>
       {!disabled && (
         <p className="absolute p-[1rem] bottom-0 right-0 text-body-4 text-gray-4">
