@@ -21,7 +21,7 @@ export const updateCounselorProfile = async (
   counselorId: any,
   body: ICounselorProfile,
 ) => {
-  const response = await HTTP.patch(`/accounts/profile/${counselorId}/`, body);
+  const response = await HTTP.patch(`/accounts/profile/`, body);
 
   return response.data;
 };
