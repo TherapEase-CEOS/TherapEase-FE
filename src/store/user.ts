@@ -1,8 +1,6 @@
 import { atom, atomFamily } from 'recoil';
 import { IClient, IUser } from '@/interfaces/interfaces';
 
-import { DUMMY_CLIENTS_LIST } from '@/constants/DUMMY_DATA';
-
 export const userState = atom<IUser | null>({
   key: 'userState',
   default: null,
