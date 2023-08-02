@@ -6,8 +6,19 @@ import { BiSolidPencil } from 'react-icons/bi';
 import { FiMoreHorizontal } from 'react-icons/fi';
 
 import { IClient } from '@/interfaces/interfaces';
-import { UseMutationResult, useMutation } from '@tanstack/react-query';
-import { updateClient } from '@/hooks/queries/client';
+import {
+  UseMutationResult,
+  useMutation,
+  useQueryClient,
+} from '@tanstack/react-query';
+import {
+  updateClient,
+  deleteClient,
+  changeCounseleeStatus,
+  addClient,
+} from '@/hooks/queries/client';
+
+import { queryKeys } from '@/constants/queryKeys';
 
 interface Props {
   clientInfo: IClient;

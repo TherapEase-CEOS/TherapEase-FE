@@ -14,7 +14,13 @@ import { TfiClose } from 'react-icons/tfi';
 import Alert from '@/components/Alert';
 import ConfirmModal from '@/components/modals/ConfirmModal';
 
-import { useQuery } from '@tanstack/react-query';
+import {
+  useQuery,
+  useQueryClient,
+  useMutation,
+  UseMutationResult,
+} from '@tanstack/react-query';
+import { deleteClient } from '@/hooks/queries/client';
 import { queryKeys } from '@/constants/queryKeys';
 import { getClient } from '@/hooks/queries/client';
 
@@ -23,7 +29,7 @@ const ClientsPage = () => {
     useRecoilState<IClient[]>(clientsListState);
 
   const { data, isLoading, isLoadingError } = useQuery(
-    [queryKeys.counselorProfile],
+    [queryKeys.clientList],
     getClient,
     {
       onSuccess: (data) => {
@@ -45,6 +51,25 @@ const ClientsPage = () => {
     counselingDate: '',
     goal: '',
   });
+
+  const queryClient = useQueryClient();
+  const clientDeletion: UseMutationResult<IClient, any, string> = useMutation(
+    (id) => deleteClient(id),
+    {
+      onError: (error, variable, context) => {
+        // error
+        console.log(error);
+      },
+      onSuccess: (data: IClient, variables, context) => {
+        console.log('client delete success', data, variables, context);
+
+        // 내담자 목록 refetch
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.clientList],
+        });
+      },
+    },
+  );
 
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
   const [alertText, setAlertText] = useState<string>('');
@@ -104,6 +129,7 @@ const ClientsPage = () => {
     // TODO - 내담자 삭제 api 연동
     // TODO - 내담자 리스트 get api 연동
 
+    clientDeletion.mutate(selectedClient.id);
     setIsDeleteModalVisible(false);
   };
 

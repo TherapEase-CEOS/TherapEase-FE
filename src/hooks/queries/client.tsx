@@ -20,7 +20,7 @@ export const updateClient = async (counseleeId: number | string, body: any) => {
 };
 
 export const deleteClient = async (counseleeId: number | string) => {
-  const response = await HTTP.post(`/counselees/delete/${counseleeId}/`);
+  const response = await HTTP.delete(`/counselees/delete/${counseleeId}/`);
 
   return response.data;
 };
