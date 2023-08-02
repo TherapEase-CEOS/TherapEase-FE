@@ -34,6 +34,7 @@ const ClientCard = ({
   setIsDeleteModalVisible,
 }: Props) => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const {
     name,
@@ -45,19 +46,34 @@ const ClientCard = ({
     goal,
   } = clientInfo;
 
-  const clientMutation: UseMutationResult<
-    IClient,
-    any,
-    Partial<IClient>
-  > = useMutation((body) => updateClient(id, body), {
-    onError: (error, variable, context) => {
-      // error
-      console.log(error);
+  const clientMutation: UseMutationResult<IClient, any, string> = useMutation(
+    async (type: string) => {
+      switch (type) {
+        case 'change_status': // 상태 변경
+          console.log('change');
+          return await changeCounseleeStatus(id);
+
+        case 'update': // 상담 목적 수정
+          var body = {
+            goal: goalInputValue,
+          };
+          return await updateClient(id, body);
+      }
     },
-    onSuccess: (data: IClient, variables, context) => {
-      console.log('client mutate success', data, variables, context);
+    {
+      onError: (error, variable, context) => {
+        // error
+        console.log(error);
+      },
+      onSuccess: (data: IClient, variables, context) => {
+        console.log('client mutate success', data, variables, context);
+        // 내담자 목록 refetch
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.clientList],
+        });
+      },
     },
-  });
+  );
 
   const [isDetailMenuClicked, setIsDetailMenuClicked] =
     useState<boolean>(false);
@@ -78,10 +94,7 @@ const ClientCard = ({
   const handleInputSubmit = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    var body = {
-      goal: goalInputValue,
-    };
-    clientMutation.mutate(body);
+    clientMutation.mutate('update');
     // TODO - api 연동
     setIsEditMode(!isEditMode);
   };
@@ -103,6 +116,8 @@ const ClientCard = ({
   const handleDoneClient = (e: React.MouseEvent) => {
     e.stopPropagation();
     // TODO - api 연동 - 내담자 완료처리
+    clientMutation.mutate('change_status');
+    setIsDetailMenuClicked(false);
   };
 
   return (
