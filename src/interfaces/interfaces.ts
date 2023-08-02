@@ -1,10 +1,10 @@
-export interface Iclient {
-  counseleeName: string;
-  counseleeId: string;
+export interface IClient {
+  id: string;
+  name: string;
+  code: string;
   start: string;
-  inProgress: boolean;
+  progress: boolean;
   counselingDate: string;
-  counselingTime: string;
   goal: string;
 }
 

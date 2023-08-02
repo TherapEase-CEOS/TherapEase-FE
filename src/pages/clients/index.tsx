@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { clientsListState } from '../../store/user';
 
-import { Iclient } from '@/interfaces/interfaces';
+import { IClient } from '@/interfaces/interfaces';
 import ClientCard from '@/components/ClientCard';
 import { ButtonLarge, ButtonSmall } from '@/components/Buttons';
 
@@ -12,17 +12,21 @@ import { TfiClose } from 'react-icons/tfi';
 import Alert from '@/components/Alert';
 import ConfirmModal from '@/components/modals/ConfirmModal';
 
+import { useQuery } from '@tanstack/react-query';
+import { queryKeys } from '@/constants/queryKeys';
+import { getClient } from '@/hooks/queries/client';
+
 const ClientsPage = () => {
   const [clientsList, setClientsList] =
-    useRecoilState<Iclient[]>(clientsListState);
+    useRecoilState<IClient[]>(clientsListState);
 
-  const [selectedClient, setSelectedClient] = useState<Iclient>({
-    counseleeName: '',
-    counseleeId: '',
+  const [selectedClient, setSelectedClient] = useState<IClient>({
+    name: '',
+    id: '',
+    code: '',
     start: '',
-    inProgress: false,
+    progress: false,
     counselingDate: '',
-    counselingTime: '',
     goal: '',
   });
 
@@ -64,7 +68,7 @@ const ClientsPage = () => {
       // setClientsList()
 
       onCloseAddModal();
-      showAlert(`${selectedClient.counseleeName}님 추가 완료!`); // counseleeName 수정
+      showAlert(`${selectedClient.name}님 추가 완료!`); // counseleeName 수정
     } catch (e) {
       setIsAddValidationError(true);
     }
@@ -133,17 +137,17 @@ const ClientsPage = () => {
         {clientsList.length ? (
           // 내담자 존재
           <div className="w-full flex flex-wrap justify-center gap-[1.6rem] mt-[3.236rem]">
-            {clientsList.filter((client: Iclient) =>
-              client.counseleeName.includes(searchInputValue),
+            {clientsList.filter((client: IClient) =>
+              client.name.includes(searchInputValue),
             ).length ? (
               // 검색어 일치하는 내담자 존재
               clientsList
-                .filter((client: Iclient) =>
-                  client.counseleeName.includes(searchInputValue),
+                .filter((client: IClient) =>
+                  client.name.includes(searchInputValue),
                 )
-                .map((client: Iclient) => {
+                .map((client: IClient) => {
                   return (
-                    <div className="card" key={client.counseleeId}>
+                    <div className="card" key={client.id}>
                       <ClientCard
                         clientInfo={client}
                         detailMenu={true}
@@ -210,9 +214,7 @@ const ClientsPage = () => {
             title="내담자 삭제"
             content={
               <>
-                <span className="text-heading2">
-                  {selectedClient?.counseleeName}
-                </span>
+                <span className="text-heading2">{selectedClient?.name}</span>
                 <div>내담자에 대한 정보가 모두 사라집니다!</div>
                 <div>정말 삭제하시겠습니까?</div>
               </>
@@ -220,7 +222,7 @@ const ClientsPage = () => {
             confirmText="네, 삭제하겠습니다."
             cancleText="아니오, 삭제하지 않겠습니다."
             onConfirm={() => {
-              onDeleteClient(selectedClient?.counseleeId);
+              onDeleteClient(selectedClient?.id);
             }}
             onCancle={() => setIsDeleteModalVisible(false)}
           />
