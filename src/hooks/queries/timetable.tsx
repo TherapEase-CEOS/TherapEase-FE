@@ -1,14 +1,14 @@
 import HTTP from '@/utils/HTTP';
 import { ITimeTable, ICounselorProfile } from '@/interfaces/interfaces';
 
-export const getTimetable = async () => {
-  const response = await HTTP.get('/schedule/');
+export const getTimetable = async (counselorId: any) => {
+  const response = await HTTP.get(`/schedule/${counselorId}/`);
 
   return response.data;
 };
 
-export const updateTimetable = async (body: ITimeTable) => {
-  const response = await HTTP.post('/schedule/', body);
+export const updateTimetable = async (counselorId: any, body: ITimeTable) => {
+  const response = await HTTP.put(`/schedule/${counselorId}/`, body);
 
   return response.data;
 };
