@@ -5,19 +5,28 @@ import { ACCESS_TOKEN } from '@/constants/constants';
 
 const AxiosModule = () => {
   let token = null;
-
-  console.log('모듈 생성!');
   if (typeof window !== 'undefined') {
+    // execute only client side
     token = localStorage.getItem(ACCESS_TOKEN);
   }
-  return axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: token ? `Bearer ${token}` : '',
-    },
-  });
+
+  const axiosModule = token
+    ? axios.create({
+        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    : axios.create({
+        baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+  return axiosModule;
 };
 
-const HTTP = AxiosModule(); // 매 API 실행 요청시에 새롭게 token 존재 여부를 refresh 할 수 있도록.
+const HTTP = AxiosModule();
 export default HTTP;

@@ -45,9 +45,10 @@ const Header = () => {
 
   const logout = () => {
     clearUser();
-    resetUserState();
+    setUser(null);
     router.push('/');
   };
+
   const rightMenus: React.ReactNode[] = user
     ? (user.role === 'counselor'
         ? [
@@ -124,7 +125,7 @@ const Header = () => {
 
   useEffect(() => {
     setVisibleLogout(false);
-  }, [router]);
+  }, [router.pathname]);
 
   return (
     <div className="fixed top-0 flex justify-between items-center w-screen h-[5.81rem] bg-white shadow-shadow z-10">

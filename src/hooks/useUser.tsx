@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 
 const useUser = () => {
   const router = useRouter();
-  const setUserState = useSetRecoilState(userState);
+  const [user, setUser] = useRecoilState(userState);
   const resetUserState = useResetRecoilState(userState);
 
   const accessToken = getStoredToken(); // 로컬 스토리지에서 토큰 정보 가져옴
@@ -23,18 +23,23 @@ const useUser = () => {
 
   const queryKey: QueryKey = queryKeys.user;
   return useQuery([queryKey], getUser, {
-    enabled: !!accessToken,
+    enabled: user === null, // 새로고침해서 user value 가 날아갔을 때에만
     onSuccess: (data: IUser | null) => {
       if (!data) {
+        resetUserState();
         clearUser(); // access_token 이 유효하지 않은 경우 or 로그인 중이 아닐경우
       } else {
-        setUserState(data);
+        setUser(data);
+        console.log('onsuccess');
+        console.log(data);
       }
     },
     onError: (e) => {
+      console.log(e);
+
       //401 unauthorization
       resetUserState();
-      console.log('error');
+      console.log('authorization failed');
       router.push('/'); // 랜딩페이지로
     },
   });
