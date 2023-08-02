@@ -8,7 +8,7 @@ export const getClient = async () => {
 };
 
 export const addClient = async (body: { code: string }) => {
-  const response = await HTTP.post(`/counselees/list/`, body);
+  const response = await HTTP.post(`/counselees/`, body);
 
   return response.data;
 };

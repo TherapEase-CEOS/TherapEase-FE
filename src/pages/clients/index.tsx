@@ -20,9 +20,13 @@ import {
   useMutation,
   UseMutationResult,
 } from '@tanstack/react-query';
-import { deleteClient } from '@/hooks/queries/client';
+import {
+  getClient,
+  addClient,
+  changeCounseleeStatus,
+  deleteClient,
+} from '@/hooks/queries/client';
 import { queryKeys } from '@/constants/queryKeys';
-import { getClient } from '@/hooks/queries/client';
 
 const ClientsPage = () => {
   const [clientsList, setClientsList] =
@@ -41,6 +45,42 @@ const ClientsPage = () => {
       },
     },
   );
+  const [addInputValue, setAddInputValue] = useState<string>('');
+
+  const clientMutation: UseMutationResult<IClient, any, string> = useMutation(
+    async (type: string) => {
+      switch (type) {
+        case 'add':
+          var body = { code: addInputValue };
+          console.log(body);
+          return await addClient(body);
+        case 'delete':
+          return await deleteClient(selectedClient.id);
+
+        default:
+          return () => selectedClient;
+      }
+    },
+    {
+      onError: (error, variable, context) => {
+        // error
+        console.log(error);
+      },
+      onSuccess: (data: IClient, variables, context) => {
+        console.log('client mutation success', data, variables, context);
+        if (variables === 'add') {
+          setAddInputValue('');
+        }
+
+        // 내담자 목록 refetch
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.clientList],
+        });
+      },
+    },
+  );
+
+  const queryClient = useQueryClient();
 
   const [selectedClient, setSelectedClient] = useState<IClient>({
     name: '',
@@ -51,25 +91,6 @@ const ClientsPage = () => {
     counselingDate: '',
     goal: '',
   });
-
-  const queryClient = useQueryClient();
-  const clientDeletion: UseMutationResult<IClient, any, string> = useMutation(
-    (id) => deleteClient(id),
-    {
-      onError: (error, variable, context) => {
-        // error
-        console.log(error);
-      },
-      onSuccess: (data: IClient, variables, context) => {
-        console.log('client delete success', data, variables, context);
-
-        // 내담자 목록 refetch
-        queryClient.invalidateQueries({
-          queryKey: [queryKeys.clientList],
-        });
-      },
-    },
-  );
 
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
   const [alertText, setAlertText] = useState<string>('');
@@ -92,11 +113,12 @@ const ClientsPage = () => {
   };
 
   // 내담자 추가
-  const [addInputValue, setAddInputValue] = useState<string>('');
+
   const [isAddModalVisible, setIsAddModalVisible] = useState<boolean>(false);
   const [isAddValidationError, setIsAddValidationError] =
     useState<boolean>(false);
 
+  console.log(addInputValue);
   const handleAddInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddInputValue(e.target.value);
 
@@ -108,15 +130,16 @@ const ClientsPage = () => {
       // TODO - 내담자 validation api 연동
       // setClientsList()
 
+      clientMutation.mutate('add');
+
       onCloseAddModal();
-      showAlert(`${selectedClient.name}님 추가 완료!`); // counseleeName 수정
+      showAlert(`${clientMutation.data?.name}님 추가 완료!`); // counseleeName 수정
     } catch (e) {
       setIsAddValidationError(true);
     }
   };
 
   const onCloseAddModal = () => {
-    setAddInputValue('');
     setIsAddModalVisible(false);
     setIsAddValidationError(false);
   };
@@ -129,7 +152,7 @@ const ClientsPage = () => {
     // TODO - 내담자 삭제 api 연동
     // TODO - 내담자 리스트 get api 연동
 
-    clientDeletion.mutate(selectedClient.id);
+    clientMutation.mutate('delete');
     setIsDeleteModalVisible(false);
   };
 
