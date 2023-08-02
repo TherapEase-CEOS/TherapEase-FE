@@ -8,13 +8,10 @@ export const login = async (body: { code: string }) => {
 
 export const getUser = async () => {
   const response = await HTTP.get(`/accounts/check/`);
-  return response.data;
-  /*
+  const partnerId = response.data.accountId;
+
   return {
-    id: 1,
-    name: '황재령',
-    code: 'or1234',
-    role: 'counselor',
+    ...response.data,
+    partnerId,
   };
-  */
 };
