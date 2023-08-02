@@ -13,22 +13,19 @@ export const addClient = async (body: { code: string }) => {
   return response.data;
 };
 
-export const updateClient = async (
-  counseleeId: number,
-  body: { code: string },
-) => {
-  const response = await HTTP.patch(`/counselees/${counseleeId}`, body);
+export const updateClient = async (counseleeId: number | string, body: any) => {
+  const response = await HTTP.patch(`/counselees/${counseleeId}/`, body);
 
   return response.data;
 };
 
-export const deleteClient = async (counseleeId: number) => {
-  const response = await HTTP.post(`/counselees/delete/${counseleeId}`);
+export const deleteClient = async (counseleeId: number | string) => {
+  const response = await HTTP.post(`/counselees/delete/${counseleeId}/`);
 
   return response.data;
 };
 
-export const changeCounseleeStatus = async (counseleeId: number) => {
+export const changeCounseleeStatus = async (counseleeId: number | string) => {
   const response = await HTTP.patch(`/counselees/complete/${counseleeId}/`);
 
   return response.data;

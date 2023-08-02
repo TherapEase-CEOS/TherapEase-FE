@@ -6,6 +6,8 @@ import { BiSolidPencil } from 'react-icons/bi';
 import { FiMoreHorizontal } from 'react-icons/fi';
 
 import { IClient } from '@/interfaces/interfaces';
+import { UseMutationResult, useMutation } from '@tanstack/react-query';
+import { updateClient } from '@/hooks/queries/client';
 
 interface Props {
   clientInfo: IClient;
@@ -32,6 +34,20 @@ const ClientCard = ({
     goal,
   } = clientInfo;
 
+  const clientMutation: UseMutationResult<
+    IClient,
+    any,
+    Partial<IClient>
+  > = useMutation((body) => updateClient(id, body), {
+    onError: (error, variable, context) => {
+      // error
+      console.log(error);
+    },
+    onSuccess: (data: IClient, variables, context) => {
+      console.log('client mutate success', data, variables, context);
+    },
+  });
+
   const [isDetailMenuClicked, setIsDetailMenuClicked] =
     useState<boolean>(false);
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
@@ -51,6 +67,10 @@ const ClientCard = ({
   const handleInputSubmit = (e: React.MouseEvent) => {
     e.stopPropagation();
 
+    var body = {
+      goal: goalInputValue,
+    };
+    clientMutation.mutate(body);
     // TODO - api 연동
     setIsEditMode(!isEditMode);
   };
