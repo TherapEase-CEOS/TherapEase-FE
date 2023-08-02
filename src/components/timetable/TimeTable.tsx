@@ -16,6 +16,7 @@ export default function TimeTable({ isEditMode }: { isEditMode: boolean }) {
   const { id: counselor_id } = router.query;
   const [timeTableData, setTimeTableData] = useRecoilState(timeTableState);
 
+  const TIMETABLE_UPDATE_INTERVAL = 60; // seconds
   const { data, isLoading, isLoadingError } = useQuery(
     [queryKeys.timetable],
     () => getTimetable(counselor_id),
@@ -28,6 +29,7 @@ export default function TimeTable({ isEditMode }: { isEditMode: boolean }) {
       onError: (error) => {
         console.log(error);
       },
+      refetchInterval: 1000 * TIMETABLE_UPDATE_INTERVAL, // 5초 (밀리초 단위)
     },
   );
 
