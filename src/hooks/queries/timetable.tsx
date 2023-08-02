@@ -13,7 +13,7 @@ export const updateTimetable = async (counselorId: any, body: ITimeTable) => {
   return response.data;
 };
 export const getCounselorProfile = async (counselorId: any) => {
-  const response = await HTTP.get(`/accounts/profile/${counselorId}/`);
+  const response = await HTTP.get(`/accounts/profile/`);
 
   return response.data;
 };
