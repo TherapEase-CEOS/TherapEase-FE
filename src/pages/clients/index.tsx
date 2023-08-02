@@ -84,7 +84,7 @@ const ClientsPage = () => {
 
   const [selectedClient, setSelectedClient] = useState<IClient>({
     name: '',
-    id: '',
+    id: -1,
     code: '',
     start: '',
     progress: false,
@@ -148,7 +148,7 @@ const ClientsPage = () => {
   const [isDeleteModalVisible, setIsDeleteModalVisible] =
     useState<boolean>(false);
 
-  const onDeleteClient = (id: string) => {
+  const onDeleteClient = (id: number) => {
     // TODO - 내담자 삭제 api 연동
     // TODO - 내담자 리스트 get api 연동
 
@@ -157,7 +157,7 @@ const ClientsPage = () => {
   };
 
   // 내담자 완료
-  const onCompleteClient = (id: string) => {
+  const onCompleteClient = (id: number) => {
     // TODO - 내담자 완료 api 연동
     // TODO - 내담자 리스트 get api 연동
   };

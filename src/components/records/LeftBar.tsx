@@ -11,11 +11,12 @@ const LeftBar = () => {
   const router = useRouter();
 
   const clientsList = useRecoilValue<IClient[]>(clientsListState);
+  console.log(clientsList);
 
   return (
     <aside className="fixed w-[13.9rem] h-full py-[6.638rem] bg-gray-3 overflow-y-scroll">
       {clientsList.map((client: IClient) => {
-        const isSelected = client.id === router.query.id;
+        const isSelected = client.id === parseInt(router.query.id as string);
 
         return (
           <Link

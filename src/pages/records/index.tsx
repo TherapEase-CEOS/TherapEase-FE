@@ -18,21 +18,24 @@ import { IClient } from '@/interfaces/interfaces';
 import logImage from '../../assets/Emotion-log.png';
 import { BiSolidPencil } from 'react-icons/bi';
 import { IUser } from '@/interfaces/interfaces';
+import { COUNSELOR } from '@/constants/constants';
 
 const RecordsPage = () => {
   const router = useRouter();
 
   const user = useRecoilValue<IUser | null>(userState); // 로그인 여부
+
   const isSignedIn = user !== null;
-  const isCounselor = user?.role === 'counselee'; // 상담자,내담자 여부
+  const isCounselor = user?.role === COUNSELOR; // 상담자,내담자 여부
   const isSignedInCounselor = isSignedIn && isCounselor;
 
   const clientsList = useRecoilValue<IClient[]>(clientsListState);
+
   const currentClientInfo: IClient = clientsList.find(
-    (client) => client.id === router.query.id,
+    (client) => client.id === parseInt(router.query.id as string),
   ) ?? {
     name: '',
-    id: '',
+    id: -1,
     start: '',
     progress: false,
     counselingDate: '',
