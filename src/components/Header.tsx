@@ -33,7 +33,7 @@ const Header = () => {
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
-  const counselor_id = user?.partnerId ? user.partnerId : user?.id; // 내담자라면 본인과 연동된 상담사 페이지로
+  const counselor_id = !!user?.partnerId ? user.partnerId : user?.id; // 내담자라면 본인과 연동된 상담사 페이지로
 
   const handleOnClickLogin = () => {
     setIsLoginModalOpen(true);
