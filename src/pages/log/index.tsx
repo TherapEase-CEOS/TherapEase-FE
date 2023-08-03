@@ -84,7 +84,7 @@ const RecordsCreatePage = () => {
 
   // TODO - 이름 명확히 수정
   const handleSubmitEmotion = () => {
-    const newEmotion: IEmotion = {
+    const newEmotion: any = {
       mainEmotion: selectedLargeEmotion?.value ?? '',
       subEmotion: selectedMediumEmotion?.value ?? '',
       feeling: selectedFeeling ?? 100,
