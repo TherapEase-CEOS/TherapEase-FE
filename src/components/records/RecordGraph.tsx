@@ -44,7 +44,10 @@ const RecordGraph = ({ clientId }: Props) => {
                   } = emotion;
 
                   return (
-                    <div className="flex flex-col-reverse gap-[0.2rem]">
+                    <div
+                      key={idx}
+                      className="flex flex-col-reverse gap-[0.2rem]"
+                    >
                       <span className="text-label2 text-gray-9 text-center px-[0.4rem] py-[0.1rem] rounded-[0.4rem] bg-yellow-100">
                         {DUMMY_LARGE_EMOTION.find(
                           ({ value }) => value === mainEmotion,
