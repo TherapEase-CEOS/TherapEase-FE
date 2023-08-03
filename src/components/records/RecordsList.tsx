@@ -27,14 +27,14 @@ const RecordsList = ({ clientId }: Props) => {
     (id) => getEmotionRecordList(clientId),
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         setEmotionRecordList(data.records);
 
         setPage(data.page);
         setTotalCount(data.totalCount);
       },
       onError: (error) => {
-        console.log(error);
+        // console.log(error);
       },
     },
   );

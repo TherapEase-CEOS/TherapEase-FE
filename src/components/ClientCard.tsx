@@ -50,7 +50,7 @@ const ClientCard = ({
     async (type: string) => {
       switch (type) {
         case 'change_status': // 상태 변경
-          console.log('change');
+          // console.log('change');
           return await changeCounseleeStatus(id);
 
         case 'update': // 상담 목적 수정
@@ -63,10 +63,10 @@ const ClientCard = ({
     {
       onError: (error, variable, context) => {
         // error
-        console.log(error);
+        // console.log(error);
       },
       onSuccess: (data: IClient, variables, context) => {
-        console.log('client mutate success', data, variables, context);
+        // console.log('client mutate success', data, variables, context);
         // 내담자 목록 refetch
         queryClient.invalidateQueries({
           queryKey: [queryKeys.clientList],

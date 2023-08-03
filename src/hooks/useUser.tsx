@@ -30,16 +30,16 @@ const useUser = () => {
         clearUser(); // access_token 이 유효하지 않은 경우 or 로그인 중이 아닐경우
       } else {
         setUser(data);
-        console.log('onsuccess');
-        console.log(data);
+        // console.log('onsuccess');
+        // console.log(data);
       }
     },
     onError: (e) => {
-      console.log(e);
+      // console.log(e);
 
       //401 unauthorization
       resetUserState();
-      console.log('authorization failed');
+      // console.log('authorization failed');
       router.push('/'); // 랜딩페이지로
     },
     retry: false,

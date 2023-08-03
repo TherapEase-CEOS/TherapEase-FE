@@ -35,8 +35,8 @@ const SingleRecord = ({ record, idx }: Props) => {
           {record.emotions?.map((emotion: IEmotion, idx: number) => {
             const feeling = parseInt(emotion.feeling);
 
-            console.log(emotion.main_emotion, emotion.sub_emotion);
-            console.log(EMOTION_MAP[emotion.main_emotion][emotion.sub_emotion]);
+            // console.log(emotion.main_emotion, emotion.sub_emotion);
+            // console.log(EMOTION_MAP[emotion.main_emotion][emotion.sub_emotion]);
             return (
               <div
                 key={idx}

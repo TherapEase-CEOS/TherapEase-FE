@@ -22,7 +22,7 @@ import { COUNSELOR } from '@/constants/constants';
 
 const RecordsPage = () => {
   const router = useRouter();
-  console.log(router.query);
+  // console.log(router.query);
 
   const user = useRecoilValue<IUser | null>(userState); // 로그인 여부
 

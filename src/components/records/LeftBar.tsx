@@ -11,7 +11,7 @@ const LeftBar = () => {
   const router = useRouter();
 
   const clientsList = useRecoilValue<IClient[]>(clientsListState);
-  console.log(clientsList);
+  // console.log(clientsList);
 
   return (
     <aside className="fixed w-[13.9rem] h-full py-[6.638rem] bg-gray-3 overflow-y-scroll">

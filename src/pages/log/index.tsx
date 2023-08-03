@@ -112,12 +112,12 @@ const RecordsCreatePage = () => {
   // TODO - 이름 명확히 수정
   const handleSubmitEmotionLog = () => {
     // TODO - 감정 세부 기록 post api 연동
-    console.log({
-      emotions: emotionList,
-      details1: datailInputValue1,
-      details2: datailInputValue2,
-      details3: datailInputValue3,
-    });
+    // console.log({
+    //   emotions: emotionList,
+    //   details1: datailInputValue1,
+    //   details2: datailInputValue2,
+    //   details3: datailInputValue3,
+    // });
   };
 
   return (
