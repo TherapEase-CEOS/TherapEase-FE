@@ -23,10 +23,8 @@ import { ButtonMedium } from '@/components/Buttons';
 import { IEmotion } from '@/interfaces/interfaces';
 
 import { EMOTION_QUESTIONS } from '../../constants/EMOTION_QUESTIONS';
-import {
-  DUMMY_LARGE_EMOTION,
-  DUMMY_MEDIUM_EMOTION,
-} from '@/constants/DUMMY_DATA';
+
+import { LARGE_EMOTION, MEDIUM_EMOTION } from '@/constants/emotion';
 
 const RecordsCreatePage = () => {
   const [emotionList, setEmotionList] = useState<IEmotion[]>([]); // 감정 리스트
@@ -181,7 +179,7 @@ const RecordsCreatePage = () => {
           {/* 감정 선택 카드 */}
           <div className="flex justify-center gap-[1.6rem]">
             <EmotionSelectCard
-              emotionList={DUMMY_LARGE_EMOTION}
+              emotionList={LARGE_EMOTION}
               selectedEmotion={selectedLargeEmotion}
               setSelectedEmotion={setSelectedLargeEmotion}
             />
@@ -189,7 +187,7 @@ const RecordsCreatePage = () => {
             {selectedLargeEmotion ? (
               <EmotionSelectCard
                 emotionList={
-                  DUMMY_MEDIUM_EMOTION.find(
+                  MEDIUM_EMOTION.find(
                     ({ large }) => large === selectedLargeEmotion.value,
                   )?.medium
                 }

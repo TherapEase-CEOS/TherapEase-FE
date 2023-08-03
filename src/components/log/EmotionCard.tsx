@@ -1,7 +1,7 @@
 import { TfiClose } from 'react-icons/tfi';
 
 import { IEmotion } from '@/interfaces/interfaces';
-import { DUMMY_LARGE_EMOTION, FEELING } from '@/constants/DUMMY_DATA';
+import { LARGE_EMOTION, FEELING } from '@/constants/emotion';
 
 const EmotionCard = ({
   emotion,
@@ -26,9 +26,8 @@ const EmotionCard = ({
         <div className="flex flex-col gap-[0.1rem]">
           <span className="text-body2 text-gray-9">
             {
-              DUMMY_LARGE_EMOTION.find(
-                ({ value }) => value === emotion.main_emotion,
-              )?.label
+              LARGE_EMOTION.find(({ value }) => value === emotion.main_emotion)
+                ?.label
             }
           </span>
           <div className="w-full h-[0.1rem] bg-gray-4"></div>
