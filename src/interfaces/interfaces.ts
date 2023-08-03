@@ -20,8 +20,11 @@ export interface IUser {
 }
 
 export interface IEmotion {
+  // mainEmotion: string;
+  // subEmotion: string;
+  // feeling: number;
   main_emotion: string; // TODO 변수명 카멜케이스로 수정 변경 요청
-  sub_emotion: string;
+  sub_emotion: string; // TODO 변수명 카멜케이스로 수정 변경 요청
   feeling: string; // TODO 백엔드에 number로 수정요청
   intensity: number;
 }
