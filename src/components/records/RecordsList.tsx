@@ -6,6 +6,11 @@ import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
 import { DUMMY_EMOTION_RECORDS } from '@/constants/DUMMY_DATA';
 
+import { useQuery } from '@tanstack/react-query';
+import { queryKeys } from '@/constants/queryKeys';
+import { getEmotionRecordList } from '@/hooks/queries/emotion';
+import { IEmotionRecordResponse } from '@/interfaces/interfaces';
+
 interface Props {
   clientId: string;
 }
@@ -13,6 +18,26 @@ interface Props {
 const RecordsList = ({ clientId }: Props) => {
   const [emotionRecordList, setEmotionRecordList] = useState<any>([]);
 
+  const {
+    data: profile,
+    isLoading,
+    isLoadingError,
+  } = useQuery<string | number, any, IEmotionRecordResponse>(
+    [queryKeys.emotionRecordList],
+    (id) => getEmotionRecordList(clientId),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+        setEmotionRecordList(data.records);
+
+        setPage(data.page);
+        setTotalCount(data.totalCount);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    },
+  );
   const [page, setPage] = useState<number>(1);
   const [totalCount, setTotalCount] = useState<number>(22); // 전체 리스트 개수
 

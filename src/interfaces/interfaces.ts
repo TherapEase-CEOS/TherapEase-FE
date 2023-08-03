@@ -20,9 +20,9 @@ export interface IUser {
 }
 
 export interface IEmotion {
-  mainEmotion: string;
-  subEmotion: string;
-  feeling: number;
+  main_emotion: string; // TODO 변수명 카멜케이스로 수정 변경 요청
+  sub_emotion: string;
+  feeling: string; // TODO 백엔드에 number로 수정요청
   intensity: number;
 }
 
@@ -41,6 +41,11 @@ export interface IRecord {
   details3: string | null;
 }
 
+export interface IEmotionRecordResponse {
+  page: number;
+  totalCount: number;
+  records: IRecord[];
+}
 export interface ITimeTable {
   [key: string]: boolean[];
 }

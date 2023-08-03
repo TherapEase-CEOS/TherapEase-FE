@@ -22,8 +22,12 @@ import { COUNSELOR } from '@/constants/constants';
 
 const RecordsPage = () => {
   const router = useRouter();
+  console.log(router.query);
 
   const user = useRecoilValue<IUser | null>(userState); // 로그인 여부
+
+  let clientId = router.query.id ? router.query.id : user?.id;
+  clientId = clientId?.toString();
 
   const isSignedIn = user !== null;
   const isCounselor = user?.role === COUNSELOR; // 상담자,내담자 여부
@@ -43,6 +47,10 @@ const RecordsPage = () => {
     code: '',
   };
 
+  if (clientId == undefined) {
+    return <div>loading</div>;
+  }
+
   return (
     <div className="w-full h-full flex">
       {/* 사이드 바 영역 */}
@@ -55,7 +63,7 @@ const RecordsPage = () => {
         }`}
       >
         <div className="w-[102.5rem] flex gap-[1.7rem]">
-          <RecordGraph clientId={router.query.id as string} />
+          <RecordGraph clientId={clientId} />
 
           {isSignedInCounselor ? (
             <ClientCard clientInfo={currentClientInfo} />
@@ -64,7 +72,7 @@ const RecordsPage = () => {
           )}
         </div>
 
-        <RecordsList clientId={router.query.id as string} />
+        <RecordsList clientId={clientId} />
       </main>
     </div>
   );
