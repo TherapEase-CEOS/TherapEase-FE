@@ -5,7 +5,7 @@ import Link from 'next/link';
 import LoginModal from './modals/LoginModal';
 import { getUser } from '@/hooks/useUser';
 import { useRecoilValue } from 'recoil';
-import { isSignedInState, isCounselorState } from '@/store/recoil';
+import { isSignedInState, isCounselorState } from '@/store/user';
 
 import LogoImage from '../assets/Header-logo.png';
 import { IUser } from '@/interfaces/interfaces';

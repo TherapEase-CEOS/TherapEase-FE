@@ -3,7 +3,7 @@ import { Iclient } from '@/interfaces/interfaces';
 export const DUMMY_CLIENTS_LIST: Iclient[] = [
   {
     counseleeName: '김민주',
-    counseleeId: 'minjoo123',
+    counseleeId: '98283746',
     start: '23.05.12',
     inProgress: true,
     counselingDate: '수요일',

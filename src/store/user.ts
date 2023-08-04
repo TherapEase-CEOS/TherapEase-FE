@@ -10,8 +10,7 @@ export const isSignedInState = atom<boolean>({
 
 export const isCounselorState = atom<boolean | null>({
   key: 'isCounselorState',
-  // default: null,
-  default: false,
+  default: null,
 });
 
 export const clientsListState = atom<Iclient[]>({

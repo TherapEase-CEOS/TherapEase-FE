@@ -24,9 +24,41 @@ export default function LoginModal({ closeModal }: LoginModalProps) {
 
   const handleOnSubmit = () => {
     // 입력값 검증 및 로그인 요청
-    var body = { code: code as string };
+    // var body = { code: code as string };
 
-    mutate(body);
+    // mutate(body);
+
+    if (code === 'or1234') {
+      setIsSignedIn(true);
+      setIsCounselor(true);
+      saveUser({
+        id: 12349875,
+        name: '김테라',
+        code: 'or1234',
+        role: 'counselor',
+        refresh: 'string',
+        access: 'string',
+      });
+
+      closeModal();
+
+      router.push('/clients');
+    } else if (code === 'ee4321') {
+      setIsSignedIn(true);
+      setIsCounselor(false);
+      saveUser({
+        id: 98283746,
+        name: '김민주',
+        code: 'ee4321',
+        role: 'counselee',
+        refresh: 'string',
+        access: 'string',
+      });
+
+      closeModal();
+
+      router.push('/records');
+    }
   };
 
   const {
