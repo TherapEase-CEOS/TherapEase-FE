@@ -13,7 +13,6 @@ interface InputModalProps {
   ) => void;
   btnText: string;
   closeModal: () => void;
-  placeholder : string;
 }
 export default function InputModal({
   onSubmit,
@@ -23,9 +22,15 @@ export default function InputModal({
   inputValue,
   onChangeValue,
   closeModal,
-placeholder
 }: InputModalProps) {
+  /*
 
+  ${
+            isAddValidationError
+              ? 'text-[#FF4127] bg-[#FFF5F5] border-[#FF4127]'
+              : 'text-gray-9'
+          }
+          */
 
   return (
     <div
@@ -42,7 +47,7 @@ placeholder
             className={`w-[37rem] text-body1 font-medium  placeholder:text-gray-5 px-[2.1rem] py-[1.6rem] mb-[5.1rem] border-[.1rem] border-gray-3 rounded-[0.5rem] focus:outline-none`}
             value={inputValue}
             onChange={onChangeValue}
-            placeholder={placeholder}
+            placeholder="발급 코드 입력"
             spellCheck="false"
           />
           <ButtonLarge
