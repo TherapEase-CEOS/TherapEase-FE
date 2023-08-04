@@ -8,11 +8,10 @@ export const login = async (body: { code: string }) => {
 
 export const getUser = async () => {
   const response = await HTTP.get(`/accounts/check/`);
-
-  const partnerId = parseInt(response.data.accountId);
+  const partnerId = response.data.accountId;
 
   return {
     ...response.data,
-    partnerId: partnerId,
+    partnerId,
   };
 };

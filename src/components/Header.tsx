@@ -33,7 +33,7 @@ const Header = () => {
 
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
-  const counselor_id = !!user?.partnerId ? user.partnerId : user?.id; // 내담자라면 본인과 연동된 상담사 페이지로
+  const counselor_id = user?.partnerId ? user.partnerId : user?.id; // 내담자라면 본인과 연동된 상담사 페이지로
 
   const handleOnClickLogin = () => {
     setIsLoginModalOpen(true);
@@ -82,12 +82,10 @@ const Header = () => {
       ).concat([
         <Link
           href={{
-            pathname: `/timetable/${counselor_id}`,
+            pathname: '/timetable',
           }}
           className={`${BUTTON_STYLE} ${
-            router.pathname === `/timetable/[id]`
-              ? 'text-gray-9'
-              : 'text-gray-4'
+            router.pathname === '/timetable' ? 'text-gray-9' : 'text-gray-4'
           }`}
         >
           상담일정표

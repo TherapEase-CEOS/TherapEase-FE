@@ -16,7 +16,6 @@ export interface IUser {
   refresh: string;
   access: string;
   partnerId?: string;
-  accountId?: string;
 }
 
 export interface IEmotion {
@@ -48,10 +47,4 @@ export interface ITimeTable {
 export interface IGraphRecord {
   date: string;
   emotions: IEmotion[];
-}
-
-export interface ICounselorProfile {
-  name: string;
-  contact: string;
-  introduction: string;
 }
