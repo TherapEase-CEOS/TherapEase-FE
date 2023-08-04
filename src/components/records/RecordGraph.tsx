@@ -7,11 +7,18 @@ import {
   DUMMY_LARGE_EMOTION,
 } from '@/constants/DUMMY_DATA';
 
+import { useRecoilState } from 'recoil';
+import { emotionRecordGraphState } from '@/store/emotions';
+
 interface Props {
   clientId: string;
 }
 
 const RecordGraph = ({ clientId }: Props) => {
+  const [emotionRecordList, setEmotionRecordList] = useRecoilState(
+    emotionRecordGraphState,
+  );
+
   return (
     <div className="w-[67.9rem] h-[28.5rem] bg-white rounded-[2rem] pt-[2.653rem] pb-[2.1rem] px-[2.5rem]">
       {/* 제목 영역 */}
@@ -29,58 +36,53 @@ const RecordGraph = ({ clientId }: Props) => {
 
       {/* 그래프 영역 */}
       <div className="h-[calc(100%-2.9rem)] flex justify-start items-end gap-[0.9rem]">
-        {DUMMY_EMOTION_GRAPH_RECORDS.map(
-          (record: IGraphRecord, idx: number) => {
-            const date = parseDateString(record.date);
-            const emotions = record.emotions;
+        {emotionRecordList.map((record: IGraphRecord, idx: number) => {
+          const date = parseDateString(record.date);
+          const emotions = record.emotions;
 
-            return (
-              <div
-                key={idx}
-                className="flex flex-col items-center gap-[1.5rem]"
-              >
-                <div className="flex gap-[0.2rem]">
-                  {emotions.map((emotion: IEmotion, idx: number) => {
-                    const { mainEmotion, intensity, feeling } = emotion;
+          return (
+            <div key={idx} className="flex flex-col items-center gap-[1.5rem]">
+              <div className="flex gap-[0.2rem]">
+                {emotions.map((emotion: IEmotion, idx: number) => {
+                  const { mainEmotion, intensity, feeling } = emotion;
 
-                    return (
-                      <div className="flex flex-col-reverse items-center gap-[0.2rem]">
-                        <span className="text-label2 text-gray-9 text-center px-[0.4rem] py-[0.1rem] rounded-[0.4rem] bg-gray-2">
-                          {DUMMY_LARGE_EMOTION.find(
-                            ({ value }) => value === mainEmotion,
-                          )?.labelShort ?? '-'}
-                        </span>
+                  return (
+                    <div className="flex flex-col-reverse items-center gap-[0.2rem]">
+                      <span className="text-label2 text-gray-9 text-center px-[0.4rem] py-[0.1rem] rounded-[0.4rem] bg-gray-2">
+                        {DUMMY_LARGE_EMOTION.find(
+                          ({ value }) => value === mainEmotion,
+                        )?.labelShort ?? '-'}
+                      </span>
 
-                        {Array(intensity)
-                          .fill('')
-                          .map((_, idx) => {
-                            const color =
-                              feeling === -1
-                                ? 'green'
-                                : feeling === 0
-                                ? 'gray'
-                                : 'blue';
-                            const intensity = 20 * (idx + 1);
+                      {Array(intensity)
+                        .fill('')
+                        .map((_, idx) => {
+                          const color =
+                            feeling === -1
+                              ? 'green'
+                              : feeling === 0
+                              ? 'gray'
+                              : 'blue';
+                          const intensity = 20 * (idx + 1);
 
-                            return (
-                              <div
-                                key={idx}
-                                className={`w-[1.4rem] h-[1.4rem] rounded-[0.3rem]`}
-                                style={{
-                                  backgroundColor: `var(--${color}-${intensity})`,
-                                }}
-                              ></div>
-                            );
-                          })}
-                      </div>
-                    );
-                  })}
-                </div>
-                <span className="text-body3 text-gray-9">{date}</span>
+                          return (
+                            <div
+                              key={idx}
+                              className={`w-[1.4rem] h-[1.4rem] rounded-[0.3rem]`}
+                              style={{
+                                backgroundColor: `var(--${color}-${intensity})`,
+                              }}
+                            ></div>
+                          );
+                        })}
+                    </div>
+                  );
+                })}
               </div>
-            );
-          },
-        )}
+              <span className="text-body3 text-gray-9">{date}</span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

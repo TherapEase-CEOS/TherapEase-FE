@@ -5,29 +5,35 @@ import SingleRecord from './SingleRecord';
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
 
 import { DUMMY_EMOTION_RECORDS } from '@/constants/DUMMY_DATA';
+import { useRecoilState } from 'recoil';
+import { emotionRecordListState } from '@/store/emotions';
 
 interface Props {
   clientId: string;
 }
 
 const RecordsList = ({ clientId }: Props) => {
-  const [emotionRecordList, setEmotionRecordList] = useState<any>([]);
+  const [emotionRecordList, setEmotionRecordList] = useRecoilState(
+    emotionRecordListState,
+  );
+
+  // const [emotionRecordList2, setEmotionRecordList2] = useState<any>([]);
 
   const [page, setPage] = useState<number>(1);
-  const [totalCount, setTotalCount] = useState<number>(0); // 전체 리스트 개수
+  const [totalCount, setTotalCount] = useState<number>(14); // 전체 리스트 개수
 
-  useEffect(() => {
-    fetchEmotionRecords();
-  }, [clientId]);
+  // useEffect(() => {
+  //   fetchEmotionRecords();
+  // }, [clientId]);
 
-  const fetchEmotionRecords = () => {
-    // TODO - 감정기록 리스트 조회 API 연동 by {clientId}
-    const { page, totalCount, records } = DUMMY_EMOTION_RECORDS;
-    setEmotionRecordList(records);
+  // const fetchEmotionRecords = () => {
+  //   // TODO - 감정기록 리스트 조회 API 연동 by {clientId}
+  //   const { page, totalCount, records } = DUMMY_EMOTION_RECORDS;
+  //   setEmotionRecordList(records);
 
-    setTotalCount(totalCount);
-    setPage(page);
-  };
+  //   setTotalCount(totalCount);
+  //   setPage(page);
+  // };
 
   const handleLeftPageClick = () => {
     if (page !== 1) {

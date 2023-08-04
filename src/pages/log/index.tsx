@@ -28,7 +28,20 @@ import {
   DUMMY_MEDIUM_EMOTION,
 } from '@/constants/DUMMY_DATA';
 
+import { useRecoilState } from 'recoil';
+import {
+  emotionRecordListState,
+  emotionRecordGraphState,
+} from '@/store/emotions';
+
 const RecordsCreatePage = () => {
+  const [emotionRecordList, setEmotionRecordList] = useRecoilState<any>(
+    emotionRecordListState,
+  );
+  const [emotionRecordGraphList, setEmotionRecordGraphList] = useRecoilState(
+    emotionRecordGraphState,
+  );
+
   const [emotionList, setEmotionList] = useState<IEmotion[]>([]); // 감정 리스트
 
   const [isInProgress, setIsInProgress] = useState(false); // 감정 생성 중 여부
@@ -118,6 +131,27 @@ const RecordsCreatePage = () => {
       details2: datailInputValue2,
       details3: datailInputValue3,
     });
+
+    const tempEmotionRecordList = emotionRecordList.slice(1);
+    setEmotionRecordList([
+      {
+        '2023-08-04': {
+          emotions: emotionList,
+          details1: datailInputValue1,
+          details2: datailInputValue2,
+          details3: datailInputValue3,
+        },
+      },
+      ...tempEmotionRecordList,
+    ]);
+
+    setEmotionRecordGraphList([
+      ...emotionRecordGraphList.slice(0, -1),
+      {
+        date: '2023-08-04',
+        emotions: emotionList,
+      },
+    ]);
   };
 
   return (
