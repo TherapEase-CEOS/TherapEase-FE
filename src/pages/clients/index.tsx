@@ -37,11 +37,11 @@ const ClientsPage = () => {
     getClient,
     {
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         setClientsList(data);
       },
       onError: (error) => {
-        console.log(error);
+        // console.log(error);
       },
     },
   );
@@ -52,7 +52,7 @@ const ClientsPage = () => {
       switch (type) {
         case 'add':
           var body = { code: addInputValue };
-          console.log(body);
+          // console.log(body);
           return await addClient(body);
         case 'delete':
           return await deleteClient(selectedClient.id);
@@ -64,10 +64,10 @@ const ClientsPage = () => {
     {
       onError: (error, variable, context) => {
         // error
-        console.log(error);
+        // console.log(error);
       },
       onSuccess: (data: IClient, variables, context) => {
-        console.log('client mutation success', data, variables, context);
+        // console.log('client mutation success', data, variables, context);
         if (variables === 'add') {
           setAddInputValue('');
         }
@@ -118,7 +118,7 @@ const ClientsPage = () => {
   const [isAddValidationError, setIsAddValidationError] =
     useState<boolean>(false);
 
-  console.log(addInputValue);
+  // console.log(addInputValue);
   const handleAddInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAddInputValue(e.target.value);
 

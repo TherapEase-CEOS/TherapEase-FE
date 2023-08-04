@@ -34,11 +34,11 @@ export default function Profile({ editable }: { editable: boolean }) {
     {
       enabled: router.isReady,
       onSuccess: (data) => {
-        console.log(data);
+        // console.log(data);
         setCounselorProfile(data);
       },
       onError: (error) => {
-        console.log(error);
+        // console.log(error);
       },
     },
   );

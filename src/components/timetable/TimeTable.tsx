@@ -23,11 +23,11 @@ export default function TimeTable({ isEditMode }: { isEditMode: boolean }) {
     {
       enabled: router.isReady,
       onSuccess: (data) => {
-        console.log('timetable onsuccess', data);
+        // console.log('timetable onsuccess', data);
         setTimeTableData(data.data);
       },
       onError: (error) => {
-        console.log(error);
+        // console.log(error);
       },
       refetchInterval: 1000 * TIMETABLE_UPDATE_INTERVAL, // 5초 (밀리초 단위)
     },
@@ -104,7 +104,7 @@ const TBody = ({
   ];
   const overlayStyle = disabled ? 'z-2 pointer-events-none' : '';
 
-  console.log(timeTableData);
+  // console.log(timeTableData);
   return (
     <div className={`grid w-[63rem] grid-cols-7 ${overlayStyle}`}>
       {days_en.map((day_en, idx) => (

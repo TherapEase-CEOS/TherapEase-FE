@@ -49,7 +49,7 @@ export default function LoginModal({ closeModal }: LoginModalProps) {
         // error
       },
       onSuccess: (data: IUser, variables, context) => {
-        console.log('login success', data, variables, context);
+        // console.log('login success', data, variables, context);
         closeModal();
 
         const partnerId = data.accountId; //연결된 상담사

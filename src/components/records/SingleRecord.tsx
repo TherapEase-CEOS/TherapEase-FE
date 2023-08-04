@@ -7,7 +7,7 @@ import { parseDateString } from '@/utils/parseDate';
 import { IEmotion, IRecord } from '@/interfaces/interfaces';
 
 import { EMOTIONS, FEELING } from '@/constants/records';
-import { DUMMY_MEDIUM_EMOTION } from '@/constants/DUMMY_DATA';
+import { EMOTION_MAP } from '@/constants/emotion';
 
 interface Props {
   record: IRecord;
@@ -15,10 +15,7 @@ interface Props {
 }
 
 const SingleRecord = ({ record, idx }: Props) => {
-  const isDetailExist =
-    Object.values(record)[0].details1 ||
-    Object.values(record)[0].details2 ||
-    Object.values(record)[0].details3;
+  const isDetailExist = record.details1 || record.details2 || record.details3;
 
   const [isDetailShow, setIsDetailShow] = useState(false);
 
@@ -33,70 +30,63 @@ const SingleRecord = ({ record, idx }: Props) => {
     >
       {/* 감정 기록 라인 */}
       <div className="w-full h-[7.1rem] flex items-center">
-        <div className="text-body1 ml-[2.4rem] mr-[6.8rem]">
-          {parseDateString(Object.keys(record)[0])}
-        </div>
+        <div className="text-body1 ml-[2.4rem] mr-[6.8rem]">{record.date}</div>
         <div className="flex gap-[2.2rem]">
-          {Object.values(record)[0].emotions?.map(
-            (emotion: IEmotion, idx: number) => {
-              return (
-                <div
-                  key={idx}
-                  className="h-[3.8rem] flex items-center px-[1.5rem] py-[.8rem] border-[.1rem] border-gray-3 rounded-[.4rem] gap-[.7rem]"
-                >
-                  <span className="px-[.6rem] py-[.5rem] text-label1 border-transparent rounded-[.4rem] bg-yellow-100">
-                    {
-                      // TODO - 로직 개선
-                      DUMMY_MEDIUM_EMOTION.find(
-                        (emo) => emo.large === emotion.mainEmotion,
-                      )?.medium.find(
-                        ({ value }) => value === emotion.subEmotion,
-                      )?.label
-                    }
-                  </span>
+          {record.emotions?.map((emotion: IEmotion, idx: number) => {
+            const feeling = parseInt(emotion.feeling);
 
-                  <div className="flex gap-[.15rem]">
-                    {Array(5)
-                      .fill('')
-                      .map((_, idx) => {
-                        const color =
-                          emotion.feeling === -1
-                            ? 'green'
-                            : emotion.feeling === 0
-                            ? 'gray'
-                            : 'blue';
-                        const intensity =
-                          idx - emotion.intensity > 0 ? 0 : 20 * (idx + 1);
+            // console.log(emotion.main_emotion, emotion.sub_emotion);
+            // console.log(EMOTION_MAP[emotion.main_emotion][emotion.sub_emotion]);
+            return (
+              <div
+                key={idx}
+                className="h-[3.8rem] flex items-center px-[1.5rem] py-[.8rem] border-[.1rem] border-gray-3 rounded-[.4rem] gap-[.7rem]"
+              >
+                <span className="px-[.6rem] py-[.5rem] text-label1 border-transparent rounded-[.4rem] bg-yellow-100">
+                  {EMOTION_MAP[emotion.main_emotion][emotion.sub_emotion]}
+                </span>
 
-                        return (
-                          <div
-                            key={idx}
-                            className={`w-[1.4rem] h-[1.4rem] rounded-[.3rem]`}
-                            style={{
-                              backgroundColor: intensity
-                                ? `var(--${color}-${intensity}`
-                                : '#F7F7F7',
-                            }}
-                          ></div>
-                        );
-                      })}
-                  </div>
+                <div className="flex gap-[.15rem]">
+                  {Array(5)
+                    .fill('')
+                    .map((_, idx) => {
+                      const color =
+                        feeling === -1
+                          ? 'green'
+                          : feeling === 0
+                          ? 'gray'
+                          : 'blue';
+                      const intensity =
+                        idx - emotion.intensity > 0 ? 0 : 20 * (idx + 1);
 
-                  <span
-                    className={`px-[.6rem] py-[.5rem] text-label1 border-transparent rounded-[.4rem] ${
-                      emotion.feeling === -1
-                        ? 'bg-green-100 text-green-text'
-                        : emotion.feeling === 0
-                        ? 'bg-gray-8 text-white'
-                        : 'bg-blue-100 text-blue-text'
-                    }`}
-                  >
-                    {FEELING[emotion.feeling + 1]}
-                  </span>
+                      return (
+                        <div
+                          key={idx}
+                          className={`w-[1.4rem] h-[1.4rem] rounded-[.3rem]`}
+                          style={{
+                            backgroundColor: intensity
+                              ? `var(--${color}-${intensity}`
+                              : '#F7F7F7',
+                          }}
+                        ></div>
+                      );
+                    })}
                 </div>
-              );
-            },
-          )}
+
+                <span
+                  className={`px-[.6rem] py-[.5rem] text-label1 border-transparent rounded-[.4rem] ${
+                    feeling === -1
+                      ? 'bg-green-100 text-green-text'
+                      : feeling === 0
+                      ? 'bg-gray-8 text-white'
+                      : 'bg-blue-100 text-blue-text'
+                  }`}
+                >
+                  {FEELING[feeling + 1]}
+                </span>
+              </div>
+            );
+          })}
           {!Object.values(record)[0].emotions && (
             <span className="text-body2 text-gray-4">감정 기록 없음</span>
           )}

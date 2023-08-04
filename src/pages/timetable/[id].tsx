@@ -109,7 +109,7 @@ const EditBtn = ({
         // error
       },
       onSuccess: (data: ITimeTable, variables, context) => {
-        console.log('timetable mutate success', data, variables, context);
+        // console.log('timetable mutate success', data, variables, context);
 
         setTimeTable(data);
       },
@@ -132,7 +132,7 @@ const EditBtn = ({
 
     try {
       const responses = await Promise.all([profilePromise, timetablePromise]);
-      console.log('save success');
+      // console.log('save success');
     } catch (e) {
       alert('일부 저장에 실패하였습니다. 다시 시도해주세요.');
       // 하나라도 실패한 경우 이전 상태로 복원 (rollback)

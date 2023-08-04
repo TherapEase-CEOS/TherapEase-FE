@@ -1,7 +1,7 @@
 import { TfiClose } from 'react-icons/tfi';
 
 import { IEmotion } from '@/interfaces/interfaces';
-import { DUMMY_LARGE_EMOTION, FEELING } from '@/constants/DUMMY_DATA';
+import { LARGE_EMOTION, FEELING } from '@/constants/emotion';
 
 const EmotionCard = ({
   emotion,
@@ -26,9 +26,8 @@ const EmotionCard = ({
         <div className="flex flex-col gap-[0.1rem]">
           <span className="text-body2 text-gray-9">
             {
-              DUMMY_LARGE_EMOTION.find(
-                ({ value }) => value === emotion.mainEmotion,
-              )?.label
+              LARGE_EMOTION.find(({ value }) => value === emotion.main_emotion)
+                ?.label
             }
           </span>
           <div className="w-full h-[0.1rem] bg-gray-4"></div>
@@ -41,13 +40,13 @@ const EmotionCard = ({
           {[20, 40, 60, 80, 100].map((val, idx) => {
             let color;
             switch (emotion.feeling) {
-              case 1:
+              case '1':
                 color = 'blue';
                 break;
-              case -1:
+              case '-1':
                 color = 'green';
                 break;
-              case 0:
+              case '0':
                 color = 'gray';
                 break;
             }
@@ -69,7 +68,10 @@ const EmotionCard = ({
         <span className="text-body3 text-gray-7">만큼</span>
         <div className="flex flex-col gap-[0.1rem] ml-[0.9rem]">
           <span className="text-body2 text-gray-9">
-            {FEELING.find(({ value }) => value === emotion.feeling)?.label}
+            {
+              FEELING.find(({ value }) => String(value) === emotion.feeling)
+                ?.label
+            }
           </span>
           <div className="w-full h-[0.1rem] bg-gray-4"></div>
         </div>

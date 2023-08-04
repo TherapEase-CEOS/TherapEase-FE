@@ -8,4 +8,5 @@ export const queryKeys = {
   timetable: 'timetableKey' as QueryKey,
   counselorProfile: 'counselorProfileKey' as QueryKey,
   clientList: 'clientListKey' as QueryKey,
+  emotionRecordList: 'emotionRecordList' as QueryKey,
 };
