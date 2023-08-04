@@ -35,7 +35,7 @@ const RecordGraph = ({ clientId }: Props) => {
       </div>
 
       {/* 그래프 영역 */}
-      <div className="h-[calc(100%-2.9rem)] flex justify-start items-end gap-[0.9rem]">
+      <div className="h-[calc(100%-2.9rem)] flex justify-center items-end gap-[0.9rem]">
         {emotionRecordList.map((record: IGraphRecord, idx: number) => {
           const date = parseDateString(record.date);
           const emotions = record.emotions;
