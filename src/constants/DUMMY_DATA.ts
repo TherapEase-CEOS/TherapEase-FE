@@ -4,7 +4,7 @@ export const DUMMY_CLIENTS_LIST: Iclient[] = [
   {
     counseleeName: '김민주',
     counseleeId: '98283746',
-    start: '23.05.12',
+    start: '23.07.22',
     inProgress: true,
     counselingDate: '수요일',
     counselingTime: '17:00',
@@ -62,7 +62,15 @@ export const DUMMY_EMOTION_RECORDS = {
   totalCount: 14,
   records: [
     {
-      '2023-05-25': {
+      '2023-08-04': {
+        emotions: null,
+        details1: null,
+        details2: null,
+        details3: null,
+      },
+    },
+    {
+      '2023-08-03': {
         emotions: [
           {
             mainEmotion: 'peaceful',
@@ -89,7 +97,7 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-24': {
+      '2023-08-02': {
         emotions: [
           {
             mainEmotion: 'peaceful',
@@ -116,7 +124,7 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-23': {
+      '2023-08-01': {
         emotions: [
           {
             mainEmotion: 'mad',
@@ -145,7 +153,7 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-22': {
+      '2023-07-31': {
         emotions: [
           {
             mainEmotion: 'mad',
@@ -172,7 +180,7 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-21': {
+      '2023-07-30': {
         emotions: [
           {
             mainEmotion: 'mad',
@@ -199,34 +207,7 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-20': {
-        emotions: [
-          {
-            mainEmotion: 'mad',
-            subEmotion: 'rage',
-            feeling: -1,
-            intensity: 3,
-          },
-          {
-            mainEmotion: 'sad',
-            subEmotion: 'depressed',
-            feeling: -1,
-            intensity: 3,
-          },
-          {
-            mainEmotion: 'scared',
-            subEmotion: 'anxious',
-            feeling: -1,
-            intensity: 3,
-          },
-        ],
-        details1: null,
-        details2: null,
-        details3: null,
-      },
-    },
-    {
-      '2023-05-19': {
+      '2023-07-29': {
         emotions: [
           {
             mainEmotion: 'mad',
@@ -255,7 +236,7 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-18': {
+      '2023-07-28': {
         emotions: null,
         details1: null,
         details2: null,
@@ -263,7 +244,7 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-17': {
+      '2023-07-27': {
         emotions: [
           {
             mainEmotion: 'mad',
@@ -278,7 +259,15 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-16': {
+      '2023-07-26': {
+        emotions: null,
+        details1: null,
+        details2: null,
+        details3: null,
+      },
+    },
+    {
+      '2023-07-25': {
         emotions: [
           {
             mainEmotion: 'mad',
@@ -299,7 +288,7 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-15': {
+      '2023-07-24': {
         emotions: null,
         details1: null,
         details2: null,
@@ -307,7 +296,7 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-14': {
+      '2023-07-23': {
         emotions: [
           {
             mainEmotion: 'mad',
@@ -334,7 +323,7 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-13': {
+      '2023-07-22': {
         emotions: [
           {
             mainEmotion: 'mad',
@@ -354,39 +343,12 @@ export const DUMMY_EMOTION_RECORDS = {
         details3: null,
       },
     },
-    {
-      '2023-05-12': {
-        emotions: [
-          {
-            mainEmotion: 'mad',
-            subEmotion: 'hateful',
-            feeling: -1,
-            intensity: 5,
-          },
-          {
-            mainEmotion: 'sad',
-            subEmotion: 'depressed',
-            feeling: -1,
-            intensity: 4,
-          },
-          {
-            mainEmotion: 'scared',
-            subEmotion: 'anxious',
-            feeling: -1,
-            intensity: 4,
-          },
-        ],
-        details1: null,
-        details2: null,
-        details3: null,
-      },
-    },
   ],
 };
 
 export const DUMMY_EMOTION_GRAPH_RECORDS = [
   {
-    date: '2023-05-19',
+    date: '2023-07-29',
     emotions: [
       {
         mainEmotion: 'mad',
@@ -409,31 +371,7 @@ export const DUMMY_EMOTION_GRAPH_RECORDS = [
     ],
   },
   {
-    date: '2023-05-20',
-    emotions: [
-      {
-        mainEmotion: 'mad',
-        subEmotion: 'rage',
-        feeling: -1,
-        intensity: 3,
-      },
-      {
-        mainEmotion: 'sad',
-        subEmotion: 'depressed',
-        feeling: -1,
-        intensity: 3,
-      },
-      {
-        mainEmotion: 'scared',
-        subEmotion: 'anxious',
-        feeling: -1,
-        intensity: 3,
-      },
-    ],
-  },
-
-  {
-    date: '2023-05-21',
+    date: '2023-07-30',
     emotions: [
       {
         mainEmotion: 'mad',
@@ -457,7 +395,7 @@ export const DUMMY_EMOTION_GRAPH_RECORDS = [
   },
 
   {
-    date: '2023-05-22',
+    date: '2023-07-31',
     emotions: [
       {
         mainEmotion: 'mad',
@@ -480,7 +418,7 @@ export const DUMMY_EMOTION_GRAPH_RECORDS = [
     ],
   },
   {
-    date: '2023-05-23',
+    date: '2023-08-01',
     emotions: [
       {
         mainEmotion: 'mad',
@@ -504,7 +442,7 @@ export const DUMMY_EMOTION_GRAPH_RECORDS = [
   },
 
   {
-    date: '2023-05-24',
+    date: '2023-08-02',
     emotions: [
       {
         mainEmotion: 'peaceful',
@@ -527,7 +465,7 @@ export const DUMMY_EMOTION_GRAPH_RECORDS = [
     ],
   },
   {
-    date: '2023-05-25',
+    date: '2023-08-03',
     emotions: [
       {
         mainEmotion: 'peaceful',
@@ -548,6 +486,10 @@ export const DUMMY_EMOTION_GRAPH_RECORDS = [
         intensity: 2,
       },
     ],
+  },
+  {
+    date: '2023-08-04',
+    emotions: [],
   },
 ];
 
