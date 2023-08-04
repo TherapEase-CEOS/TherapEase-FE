@@ -62,107 +62,51 @@ export const DUMMY_EMOTION_RECORDS = {
   totalCount: 14,
   records: [
     {
-      '2023-05-19': {
+      '2023-05-25': {
         emotions: [
           {
-            mainEmotion: 'mad',
-            subEmotion: 'hateful',
-            feeling: -1,
+            mainEmotion: 'peaceful',
+            subEmotion: 'nurturing',
+            feeling: 1,
             intensity: 5,
           },
           {
-            mainEmotion: 'sad',
-            subEmotion: 'depressed',
-            feeling: -1,
+            mainEmotion: 'joyful',
+            subEmotion: 'energetic',
+            feeling: 1,
             intensity: 4,
           },
           {
-            mainEmotion: 'scared',
-            subEmotion: 'anxious',
-            feeling: -1,
-            intensity: 4,
+            mainEmotion: 'powerful',
+            subEmotion: 'hopeful',
+            feeling: 1,
+            intensity: 2,
           },
         ],
-        details1: '동창회를 해서 친구들의 성공 소식을 듣게 되었다.',
-        details2:
-          '친구들의 성공 소식을 듣고 그들의 불행을 바라는 내 자신이 혐오스러웠다.',
-        details3:
-          '아직은 감정이 서툴어 집에 일이 있다고 둘러대며 자리를 피했다.',
-      },
-    },
-    {
-      '2023-05-20': {
-        emotions: [
-          {
-            mainEmotion: 'mad',
-            subEmotion: 'rage',
-            feeling: -1,
-            intensity: 3,
-          },
-          {
-            mainEmotion: 'sad',
-            subEmotion: 'depressed',
-            feeling: -1,
-            intensity: 3,
-          },
-          {
-            mainEmotion: 'scared',
-            subEmotion: 'anxious',
-            feeling: -1,
-            intensity: 3,
-          },
-        ],
-        details1: null,
-        details2: null,
+        details1: '지원한 다른 회사에서 인턴 제의가 왔다!',
+        details2: '스스로에 대한 자신감이 생기고 내 자신이 대견했다.',
         details3: null,
       },
     },
     {
-      '2023-05-21': {
+      '2023-05-24': {
         emotions: [
           {
-            mainEmotion: 'mad',
-            subEmotion: 'rage',
-            feeling: -1,
-            intensity: 3,
+            mainEmotion: 'peaceful',
+            subEmotion: 'content',
+            feeling: 1,
+            intensity: 1,
           },
           {
-            mainEmotion: 'sad',
-            subEmotion: 'guilty',
-            feeling: -1,
-            intensity: 2,
-          },
-          {
-            mainEmotion: 'scared',
-            subEmotion: 'helpless',
-            feeling: -1,
-            intensity: 2,
-          },
-        ],
-        details1: null,
-        details2: null,
-        details3: null,
-      },
-    },
-    {
-      '2023-05-22': {
-        emotions: [
-          {
-            mainEmotion: 'mad',
-            subEmotion: 'rage',
+            mainEmotion: 'joyful',
+            subEmotion: 'energetic',
             feeling: 1,
             intensity: 2,
           },
           {
-            mainEmotion: 'sad',
-            subEmotion: 'lonely',
+            mainEmotion: 'powerful',
+            subEmotion: 'hopeful',
             feeling: 0,
-            intensity: 1,
-          },
-          {
-            mainEmotion: 'scared',
-            subEmotion: 'confused',
-            feeling: -1,
             intensity: 3,
           },
         ],
@@ -201,23 +145,150 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-24': {
+      '2023-05-22': {
         emotions: [
           {
-            mainEmotion: 'peaceful',
-            subEmotion: 'content',
-            feeling: 1,
-            intensity: 1,
-          },
-          {
-            mainEmotion: 'joyful',
-            subEmotion: 'energetic',
+            mainEmotion: 'mad',
+            subEmotion: 'rage',
             feeling: 1,
             intensity: 2,
           },
           {
-            mainEmotion: 'powerful',
-            subEmotion: 'hopeful',
+            mainEmotion: 'sad',
+            subEmotion: 'lonely',
+            feeling: 0,
+            intensity: 1,
+          },
+          {
+            mainEmotion: 'scared',
+            subEmotion: 'confused',
+            feeling: -1,
+            intensity: 3,
+          },
+        ],
+        details1: null,
+        details2: null,
+        details3: null,
+      },
+    },
+    {
+      '2023-05-21': {
+        emotions: [
+          {
+            mainEmotion: 'mad',
+            subEmotion: 'rage',
+            feeling: -1,
+            intensity: 3,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: -1,
+            intensity: 2,
+          },
+          {
+            mainEmotion: 'scared',
+            subEmotion: 'helpless',
+            feeling: -1,
+            intensity: 2,
+          },
+        ],
+        details1: null,
+        details2: null,
+        details3: null,
+      },
+    },
+    {
+      '2023-05-20': {
+        emotions: [
+          {
+            mainEmotion: 'mad',
+            subEmotion: 'rage',
+            feeling: -1,
+            intensity: 3,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'depressed',
+            feeling: -1,
+            intensity: 3,
+          },
+          {
+            mainEmotion: 'scared',
+            subEmotion: 'anxious',
+            feeling: -1,
+            intensity: 3,
+          },
+        ],
+        details1: null,
+        details2: null,
+        details3: null,
+      },
+    },
+    {
+      '2023-05-19': {
+        emotions: [
+          {
+            mainEmotion: 'mad',
+            subEmotion: 'hateful',
+            feeling: -1,
+            intensity: 5,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'depressed',
+            feeling: -1,
+            intensity: 4,
+          },
+          {
+            mainEmotion: 'scared',
+            subEmotion: 'anxious',
+            feeling: -1,
+            intensity: 4,
+          },
+        ],
+        details1: '동창회를 해서 친구들의 성공 소식을 듣게 되었다.',
+        details2:
+          '친구들의 성공 소식을 듣고 그들의 불행을 바라는 내 자신이 혐오스러웠다.',
+        details3:
+          '아직은 감정이 서툴어 집에 일이 있다고 둘러대며 자리를 피했다.',
+      },
+    },
+    {
+      '2023-05-18': {
+        emotions: null,
+        details1: null,
+        details2: null,
+        details3: null,
+      },
+    },
+    {
+      '2023-05-17': {
+        emotions: [
+          {
+            mainEmotion: 'mad',
+            subEmotion: 'rage',
+            feeling: 1,
+            intensity: 1,
+          },
+        ],
+        details1: null,
+        details2: null,
+        details3: null,
+      },
+    },
+    {
+      '2023-05-16': {
+        emotions: [
+          {
+            mainEmotion: 'mad',
+            subEmotion: 'critical',
+            feeling: 1,
+            intensity: 1,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'lonely',
             feeling: 0,
             intensity: 3,
           },
@@ -228,29 +299,85 @@ export const DUMMY_EMOTION_RECORDS = {
       },
     },
     {
-      '2023-05-25': {
+      '2023-05-15': {
+        emotions: null,
+        details1: null,
+        details2: null,
+        details3: null,
+      },
+    },
+    {
+      '2023-05-14': {
         emotions: [
           {
-            mainEmotion: 'peaceful',
-            subEmotion: 'nurturing',
-            feeling: 1,
-            intensity: 5,
+            mainEmotion: 'mad',
+            subEmotion: 'rage',
+            feeling: -1,
+            intensity: 3,
           },
           {
-            mainEmotion: 'joyful',
-            subEmotion: 'energetic',
-            feeling: 1,
-            intensity: 4,
+            mainEmotion: 'sad',
+            subEmotion: 'guilty',
+            feeling: -1,
+            intensity: 2,
           },
           {
-            mainEmotion: 'powerful',
-            subEmotion: 'hopeful',
-            feeling: 1,
+            mainEmotion: 'scared',
+            subEmotion: 'helpless',
+            feeling: -1,
             intensity: 2,
           },
         ],
-        details1: '지원한 다른 회사에서 인턴 제의가 왔다!',
-        details2: '스스로에 대한 자신감이 생기고 내 자신이 대견했다.',
+        details1: null,
+        details2: null,
+        details3: null,
+      },
+    },
+    {
+      '2023-05-13': {
+        emotions: [
+          {
+            mainEmotion: 'mad',
+            subEmotion: 'rage',
+            feeling: -1,
+            intensity: 4,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'depressed',
+            feeling: -1,
+            intensity: 3,
+          },
+        ],
+        details1: null,
+        details2: null,
+        details3: null,
+      },
+    },
+    {
+      '2023-05-12': {
+        emotions: [
+          {
+            mainEmotion: 'mad',
+            subEmotion: 'hateful',
+            feeling: -1,
+            intensity: 5,
+          },
+          {
+            mainEmotion: 'sad',
+            subEmotion: 'depressed',
+            feeling: -1,
+            intensity: 4,
+          },
+          {
+            mainEmotion: 'scared',
+            subEmotion: 'anxious',
+            feeling: -1,
+            intensity: 4,
+          },
+        ],
+        details1: null,
+        details2: null,
         details3: null,
       },
     },
