@@ -33,7 +33,7 @@ const TimeTablePage = () => {
             실시간 예약 가능 시간과 차이가 있을 수 있습니다.
           </span>
           <span className="text-body4 text-gray-5">
-            5월 24일 05시 32분 업데이트
+            08월 04일 18시 32분 업데이트
           </span>
         </div>
         <TimeTable isEditMode={isEditMode} />
