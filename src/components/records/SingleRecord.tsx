@@ -42,7 +42,7 @@ const SingleRecord = ({ record, idx }: Props) => {
               return (
                 <div
                   key={idx}
-                  className="w-[22rem] h-[3.8rem] flex items-center justify-center px-[1.5rem] py-[.8rem] border-[.1rem] border-gray-3 rounded-[.4rem] gap-[.7rem]"
+                  className="w-[23rem] h-[3.8rem] flex items-center justify-center px-[1.5rem] py-[.8rem] border-[.1rem] border-gray-3 rounded-[.4rem] gap-[.7rem]"
                 >
                   <span className="px-[.6rem] py-[.5rem] text-label1 border-transparent rounded-[.4rem] bg-gray-2">
                     {
