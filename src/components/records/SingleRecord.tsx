@@ -42,9 +42,9 @@ const SingleRecord = ({ record, idx }: Props) => {
               return (
                 <div
                   key={idx}
-                  className="h-[3.8rem] flex items-center px-[1.5rem] py-[.8rem] border-[.1rem] border-gray-3 rounded-[.4rem] gap-[.7rem]"
+                  className="w-[22rem] h-[3.8rem] flex items-center justify-center px-[1.5rem] py-[.8rem] border-[.1rem] border-gray-3 rounded-[.4rem] gap-[.7rem]"
                 >
-                  <span className="px-[.6rem] py-[.5rem] text-label1 border-transparent rounded-[.4rem] bg-yellow-100">
+                  <span className="px-[.6rem] py-[.5rem] text-label1 border-transparent rounded-[.4rem] bg-gray-2">
                     {
                       // TODO - 로직 개선
                       DUMMY_MEDIUM_EMOTION.find(
