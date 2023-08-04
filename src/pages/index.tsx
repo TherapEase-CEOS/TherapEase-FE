@@ -134,7 +134,7 @@ const LandingPage = () => {
           <div className="h-[35.6rem] flex flex-col gap-[5.7rem] ">
             <div className="flex flex-col gap-[0.8rem] ">
               <p className="font-logo text-title text-white">
-                Make your <br /> counseling perfect <br />
+                Make your <br /> counseling better <br />
                 with TherapEase
               </p>
               <p className="text-landingPageBody3 text-white">

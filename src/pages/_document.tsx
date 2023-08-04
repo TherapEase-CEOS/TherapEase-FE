@@ -9,7 +9,7 @@ const Document = () => {
           href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css"
         />
       </Head>
-      <title>TherapEase - Make Your Counseling Perfect</title>
+      <title>TherapEase - Make Your Counseling Better</title>
       <body>
         <Main />
         <NextScript />
