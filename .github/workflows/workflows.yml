@@ -1,0 +1,34 @@
+name: deploy-nextjs-production
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: excuting remote ssh commands
+        uses: appleboy/ssh-action@v0.1.6 
+        with:
+          host: ${{ secrets.REMOTE_IP }} # 인스턴스 IP
+          username: ${{ secrets.REMOTE_USER }} # 우분투 아이디
+          key: ${{ secrets.REMOTE_PRIVATE_KEY }} # ec2 instance pem key
+          port: ${{ secrets.REMOTE_SSH_PORT }} # 접속포트
+
+      - name: checkout and update local branch
+        run: | 
+          cd /TherapEase-FE
+          git checkout main
+          git pull origin main
+
+      - name: install dependencies and build
+        run: |
+          npm install --force
+          npm run build
+
+      - name: Start Next.js App
+        run: |
+          pm2 stop therapease # 이전 프로세스 종료 
+          pm2 start npm --name "therapease" --start # 새로운 배포판 실행
