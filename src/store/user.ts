@@ -1,12 +1,23 @@
-import { atom } from 'recoil';
+import { atom, atomFamily } from 'recoil';
+import { IClient, IUser } from '@/interfaces/interfaces';
 
-export const isSignedInState = atom<boolean>({
-  key: 'isSignedInState',
-  default: true,
+export const userState = atom<IUser | null>({
+  key: 'userState',
+  default: null,
 });
 
-export const isCounselorState = atom<boolean | null>({
-  key: 'isCounselorState',
-  // default: null,
-  default: true,
+export const clientsListState = atom<IClient[]>({
+  key: 'clientsListState',
+  // default: [],
+  default: [],
 });
+
+// export const currentClientState = atomFamily<Iclient, string>({
+//   key: 'currentClientState',
+//   default: (id) => {
+//     const currentClient = DUMMY_CLIENTS_LIST.find(
+//       (client) => client.counseleeId === id,
+//     );
+//     return currentClient;
+//   },
+// });

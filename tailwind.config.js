@@ -15,54 +15,72 @@ module.exports = {
         logo: ['var(--logo-font)'],
       },
       fontSize: {
-        landingPageBody: [
+        title: [
+          '55px',
+          { fontStyle: 'normal', fontWeight: '400', lineHeight: '60px' },
+        ],
+        landingPageTitle: [
+          '40px',
+          { fontStyle: 'normal', fontWeight: '400', lineHeight: 'normal' },
+        ],
+        landingPageBody1: [
           '30px',
-          { fontStyle: 'normal', fontWeight: '700', lineHeight: '48px' },
+          { fontStyle: 'normal', fontWeight: '500', lineHeight: '45px' },
+        ],
+        landingPageBody2: [
+          '24px',
+          { fontStyle: 'normal', fontWeight: '400', lineHeight: '40px' },
+        ],
+        landingPageBody3: [
+          '22px',
+          { fontStyle: 'normal', fontWeight: '300', lineHeight: '40px' },
         ],
         heading1: [
-          '32px',
-          { fontStyle: 'normal', fontWeight: '800', lineHeight: '51px' },
+          '3.2rem',
+          { fontStyle: 'normal', fontWeight: '800', lineHeight: '5.1rem' },
         ],
         heading2: [
-          '26px',
-          { fontStyle: 'normal', fontWeight: '700', lineHeight: '42px' },
+          '2.6rem',
+          { fontStyle: 'normal', fontWeight: '700', lineHeight: '4.2rem' },
         ],
         heading3: [
-          '22px',
-          { fontStyle: 'normal', fontWeight: '600', lineHeight: '35px' },
+          '2.2rem',
+          { fontStyle: 'normal', fontWeight: '600', lineHeight: '3.5rem' },
         ],
         heading4: [
-          '18px',
-          { fontStyle: 'normal', fontWeight: '700', lineHeight: '29px' },
+          '1.8rem',
+          { fontStyle: 'normal', fontWeight: '700', lineHeight: '2.9rem' },
         ],
         body1: [
-          '18px',
-          { fontStyle: 'normal', fontWeight: '600', lineHeight: '29px' },
+          '1.8rem',
+          { fontStyle: 'normal', fontWeight: '600', lineHeight: '2.9rem' },
         ],
         body2: [
-          '16px',
-          { fontStyle: 'normal', fontWeight: '500', lineHeight: '25px' },
+          '1.6rem',
+          { fontStyle: 'normal', fontWeight: '500', lineHeight: '2.5rem' },
         ],
+
         body3: [
-          '14px',
-          { fontStyle: 'normal', fontWeight: '500', lineHeight: '22px' },
+          '1.4rem',
+          { fontStyle: 'normal', fontWeight: '500', lineHeight: '2.2rem' },
         ],
         body4: [
-          '12px',
-          { fontStyle: 'normal', fontWeight: '500', lineHeight: '22px' },
+          '1.2rem',
+          { fontStyle: 'normal', fontWeight: '500', lineHeight: '2.2rem' },
         ],
         label1: [
-          '12px',
-          { fontStyle: 'normal', fontWeight: '500', lineHeight: '12px' },
+          '1.2rem',
+          { fontStyle: 'normal', fontWeight: '500', lineHeight: '1.2rem' },
         ],
         label2: [
-          '10px',
-          { fontStyle: 'normal', fontWeight: '500', lineHeight: '12px' },
+          '1.0rem',
+          { fontStyle: 'normal', fontWeight: '500', lineHeight: '1.2rem' },
         ],
       },
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
+        black: '#181818',
         yellow: {
           20: '#FFFCF0',
           100: '#FDF2B4',
@@ -96,11 +114,26 @@ module.exports = {
           3: '#EFEFEF',
           2: '#F7F7F7',
           1: '#FCFCFC',
+          20: '#73737333',
+          40: '#73737366',
+          60: '#73737399',
+          80: '#737373CC',
+          100: '#737373',
         },
         background: '#F5F5F5',
       },
       boxShadow: {
         shadow: '0px 4px 14px 0px rgba(0, 0, 0, 0.09)',
+      },
+      keyframes: {
+        'modal-enter': {
+          from: { opacity: '0', transform: 'translateY(4px) scale(0.95)' },
+          to: { opacity: '1', transform: 'translateY(0) scale(1)' },
+        },
+        'modal-leave': {
+          from: { opacity: '1', transform: 'translateY(0) scale(1)' },
+          to: { opacity: '0', transform: 'translateY(4px) scale(0.95)' },
+        },
       },
     },
   },
