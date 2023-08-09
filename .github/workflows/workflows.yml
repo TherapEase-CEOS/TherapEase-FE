@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: excuting remote ssh commands
-        uses: appleboy/ssh-action@v0.1.6 
+        uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.REMOTE_IP }} # 인스턴스 IP
           username: ${{ secrets.REMOTE_USER }} # 우분투 아이디
