@@ -31,8 +31,11 @@
     <img src="https://img.shields.io/badge/TypeScript-5.1.6-3178C6?logo=typescript">
     <br />
     <img src="https://img.shields.io/badge/React-18.2.0-61DAFB?logo=React">
-    <img src="https://img.shields.io/badge/tailwindcss-3.3.2-DB7093?logo=tailwindcss"> 
-    <img src="https://img.shields.io/badge/react-query-3.39.3-010101?logo=react-query"> 
+    <img src="https://img.shields.io/badge/tailwindcss-3.3.2-338B2AC?logo=tailwindcss"> 
+    <img src="https://img.shields.io/badge/react--query-3.39.3-FF4154?logo=react-query">
+    <br />  <br />
+    <img src="https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white"> 
+    <img src="https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white"> 
     <br />
     
 </div>
