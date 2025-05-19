@@ -4,10 +4,9 @@ const REFRESH_TOKEN = 'refresh_token';
 const COUNSELOR = 'counselor';
 const COUSELEE = 'counselee';
 
-export {
-  USER_LOCALSTORAGE_KEY,
-  ACCESS_TOKEN,
-  REFRESH_TOKEN,
-  COUNSELOR,
-  COUSELEE,
+export const Roles = {
+  COUNSELOR: 'counselor',
+  COUNSELEE: 'counselee',
 };
+
+export { USER_LOCALSTORAGE_KEY, ACCESS_TOKEN, REFRESH_TOKEN };
