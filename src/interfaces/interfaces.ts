@@ -11,19 +11,26 @@ export interface IClient {
 export interface IUser {
   id: number;
   name: string;
-  code: string;
+  authCode: string;
   role: string;
-  refresh: string;
-  access: string;
-  partnerId?: string;
-  accountId?: string;
+  counselorId?: string; // 상담사일경우만
+  clientId?: string; // 내담자일경우만
 }
+type EmotionCategory =
+  | 'sad'
+  | 'Mad'
+  | 'Scared'
+  | 'Joyful'
+  | 'Powerful'
+  | 'Peaceful';
+
+type EmotionFeeling = 'positive' | 'negative' | 'unsure';
 
 export interface IEmotion {
-  mainEmotion: string;
-  subEmotion: string;
-  feeling: number;
-  intensity: number;
+  category: EmotionCategory;
+  subcategory: string;
+  feeling: EmotionFeeling;
+  intensity: number; // 1~5
 }
 
 export interface IEmotionFull {
@@ -33,12 +40,20 @@ export interface IEmotionFull {
   details3: string | null;
 }
 
-export interface IRecord {
-  date: string;
+export interface IDailyRecord {
+  date: string; // 'YYYY-MM-DD'
+  record: IEmotionRecord | null;
+}
+
+export interface IEmotionRecord {
+  _id: string;
+  clientId: string;
+  date: string; // ISO date string (e.g. "2025-05-19T00:00:00.000Z")
+  answer1: string;
+  answer2: string;
+  answer3: string;
   emotions: IEmotion[];
-  details1: string | null;
-  details2: string | null;
-  details3: string | null;
+  __v: number;
 }
 
 export interface ITimeTable {

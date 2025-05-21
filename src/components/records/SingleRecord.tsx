@@ -4,27 +4,41 @@ import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
 
 import { parseDateString } from '@/utils/parseDate';
 
-import { IEmotion, IRecord } from '@/interfaces/interfaces';
+import {
+  IEmotion,
+  IDailyRecord,
+  IEmotionRecord,
+} from '@/interfaces/interfaces';
 
-import { EMOTIONS, FEELING } from '@/constants/records';
-import { DUMMY_MEDIUM_EMOTION } from '@/constants/DUMMY_DATA';
+import { EMOTIONS, FEELING, MEDIUM_EMOTION } from '@/constants/records';
 
 interface Props {
-  record: IRecord;
+  dailyRecord: IDailyRecord;
   idx: number;
 }
 
-const SingleRecord = ({ record, idx }: Props) => {
+const SingleRecord = ({ dailyRecord, idx }: Props) => {
   const isDetailExist =
-    Object.values(record)[0].details1 ||
-    Object.values(record)[0].details2 ||
-    Object.values(record)[0].details3;
+    dailyRecord?.record?.answer1 ||
+    dailyRecord?.record?.answer2 ||
+    dailyRecord?.record?.answer3;
 
   const [isDetailShow, setIsDetailShow] = useState(false);
 
   const handleDetailShow = () => {
     setIsDetailShow(!isDetailShow);
   };
+
+  if (!dailyRecord?.record) {
+    return (
+      <div className="w-full h-[7.1rem] flex items-center">
+        <div className="text-body1 ml-[2.4rem] mr-[6.8rem]">
+          {parseDateString(dailyRecord.date)}
+        </div>
+        <span className="text-body2 text-gray-4">감정 기록 없음</span>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -34,10 +48,10 @@ const SingleRecord = ({ record, idx }: Props) => {
       {/* 감정 기록 라인 */}
       <div className="w-full h-[7.1rem] flex items-center">
         <div className="text-body1 ml-[2.4rem] mr-[6.8rem]">
-          {parseDateString(Object.keys(record)[0])}
+          {parseDateString(dailyRecord.date)}
         </div>
         <div className="flex gap-[1.2rem]">
-          {Object.values(record)[0].emotions?.map(
+          {dailyRecord.record?.emotions?.map(
             (emotion: IEmotion, idx: number) => {
               return (
                 <div
@@ -47,10 +61,10 @@ const SingleRecord = ({ record, idx }: Props) => {
                   <span className="px-[.6rem] py-[.5rem] text-label1 border-transparent rounded-[.4rem] bg-gray-2">
                     {
                       // TODO - 로직 개선
-                      DUMMY_MEDIUM_EMOTION.find(
-                        (emo) => emo.large === emotion.mainEmotion,
+                      MEDIUM_EMOTION.find(
+                        (emo) => emo.large === emotion.category,
                       )?.medium.find(
-                        ({ value }) => value === emotion.subEmotion,
+                        ({ value }) => value === emotion.subcategory,
                       )?.label
                     }
                   </span>
@@ -60,9 +74,9 @@ const SingleRecord = ({ record, idx }: Props) => {
                       .fill('')
                       .map((_, idx) => {
                         const color =
-                          emotion.feeling === -1
+                          emotion.feeling === FEELING.negative.value
                             ? 'green'
-                            : emotion.feeling === 0
+                            : emotion.feeling === FEELING.unsure.value
                             ? 'gray'
                             : 'blue';
                         const intensity =
@@ -84,25 +98,22 @@ const SingleRecord = ({ record, idx }: Props) => {
 
                   <span
                     className={`px-[.6rem] py-[.5rem] text-label1 border-transparent rounded-[.4rem] ${
-                      emotion.feeling === -1
+                      emotion.feeling === FEELING.negative.value
                         ? 'bg-green-100 text-green-text'
-                        : emotion.feeling === 0
+                        : emotion.feeling === FEELING.unsure.value
                         ? 'bg-gray-8 text-white'
                         : 'bg-blue-100 text-blue-text'
                     }`}
                   >
-                    {FEELING[emotion.feeling + 1]}
+                    {FEELING[emotion.feeling].name}
                   </span>
                 </div>
               );
             },
           )}
-          {!Object.values(record)[0].emotions && (
-            <span className="text-body2 text-gray-4">감정 기록 없음</span>
-          )}
         </div>
 
-        {Object.values(record)[0].emotions &&
+        {dailyRecord?.record.emotions &&
           (isDetailExist ? (
             <div
               className="flex items-center gap-[.6rem] ml-auto mr-[2.3rem] cursor-pointer"
@@ -128,28 +139,28 @@ const SingleRecord = ({ record, idx }: Props) => {
           <span>어떤 상황이었나요?</span>
           <span
             className={`mt-[1.0rem] mb-[1.794rem] ${
-              Object.values(record)[0].details1 ? 'text-gray-8' : 'text-gray-4'
+              dailyRecord.record?.answer1 ? 'text-gray-8' : 'text-gray-4'
             }`}
           >
-            {Object.values(record)[0].details1 ?? '응답 없음'}
+            {dailyRecord?.record.answer1 ?? '응답 없음'}
           </span>
           <span>어떤 생각을 했나요?</span>
           <span
             className={`mt-[1.0rem] mb-[1.794rem] ${
-              Object.values(record)[0].details2 ? 'text-gray-8' : 'text-gray-4'
+              dailyRecord.record?.answer2 ? 'text-gray-8' : 'text-gray-4'
             }`}
           >
-            {Object.values(record)[0].details2 ?? '응답 없음'}
+            {dailyRecord.record?.answer2 ?? '응답 없음'}
           </span>
           <span>
             부정적인 감정이 있었다면, 어떤 방식으로 감정을 다스렸나요?
           </span>
           <span
             className={`mt-[1.0rem] ${
-              Object.values(record)[0].details3 ? 'text-gray-8' : 'text-gray-4'
+              dailyRecord.record?.answer3 ? 'text-gray-8' : 'text-gray-4'
             }`}
           >
-            {Object.values(record)[0].details3 ?? '응답 없음'}
+            {dailyRecord.record?.answer3 ?? '응답 없음'}
           </span>
         </div>
       )}

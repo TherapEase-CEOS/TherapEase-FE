@@ -6,7 +6,7 @@ const COUSELEE = 'counselee';
 
 export const Roles = {
   COUNSELOR: 'counselor',
-  COUNSELEE: 'counselee',
+  COUNSELEE: 'client',
 };
 
 export { USER_LOCALSTORAGE_KEY, ACCESS_TOKEN, REFRESH_TOKEN };
