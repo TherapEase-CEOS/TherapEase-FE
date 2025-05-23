@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
-
+import Image from 'next/image';
 import SingleRecord from './SingleRecord';
 import { IDailyRecord } from '@/interfaces/interfaces';
 import { useEmotionRecords } from '@/hooks/queries/EmotionRecords';
 
 import { BsChevronLeft, BsChevronRight } from 'react-icons/bs';
+
+import LoadingSpinnerSrc from '../../assets/spinner.gif';
 
 import { DUMMY_EMOTION_RECORDS } from '@/constants/DUMMY_DATA';
 
@@ -17,12 +19,12 @@ const RecordsList = ({ clientId }: Props) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const LIMIT = 7;
-  const { data, isLoading, isError } = useEmotionRecords(
+  const { data, isLoading, isFetching, isStale, isError } = useEmotionRecords(
     clientId,
     currentPage,
     LIMIT,
   );
-  console.log(data);
+  console.log(isStale, data);
 
   const totalPages = data?.totalPages ?? 1;
 
@@ -62,10 +64,19 @@ const RecordsList = ({ clientId }: Props) => {
       </div>
       {/* 감정기록 리스트 영역 */}
       <div>
-        {isLoading ? (
-          <p>불러오는 중...</p>
+        {isLoading || isFetching ? (
+          <div className="h-[30rem] flex justify-center items-center">
+            <Image
+              src={LoadingSpinnerSrc}
+              alt="loading..."
+              height={100}
+              width={100}
+            />
+          </div>
         ) : isError ? (
-          <p>에러 발생</p>
+          <div className="h-[30rem] flex justify-center items-center">
+            정보를 가져오지 못했습니다.
+          </div>
         ) : (
           emotionRecordList.map((dailyRecord: any, idx: number) => (
             <div key={idx}>
