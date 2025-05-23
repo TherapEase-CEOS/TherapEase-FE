@@ -3,8 +3,6 @@ import { useRouter } from 'next/router';
 
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { useRecoilState } from 'recoil';
-
-import InputModal from './InputModal';
 import { TfiClose } from 'react-icons/tfi';
 import { ButtonLarge } from '../Buttons'; // 필요 시 수정
 
@@ -40,10 +38,12 @@ export default function LoginModal({ closeModal }: LoginModalProps) {
       console.log(response);
       if (response.status === 200) {
         const { user } = response.data;
+        closeModal();
+        setUser(user);
         if (user.role === Roles.COUNSELEE) {
-          router.push('/records');
+          router.push('/client/records');
         } else if (user.role === Roles.COUNSELOR) {
-          router.push('/clients');
+          router.push('/counselor/clients');
         }
       } else {
         console.log(response.status);
