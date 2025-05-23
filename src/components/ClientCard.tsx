@@ -25,6 +25,7 @@ interface Props {
   detailMenu?: boolean;
   setSelectedClient?: (clientInfo: IClient) => void;
   setIsDeleteModalVisible?: (value: boolean) => void;
+  setCompleteClient: any;
 }
 
 const ClientCard = ({
@@ -32,48 +33,13 @@ const ClientCard = ({
   detailMenu = false,
   setSelectedClient,
   setIsDeleteModalVisible,
+  setCompleteClient,
 }: Props) => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const {
-    name,
-    id,
-    start,
-    progress,
-    counselingDate,
-
-    goal,
-  } = clientInfo;
-
-  const clientMutation: UseMutationResult<IClient, any, string> = useMutation(
-    async (type: string) => {
-      switch (type) {
-        case 'change_status': // 상태 변경
-          console.log('change');
-          return await changeCounseleeStatus(id);
-
-        case 'update': // 상담 목적 수정
-          var body = {
-            goal: goalInputValue,
-          };
-          return await updateClient(id, body);
-      }
-    },
-    {
-      onError: (error, variable, context) => {
-        // error
-        console.log(error);
-      },
-      onSuccess: (data: IClient, variables, context) => {
-        console.log('client mutate success', data, variables, context);
-        // 내담자 목록 refetch
-        queryClient.invalidateQueries({
-          queryKey: [queryKeys.clientList],
-        });
-      },
-    },
-  );
+  const { name, clientId, createdAt, status, weeklySchedule, goal }: IClient =
+    clientInfo;
 
   const [isDetailMenuClicked, setIsDetailMenuClicked] =
     useState<boolean>(false);
@@ -94,7 +60,6 @@ const ClientCard = ({
   const handleInputSubmit = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    clientMutation.mutate('update');
     // TODO - api 연동
     setIsEditMode(!isEditMode);
   };
@@ -116,18 +81,30 @@ const ClientCard = ({
   const handleDoneClient = (e: React.MouseEvent) => {
     e.stopPropagation();
     // TODO - api 연동 - 내담자 완료처리
-    clientMutation.mutate('change_status');
     setIsDetailMenuClicked(false);
+    setCompleteClient(clientId);
   };
 
+  const dayToKorean: { [key: string]: string } = {
+    sunday: '일요일',
+    monday: '월요일',
+    tuesday: '화요일',
+    wednesday: '수요일',
+    thursday: '목요일',
+    friday: '금요일',
+    saturday: '토요일',
+  };
   return (
     <div
       className={`w-[33.2rem] h-[28.5rem] p-[2.2rem] text-body4 text-gray-9 bg-white rounded-[2.0rem] flex flex-col ${
         detailMenu && 'cursor-pointer'
       }`}
+      /*
       onClick={() => {
-        !isEditMode && router.push(`/records?id=${id}`, '/records');
+        !isEditMode &&
+          router.push(`/records?id=${clientInfo.clientId}`, '/records');
       }}
+          */
     >
       <div className="flex justify-between">
         <span className="text-body1 mb-[.35rem]">{name}</span>
@@ -169,22 +146,22 @@ const ClientCard = ({
 
       <div className="flex items-center mb-[.6rem] gap-[.4rem]">
         <span className="px-[.6rem] rounded-[.4rem] bg-gray-4">
-          {progress ? '상담중' : '상담 완료'}
+          {status === 'ongoing' ? '상담중' : '상담 완료'}
         </span>
         <div className="w-[.1rem] h-[1.4rem] mx-[.4rem] bg-gray-4"></div>
         <span className="px-[.6rem] rounded-[.4rem] bg-yellow-100">
-          {counselingDate}
+          {dayToKorean[weeklySchedule.day]}
         </span>
-        {/**<span className="px-[.6rem] rounded-[.4rem] bg-gray-3">
-          {counselingTime}
-        </span> */}
+        <span className="px-[.6rem] rounded-[.4rem] bg-gray-3">
+          {weeklySchedule.time}
+        </span>
       </div>
 
       <div className="flex items-center gap-[.4rem]">
         <span className="px-[.6rem] rounded-[.4rem] bg-gray-2">상담시작일</span>
         <div className="w-[.1rem] h-[1.4rem] mx-[.4rem] bg-gray-4"></div>
         <span className="px-[.6rem] rounded-[.4rem] bg-gray-2">
-          {start.substring(0, 10)}
+          {createdAt.substring(0, 10)}
         </span>
       </div>
       <hr className="mt-[1.3rem] mb-[1.2rem]"></hr>
