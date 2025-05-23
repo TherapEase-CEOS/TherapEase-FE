@@ -5,13 +5,9 @@ import 'animate.css';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
-import { IUser } from '@/interfaces/interfaces';
-import { queryKeys } from '@/constants/queryKeys';
-import { getUser } from '@/hooks/useUser';
-import { useQueryClient, useQuery } from '@tanstack/react-query';
-import { clearUser, updateUser } from '@/hooks/useUser';
-import { QueryKey } from 'react-query';
-import React from 'react';
+
+import { Toaster } from 'react-hot-toast';
+import React, { useState } from 'react';
 import {
   QueryClientProvider,
   QueryClient,
@@ -43,10 +39,40 @@ const App = ({ Component, pageProps }: AppProps) => {
     }).init();
   }, []);
 
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null; // 또는 <SkeletonHeader />
+  }
+
   return (
     <RecoilRoot>
       <QueryClientProvider client={client}>
         <Hydrate state={pageProps.dehydratedState}>
+          <Toaster
+            toastOptions={{
+              style: {
+                fontSize: '1.5rem',
+                padding: '14px 20px',
+              },
+              success: {
+                iconTheme: {
+                  primary: '#fdf2b4',
+                  secondary: '#999999',
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: '#f44336',
+                  secondary: '#ffebee',
+                },
+              },
+            }}
+          />
           <Layout>
             <Component {...pageProps} />
           </Layout>

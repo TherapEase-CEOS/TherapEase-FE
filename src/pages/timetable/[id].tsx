@@ -5,41 +5,41 @@ import { useRouter } from 'next/router';
 import Profile from '@/components/timetable/Profile';
 import TimeTable from '@/components/timetable/TimeTable';
 import Image from 'next/image';
-import LoadingSpinnerSrc from '../../assets/spinner.gif';
+
 import CalendarIconSrc from '../../assets/icons/calendar.svg';
+import { DUMMY_PROFILE, DUMMY_TIMETABLE } from '@/constants/DUMMY_DATA';
 
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { counselorProfileState } from '@/store/timetable';
-import { timeTableState } from '@/store/timetable';
-import { userState } from '@/store/user';
-
-import {
-  getCounselorProfile,
-  getTimetable,
-  updateCounselorProfile,
-  updateTimetable,
-} from '@/hooks/queries/timetable';
-
-import {
-  QueryKey,
-  useMutation,
-  useQuery,
-  UseMutationResult,
-  useQueryClient,
-} from '@tanstack/react-query';
-import { QueryClient } from '@tanstack/react-query';
-
-import { ICounselorProfile, ITimeTable } from '@/interfaces/interfaces';
 import { queryKeys } from '@/constants/queryKeys';
+import {
+  useCounselorInfo,
+  useUpdateCounselorInfo,
+} from '@/hooks/queries/Counselor';
 
+import { TimetableContext } from '@/hooks/TimetableContext';
+import {
+  ICounselorInfoResponse,
+  ICounselorProfile,
+  ITimeTable,
+  IUser,
+} from '@/interfaces/interfaces';
+
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/user';
+import { Roles } from '@/constants/constants';
+
+// 변경 요청을 보내기 위해서 클라이언트 상태를 관리해야함.
 const TimeTablePage = () => {
   const router = useRouter();
-  const { id: counselor_id } = router.query;
+  const { counselorId } = router.query;
+
+  const user = useRecoilValue<IUser | null>(userState); // 로그인 여부
+
+  const [editableProfile, setEditableProfile] =
+    useState<ICounselorProfile>(DUMMY_PROFILE);
+  const [editableTimetable, setEditableTimetable] =
+    useState<ITimeTable>(DUMMY_TIMETABLE);
 
   const [isEditMode, setIsEditMode] = useState(false);
-
-  const isAuthorized =
-    useRecoilValue(userState)?.id === parseInt(counselor_id as string); // 상담사 본인만 수정 가능
 
   return (
     <div
@@ -47,9 +47,19 @@ const TimeTablePage = () => {
     gap-4  mt-[6.6rem] box-border"
     >
       <div className="flex flex-col gap-4">
-        <Profile editable={isEditMode} />
-        {isAuthorized && (
-          <EditBtn isEditMode={isEditMode} setIsEditMode={setIsEditMode} />
+        <Profile
+          isEditMode={isEditMode}
+          setEditableProfile={setEditableProfile}
+          editableProfile={editableProfile}
+        />
+
+        {user?.role === Roles.COUNSELOR && (
+          <EditBtn
+            isEditMode={isEditMode}
+            setIsEditMode={setIsEditMode}
+            editableProfile={editableProfile}
+            editableTimetable={editableTimetable}
+          />
         )}
       </div>
 
@@ -64,7 +74,18 @@ const TimeTablePage = () => {
           </span>
           {/*<span className="text-body4 text-gray-5">업데이트</span>*/}
         </div>
-        <TimeTable isEditMode={isEditMode} />
+        <TimetableContext.Provider
+          value={{
+            editableTimetable: editableTimetable,
+            setEditableTimetable: setEditableTimetable,
+          }}
+        >
+          <TimeTable
+            isEditMode={isEditMode}
+            editableTimetable={editableTimetable}
+            setEditableTimetable={setEditableTimetable}
+          />
+        </TimetableContext.Provider>
       </div>
     </div>
   );
@@ -73,87 +94,28 @@ const TimeTablePage = () => {
 const EditBtn = ({
   isEditMode,
   setIsEditMode,
+  editableProfile,
+  editableTimetable,
 }: {
   isEditMode: boolean;
   setIsEditMode: (value: boolean) => void;
+  editableProfile: ICounselorProfile;
+  editableTimetable: ITimeTable;
 }) => {
   const router = useRouter();
-  const queryClient = useQueryClient();
-
   const { id: counselorId } = router.query;
 
-  const [couselorProfile, setCounselorProfile] = useRecoilState(
-    counselorProfileState,
-  );
+  const { mutate } = useUpdateCounselorInfo(counselorId as string);
 
-  const [timetable, setTimeTable] = useRecoilState(timeTableState);
-
-  const profileMutation: UseMutationResult<
-    ICounselorProfile,
-    any,
-    ICounselorProfile
-  > = useMutation(() => updateCounselorProfile(counselorId, couselorProfile), {
-    onError: (error, variable, context) => {
-      // error
-      console.log(error);
-    },
-    onSuccess: (data: ICounselorProfile, variables, context) => {
-      //console.log('profile mutate success');
-      setCounselorProfile(data);
-    },
-  });
-
-  const timetableMutation: UseMutationResult<ITimeTable, any, ITimeTable> =
-    useMutation(() => updateTimetable(counselorId, timetable), {
-      onError: (error, variable, context) => {
-        // error
-      },
-      onSuccess: (data: ITimeTable, variables, context) => {
-        console.log('timetable mutate success', data, variables, context);
-
-        setTimeTable(data);
-      },
-    });
-
-  const handlePararellMutate = async () => {
-    // 비동기 병렬요청 처리
-
-    // 이전 상태를 백업
-    const previousProfileData = queryClient.getQueryData([
-      queryKeys.counselorProfile,
-    ]);
-    const previousTimetableData = queryClient.getQueryData([
-      queryKeys.timetable,
-    ]);
-
-    const profilePromise = profileMutation.mutateAsync(couselorProfile);
-
-    const timetablePromise = timetableMutation.mutateAsync(timetable);
-
-    try {
-      const responses = await Promise.all([profilePromise, timetablePromise]);
-      console.log('save success');
-    } catch (e) {
-      alert('일부 저장에 실패하였습니다. 다시 시도해주세요.');
-      // 하나라도 실패한 경우 이전 상태로 복원 (rollback)
-      /*
-      queryClient.setQueryData(
-        [queryKeys.counselorProfile],
-        previousProfileData,
-      );
-      queryClient.setQueryData([queryKeys.timetable], previousTimetableData);
-      */
-    } finally {
-      // refetch
-      queryClient.invalidateQueries({ queryKey: [queryKeys.counselorProfile] });
-      queryClient.invalidateQueries({ queryKey: [queryKeys.timetable] });
-    }
-  };
   const handleOnClickBtn = () => {
     if (isEditMode) {
       // 데이터 저장 요청
       setIsEditMode(false);
-      handlePararellMutate();
+      const formData: ICounselorInfoResponse = {
+        timetable: editableTimetable,
+        counselorProfile: editableProfile,
+      };
+      mutate(formData);
     } else {
       // 수정모드 진입
       setIsEditMode(true);

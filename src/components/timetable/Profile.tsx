@@ -12,40 +12,40 @@ import useInput from '@/hooks/useInput';
 
 import { queryKeys } from '@/constants/queryKeys';
 import { useQuery } from '@tanstack/react-query';
-import { getCounselorProfile } from '@/hooks/queries/timetable';
+import { useCounselorProfile } from '@/hooks/queries/Counselor';
 import { ICounselorProfile } from '@/interfaces/interfaces';
 
-export default function Profile({ editable }: { editable: boolean }) {
+export default function Profile({
+  editableProfile,
+  setEditableProfile,
+  isEditMode,
+}: {
+  isEditMode: boolean;
+  editableProfile: any;
+  setEditableProfile: any;
+}) {
   const router = useRouter();
-  const { id: counselor_id } = router.query;
-
-  const [counselorProfile, setCounselorProfile] = useRecoilState(
-    counselorProfileState,
-  );
-  const { name, contact, introduction } = counselorProfile;
+  const { id: counselorId } = router.query;
 
   const {
-    data: profile,
+    data: profileData,
     isLoading,
-    isLoadingError,
-  } = useQuery(
-    [queryKeys.counselorProfile],
-    () => getCounselorProfile(counselor_id),
-    {
-      enabled: router.isReady,
-      onSuccess: (data) => {
-        console.log(data);
-        setCounselorProfile(data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-    },
-  );
+    isError,
+  } = useCounselorProfile(counselorId as string);
+
+  const profileToDisplay = isEditMode ? editableProfile : profileData;
+
+  // 서버 데이터 받아오면 클라이언트 상태 초기화
+  useEffect(() => {
+    if (profileData) {
+      setEditableProfile(profileData);
+    }
+  }, [profileData]);
+
   const handleChangeContact: React.ChangeEventHandler<HTMLInputElement> = (
     e,
   ) => {
-    setCounselorProfile((prev) => {
+    setEditableProfile((prev: ICounselorProfile) => {
       return {
         ...prev,
         contact: e.target.value,
@@ -56,10 +56,10 @@ export default function Profile({ editable }: { editable: boolean }) {
   const handleChangeIntroduction: React.ChangeEventHandler<
     HTMLTextAreaElement
   > = (e) => {
-    setCounselorProfile((prev) => {
+    setEditableProfile((prev: ICounselorProfile) => {
       return {
         ...prev,
-        introduction: e.target.value,
+        introText: e.target.value,
       };
     });
   };
@@ -80,7 +80,7 @@ export default function Profile({ editable }: { editable: boolean }) {
       </div>
     );
   }
-  if (isLoadingError) {
+  if (isError) {
     return (
       <div
         className="w-[26rem] h-[44rem] flex flex-col justify-center rounded-2xl items-center bg-white
@@ -90,6 +90,7 @@ pt-[1.6rem] px-[2.1rem]"
       </div>
     );
   }
+  const { name, contact, introText } = profileToDisplay;
 
   return (
     <div
@@ -109,12 +110,12 @@ pt-[1.6rem] px-[2.1rem]"
       <div className="w-full flex flex-col gap-[9px] ">
         <ContactInputField
           text={contact}
-          disabled={!editable}
+          disabled={!isEditMode}
           handleChangeContact={handleChangeContact}
         />
         <IntroductionInputField
-          text={introduction}
-          disabled={!editable}
+          text={introText}
+          disabled={!isEditMode}
           handleChangeIntroduction={handleChangeIntroduction}
         />
       </div>

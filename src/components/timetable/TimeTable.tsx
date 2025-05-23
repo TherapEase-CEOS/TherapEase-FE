@@ -3,35 +3,38 @@ import Image from 'next/image';
 import { CSSProperties } from 'react';
 import LoadingSpinnerSrc from '../../assets/spinner.gif';
 import TimeTableCol from './TimeTableCol';
-import { useRecoilState } from 'recoil';
-import { timeTableState } from '@/store/timetable';
-import { getTimetable } from '@/hooks/queries/timetable';
-import { useQuery } from '@tanstack/react-query';
-import { queryKeys } from '@/constants/queryKeys';
+
+import { useCounselorTimetable } from '@/hooks/queries/Counselor';
+
 import { ITimeTable } from '@/interfaces/interfaces';
 import { useRouter } from 'next/router';
 
-export default function TimeTable({ isEditMode }: { isEditMode: boolean }) {
+export default function TimeTable({
+  isEditMode,
+  setEditableTimetable,
+  editableTimetable,
+}: {
+  isEditMode: boolean;
+  setEditableTimetable?: any;
+  editableTimetable?: any;
+}) {
   const router = useRouter();
-  const { id: counselor_id } = router.query;
-  const [timeTableData, setTimeTableData] = useRecoilState(timeTableState);
+  const { id: counselorId } = router.query;
+  console.log(counselorId);
 
-  const TIMETABLE_UPDATE_INTERVAL = 60; // seconds
-  const { data, isLoading, isLoadingError } = useQuery(
-    [queryKeys.timetable],
-    () => getTimetable(counselor_id),
-    {
-      enabled: router.isReady,
-      onSuccess: (data) => {
-        console.log('timetable onsuccess', data);
-        setTimeTableData(data.data);
-      },
-      onError: (error) => {
-        console.log(error);
-      },
-      refetchInterval: 1000 * TIMETABLE_UPDATE_INTERVAL, // 5초 (밀리초 단위)
-    },
-  );
+  const TIMETABLE_UPDATE_INTERVAL = 5; // seconds
+
+  const {
+    data: timeTableData,
+    isLoading,
+    isError,
+  } = useCounselorTimetable(counselorId as string);
+
+  useEffect(() => {
+    if (timeTableData) {
+      setEditableTimetable(timeTableData);
+    }
+  }, [timeTableData]);
 
   if (isLoading) {
     return (
@@ -46,7 +49,7 @@ export default function TimeTable({ isEditMode }: { isEditMode: boolean }) {
     );
   }
 
-  if (isLoadingError) {
+  if (isError) {
     return (
       <div className="w-[100%] h-[100%] flex justify-center items-center">
         load failed
@@ -59,7 +62,12 @@ export default function TimeTable({ isEditMode }: { isEditMode: boolean }) {
       <TimeBar />
       <div>
         <THead />
-        <TBody disabled={!isEditMode} timeTableData={timeTableData} />
+        {timeTableData && (
+          <TBody
+            disabled={!isEditMode}
+            timeTableData={isEditMode ? editableTimetable : timeTableData}
+          />
+        )}
       </div>
     </div>
   );
