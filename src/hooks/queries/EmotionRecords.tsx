@@ -13,6 +13,22 @@ export const createEmotionRecord = (payload: IEmotionRecord) => {
     },
   );
 };
+export const fetchEmotionRecords = (clientId: string, page = 1, limit = 7) => {
+  return axios.get(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/emotion-records/${clientId}?page=${page}&limit=${limit}`,
+    {
+      withCredentials: true,
+    },
+  );
+};
+export const useEmotionRecords = (clientId: string, page = 1, limit = 7) => {
+  return useQuery({
+    queryKey: ['emotionRecords', clientId, page],
+    queryFn: async () =>
+      fetchEmotionRecords(clientId, page).then((res) => res.data),
+    enabled: !!clientId, // clientId가 있을 때만 실행
+  });
+};
 
 export const useCreateEmotionRecord = () => {
   const queryClient = useQueryClient();
