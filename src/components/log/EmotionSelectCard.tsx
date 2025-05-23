@@ -4,6 +4,7 @@ import Image from 'next/image';
 import positiveIcon from '../../assets/log/positive-icon.svg';
 import negativeIcon from '../../assets/log/negative-icon.svg';
 import noideaIcon from '../../assets/log/noidea-icon.svg';
+import { FEELING } from '@/constants/records';
 
 interface EmotionSelectCardProps {
   emotionList: { value: string; label: string }[] | undefined;
@@ -18,8 +19,8 @@ interface SingleEmotionCardProps {
 }
 
 interface FeelingCardProps {
-  selectedFeeling: number | null;
-  setSelectedFeeling: (value: number | null) => void;
+  selectedFeeling: string | null;
+  setSelectedFeeling: (value: string | null) => void;
   selectedFeelingIntensity: number;
   setSelectedFeelingIntensity: (value: number) => void;
 }
@@ -75,7 +76,7 @@ export const SingleEmotionCard = ({
 }: SingleEmotionCardProps) => {
   return (
     <span
-      className={`w-[15rem] h-[8.5rem] flex justify-center items-center text-body1 border rounded-[2rem] cursor-pointer select-none ${
+      className={`w-[15rem] h-[8.5rem] flex justify-center items-center text-body2 border rounded-[2rem] cursor-pointer select-none ${
         isSelected
           ? 'text-gray-9 bg-yellow-100 border-yellow-120'
           : 'text-gray-7 bg-white border-gray-3 hover:bg-yellow-20 hover:border-yellow-100'
@@ -97,13 +98,13 @@ export const FeelingCard = ({
 }: FeelingCardProps) => {
   let color: string;
   switch (selectedFeeling) {
-    case 1:
+    case FEELING.positive.value:
       color = 'blue';
       break;
-    case -1:
+    case FEELING.negative.value:
       color = 'green';
       break;
-    case 0:
+    case FEELING.unsure.value:
       color = 'gray';
       break;
     default:
@@ -115,7 +116,7 @@ export const FeelingCard = ({
     setSelectedFeelingIntensity(0);
   }, [selectedFeeling]);
 
-  const handleSingleFeelingCardClick = (feeling: number) => {
+  const handleSingleFeelingCardClick = (feeling: string) => {
     if (selectedFeeling !== feeling) {
       setSelectedFeeling(feeling);
     } else {
@@ -132,25 +133,29 @@ export const FeelingCard = ({
   return (
     <div className="w-[33.2rem] h-[29.1rem] bg-white px-[1.1rem] pt-[1.12rem] rounded-[2rem] flex flex-col select-none">
       <div className="flex gap-[0.6rem]">
-        <div onClick={() => handleSingleFeelingCardClick(1)}>
+        <div
+          onClick={() => handleSingleFeelingCardClick(FEELING.positive.value)}
+        >
           <SingleFeelingCard
             icon={<Image src={positiveIcon} alt="긍정" sizes="54" />}
             text="좋았어요"
-            isSelected={selectedFeeling === 1}
+            isSelected={selectedFeeling === FEELING.positive.value}
           />
         </div>
-        <div onClick={() => handleSingleFeelingCardClick(-1)}>
+        <div
+          onClick={() => handleSingleFeelingCardClick(FEELING.negative.value)}
+        >
           <SingleFeelingCard
             icon={<Image src={negativeIcon} alt="부정" sizes="54" />}
             text="싫었어요"
-            isSelected={selectedFeeling === -1}
+            isSelected={selectedFeeling === FEELING.negative.value}
           />
         </div>
-        <div onClick={() => handleSingleFeelingCardClick(0)}>
+        <div onClick={() => handleSingleFeelingCardClick(FEELING.unsure.value)}>
           <SingleFeelingCard
             icon={<Image src={noideaIcon} alt="모르겠음" sizes="54" />}
             text="모르겠어요"
-            isSelected={selectedFeeling === 0}
+            isSelected={selectedFeeling === FEELING.unsure.value}
           />
         </div>
       </div>

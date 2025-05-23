@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 import { BsChevronDown, BsChevronUp } from 'react-icons/bs';
@@ -20,15 +21,18 @@ import EmotionCard from '@/components/log/EmotionCard';
 import OptionalInput from '@/components/log/OptionalInput';
 import { ButtonMedium } from '@/components/Buttons';
 
-import { IEmotion } from '@/interfaces/interfaces';
+import { useCreateEmotionRecord } from '@/hooks/queries/EmotionRecords';
 
+import { IEmotion, IEmotionRecord } from '@/interfaces/interfaces';
+import { EmotionCategory, EmotionFeeling } from '@/interfaces/interfaces';
 import { EMOTION_QUESTIONS } from '../../constants/EMOTION_QUESTIONS';
-import {
-  DUMMY_LARGE_EMOTION,
-  DUMMY_MEDIUM_EMOTION,
-} from '@/constants/DUMMY_DATA';
+import { LARGE_EMOTION, MEDIUM_EMOTION } from '@/constants/records';
 
 const RecordsCreatePage = () => {
+  const router = useRouter();
+  const { date } = router.query; // '2025-05-21'
+  const { mutate, isError, isSuccess, error } = useCreateEmotionRecord();
+
   const [emotionList, setEmotionList] = useState<IEmotion[]>([]); // 감정 리스트
 
   const [isInProgress, setIsInProgress] = useState(false); // 감정 생성 중 여부
@@ -45,7 +49,7 @@ const RecordsCreatePage = () => {
     label: string;
   } | null>(null); // 선택된 감정 중분류
 
-  const [selectedFeeling, setSelectedFeeling] = useState<number | null>(null); // 긍부모 감정
+  const [selectedFeeling, setSelectedFeeling] = useState<string | null>(null); // 긍부모 감정
 
   const [selectedFeelingIntensity, setSelectedFeelingIntensity] =
     useState<number>(0); // 긍부모 감정 점수
@@ -84,10 +88,13 @@ const RecordsCreatePage = () => {
 
   // TODO - 이름 명확히 수정
   const handleSubmitEmotion = () => {
+    if (!selectedLargeEmotion || !selectedMediumEmotion || !selectedFeeling) {
+      return;
+    }
     const newEmotion: IEmotion = {
-      mainEmotion: selectedLargeEmotion?.value ?? '',
-      subEmotion: selectedMediumEmotion?.value ?? '',
-      feeling: selectedFeeling ?? 100,
+      category: selectedLargeEmotion.value as EmotionCategory,
+      subcategory: selectedMediumEmotion.value,
+      feeling: selectedFeeling as EmotionFeeling,
       intensity: selectedFeelingIntensity,
     };
 
@@ -103,28 +110,31 @@ const RecordsCreatePage = () => {
     setIsInProgress(false);
   };
 
-  const handleDeleteEmotionCard = (emotion: IEmotion) => {
-    const newEmotionList = emotionList.filter((item) => item !== emotion);
+  const handleDeleteEmotionCard = (index: number) => {
+    const newEmotionList = emotionList.filter((item, idx) => idx !== index);
 
     setEmotionList(newEmotionList);
   };
 
-  // TODO - 이름 명확히 수정
   const handleSubmitEmotionLog = () => {
-    // TODO - 감정 세부 기록 post api 연동
-    console.log({
+    const formData: IEmotionRecord = {
+      date: date as string,
+      answer1: datailInputValue1,
+      answer2: datailInputValue2,
+      answer3: datailInputValue3,
       emotions: emotionList,
-      details1: datailInputValue1,
-      details2: datailInputValue2,
-      details3: datailInputValue3,
-    });
+    };
+    console.log(formData);
+    mutate(formData);
   };
 
   return (
     <div className="w-[calc(100%-20.6rem)] h-full mx-auto py-[5.953rem]">
       {/* 페이지 헤더 영역 */}
-      <div className="flex flex-col ml-[24px]">
-        <span className="text-heading2 text-gray-9">감정 기록하기</span>
+      <div className="flex flex-col ml-[24px] ">
+        <span className="text-heading2 text-gray-9 mb-[10px]">
+          {date?.toString()} 감정 기록하기
+        </span>
         <span className="text-body3 text-gray-7">
           오늘 하루 느꼈던 감정에 대해 기록해주세요.
         </span>
@@ -138,6 +148,7 @@ const RecordsCreatePage = () => {
           return (
             <EmotionCard
               key={idx}
+              idx={idx}
               emotion={emotion}
               onDelete={handleDeleteEmotionCard}
             />
@@ -181,7 +192,7 @@ const RecordsCreatePage = () => {
           {/* 감정 선택 카드 */}
           <div className="flex justify-center gap-[1.6rem]">
             <EmotionSelectCard
-              emotionList={DUMMY_LARGE_EMOTION}
+              emotionList={LARGE_EMOTION}
               selectedEmotion={selectedLargeEmotion}
               setSelectedEmotion={setSelectedLargeEmotion}
             />
@@ -189,7 +200,7 @@ const RecordsCreatePage = () => {
             {selectedLargeEmotion ? (
               <EmotionSelectCard
                 emotionList={
-                  DUMMY_MEDIUM_EMOTION.find(
+                  MEDIUM_EMOTION.find(
                     ({ large }) => large === selectedLargeEmotion.value,
                   )?.medium
                 }
@@ -273,11 +284,11 @@ const RecordsCreatePage = () => {
 
           <Link
             className="flex w-fit mx-auto mt-[20rem]"
-            href={{ pathname: '/records' }}
-            as={'/home'}
+            href={{ pathname: '/client/records' }}
+            as={'/client/records'}
           >
             <ButtonMedium
-              text="감정 기록 끝내기"
+              text="감정 기록 제출"
               onClick={handleSubmitEmotionLog}
             />
           </Link>

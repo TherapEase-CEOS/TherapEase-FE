@@ -30,7 +30,7 @@ export const ButtonMedium = ({
 }: buttonProps) => {
   return (
     <button
-      className={`w-[32.1rem] h-[6.2rem] text-heading3 rounded-[4.8rem] ${
+      className={`w-[32.1rem] h-[6.2rem] text-heading4 rounded-[4.8rem] ${
         disabled ? 'text-white bg-gray-6' : 'text-black bg-yellow-100'
       }`}
       onClick={onClick}
