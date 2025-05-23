@@ -1,11 +1,26 @@
+// 전체 클라이언트 타입
 export interface IClient {
-  id: number;
+  clientId: string;
   name: string;
-  code: string;
-  start: string;
-  progress: boolean;
-  counselingDate: string;
+  status: 'ongoing' | 'completed';
+  createdAt: string;
   goal: string;
+  weeklySchedule: ISchedule;
+}
+// 요일 문자열만 허용하는 타입
+export type Weekday =
+  | 'sunday'
+  | 'monday'
+  | 'tuesday'
+  | 'wednesday'
+  | 'thursday'
+  | 'friday'
+  | 'saturday';
+
+// 각 요일+시간 한 항목 타입
+export interface ISchedule {
+  day: Weekday;
+  time: string; // e.g., '15:00'
 }
 
 export interface IUser {
@@ -16,15 +31,15 @@ export interface IUser {
   counselorId?: string; // 상담사일경우만
   clientId?: string; // 내담자일경우만
 }
-type EmotionCategory =
+export type EmotionCategory =
   | 'sad'
-  | 'Mad'
-  | 'Scared'
-  | 'Joyful'
-  | 'Powerful'
-  | 'Peaceful';
+  | 'mad'
+  | 'scared'
+  | 'joyful'
+  | 'powerful'
+  | 'peaceful';
 
-type EmotionFeeling = 'positive' | 'negative' | 'unsure';
+export type EmotionFeeling = 'positive' | 'negative' | 'unsure';
 
 export interface IEmotion {
   category: EmotionCategory;
@@ -33,31 +48,19 @@ export interface IEmotion {
   intensity: number; // 1~5
 }
 
-export interface IEmotionFull {
-  emotions: IEmotion;
-  details1: string | null;
-  details2: string | null;
-  details3: string | null;
-}
-
 export interface IDailyRecord {
   date: string; // 'YYYY-MM-DD'
   record: IEmotionRecord | null;
 }
 
 export interface IEmotionRecord {
-  _id: string;
-  clientId: string;
+  _id?: string;
+  clientId?: string;
   date: string; // ISO date string (e.g. "2025-05-19T00:00:00.000Z")
   answer1: string;
   answer2: string;
   answer3: string;
   emotions: IEmotion[];
-  __v: number;
-}
-
-export interface ITimeTable {
-  [key: string]: boolean[];
 }
 
 export interface IGraphRecord {
@@ -68,5 +71,13 @@ export interface IGraphRecord {
 export interface ICounselorProfile {
   name: string;
   contact: string;
-  introduction: string;
+  introText: string;
+}
+
+export interface ITimeTable {
+  [key: string]: boolean[];
+}
+export interface ICounselorInfoResponse {
+  timetable: ITimeTable;
+  counselorProfile: ICounselorProfile;
 }
